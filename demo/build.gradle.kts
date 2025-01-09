@@ -45,6 +45,7 @@ kotlin {
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
             dependencies {
+                //implementation(kotlin("stdlib-js"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -54,12 +55,23 @@ kotlin {
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.runtime.compose)
 
+                implementation(kotlin("stdlib"))
+
+
             }
         }
 
         val wasmJsMain by getting {
             dependencies {
-                // Added missing dependency for Compose Web
+
+                implementation(compose.runtime)
+                implementation(kotlin("stdlib"))
+                implementation(kotlin("stdlib-wasm-js"))
+                // https://mvnrepository.com/artifact/org.jetbrains.compose.runtime/runtime-wasm-js
+                implementation("org.jetbrains.compose.runtime:runtime-wasm-js:1.7.3")
+
+                implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.3")
+
 
             }
         }
@@ -82,3 +94,14 @@ tasks.withType<com.google.devtools.ksp.gradle.KspTask> {
     println("ksp task from kmp compilation")
     outputs.upToDateWhen { false }
 }
+tasks.withType<org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec> {
+    binaryenArgs = mutableListOf(
+        "--enable-gc",
+        "--enable-reference-types",
+        "--enable-exception-handling",
+        "--enable-bulk-memory",
+        "--enable-nontrapping-float-to-int",
+        "-O0"  // Minimal optimization for faster debugging
+    )
+}
+

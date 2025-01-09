@@ -29,7 +29,7 @@ class AutoRoutingProcessor(val env: SymbolProcessorEnvironment) : SymbolProcesso
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         logger = env.logger
-        log("AutoRoutingProcessor started...gg. ${env.options}")
+        log("AutoRoutingProcessor started.ddd. ${env.options}")
         return emptyList()
     }
     private fun log(text: Any) {
