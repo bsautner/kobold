@@ -3,19 +3,22 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
+androidx-lifecycle = "2.6.2"
+androidx-annotation = "1.7.0"
+androidx-arch-core-common = "2.2.0"
+compose-multiplatform = "1.7.0"
+
+
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJSON = "1.7.2"
 kotlinxCoroutines = "1.8.1"
-androidx-lifecycle = "2.8.4"
-compose-multiplatform = "1.7.0"
 junit = "4.13.2"
 kotlin = "2.1.0"
 ktor = "3.0.2"
 logback = "1.5.12"
 ksp = "2.1.0-1.0.29"
 serialization = "2.0.21"
-kotlin_version = "2.0.0"
-ktor_version = "3.0.0"
+ktor_version = "3.0.2"
 ksp_version = "2.1.0-1.0.29"
 poet_version = "2.0.0"
 logback_version = "1.4.14"
@@ -23,12 +26,17 @@ serialization_version = "1.7.3"
 kotlinx_html_version = "0.11.0"
 koin_version = "3.5.6"
 
+
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJSON" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-arch-core-common = { group = "androidx.arch.core", name = "core-common", version.ref = "androidx-arch-core-common" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 # Libraries can be bundled together for easier import
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
@@ -40,5 +48,6 @@ kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
-kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform" }
+
 buildsrc = {id = "buildsrc.convention.kotlin-jvm" }

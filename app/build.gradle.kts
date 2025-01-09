@@ -8,17 +8,11 @@ plugins {
     // Apply the Application plugin to add support for building an executable JVM application.
     application
 }
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
-    }
+
+ksp {
+    arg("source", "app")
 }
 
-tasks.withType<com.google.devtools.ksp.gradle.KspTask> {
-    println("ksp task")
-    outputs.upToDateWhen { false }
-}
 
 sourceSets {
     test {
@@ -27,8 +21,8 @@ sourceSets {
     }
 }
 dependencies {
-    implementation(libs.ksp)
-    ksp(project(":ksp"))
+    // implementation(libs.ksp)
+   //  ksp(project(":ksp"))
 
     // Project "app" depends on project "utils". (Project paths are separated with ":", so ":utils" refers to the top-level "utils" project.)
    // implementation(project(":utils"))
