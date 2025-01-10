@@ -8,9 +8,6 @@ import kotlin.jvm.Transient
 sealed interface KResponse
 
 @Serializable
-open class KComposeResponse : KResponse
-
-@Serializable
 open class KJsonResponse : KResponse
 
 @Serializable
@@ -19,5 +16,12 @@ open class KHtmlResponse : KResponse
 @Serializable
 open class KPostBody
 
-open class KomposeResponse(@Transient val render: @Composable () -> Unit) : KResponse
+open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
+
+    @Composable
+    operator fun invoke() {
+        render()
+    }
+
+}
 

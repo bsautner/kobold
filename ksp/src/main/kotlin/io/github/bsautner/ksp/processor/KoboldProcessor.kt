@@ -4,17 +4,16 @@ import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.symbol.KSAnnotated
-import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.google.devtools.ksp.symbol.KSTypeParameter
-import com.google.devtools.ksp.symbol.KSVisitor
+import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.validate
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.writeTo
 import io.github.bsautner.ksp.Kompose
+import io.github.bsautner.ksp.annotations.KRouting
 import io.ktor.resources.*
 import java.io.File
 import java.util.*
+import kotlin.reflect.full.primaryConstructor
 
 
 lateinit var logger: KSPLogger
@@ -87,14 +86,25 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         val className = "${classDeclaration.simpleName.asString()}Composable"
         val packageName = classDeclaration.packageName.asString()
         log("--ksp Composable Processor $packageName $className")
+        val outputClass = getAutoRoutingKClassName(classDeclaration)
+        log("--outputClass $outputClass")
+
+
         val file = FileSpec.builder(packageName, className)
         addComposeImports(file)
         val fun1 = FunSpec.builder(className)
             .addAnnotation( ClassName("androidx.compose.runtime", "Composable"))
             .addStatement(
                 """
+                val list = introspectSerializableClass<PostBodyExample>()    
                 Box(Modifier.fillMaxSize()) {
-                    Text("I'm generated!", Modifier.align(Alignment.Center))
+                    list.forEach {
+                      Row {
+                            Text(it.name)
+                        }     
+                    }
+                    //Text("I'm generated!", Modifier.align(Alignment.Center))
+                    Text("I'm generated!")
                 }
                 """.trimIndent()
             )
@@ -115,15 +125,60 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
     private fun addComposeImports(builder: FileSpec.Builder) {
         builder
-            .addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize")
+            .addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Row")
             .addImport("androidx.compose.material", "Text")
             .addImport("androidx.compose.runtime", "Composable")
             .addImport("androidx.compose.ui", "Modifier", "Alignment")
+            .addImport("io.github.bsautner.ksp", "introspectSerializableClass")
      }
 
     private fun log(text: Any) {
         logger.warn("ksp cg: ${Date()} $text")
     }
+
+
+    private fun getAutoRoutingKClassName(classDeclaration: KSClassDeclaration): Pair<String, String>? {
+        // Find the AutoRouting annotation
+
+        classDeclaration.annotations.forEach {
+            log("getAutoRoutingKClassName ${it.shortName.asString()}")
+        }
+
+        val autoRoutingAnnotation = classDeclaration.annotations
+            .firstOrNull { it.shortName.asString() == KRouting::class.simpleName }
+
+
+        // If the annotation is present, retrieve its argument
+        autoRoutingAnnotation?.arguments?.forEach { argument: KSValueArgument ->
+
+            if (argument.name?.getShortName() == "serializableResponse") {
+                val kClassReference = argument.value
+
+                if (kClassReference is KSType) {
+                    val param = kClassReference.declaration
+                    val p = param::class.primaryConstructor
+                    p?.let {
+                        p.parameters.forEach {
+                            log("param $it")
+                        }
+                    }
+                    val qualifiedName = param.qualifiedName?.asString()
+
+                    param.packageName.let { packageName ->
+                        param.simpleName.let { simpleNameName ->
+                            return Pair(packageName.asString(), simpleNameName.asString())
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+
+        return null
+    }
+
 
     private fun createClient(env: SymbolProcessorEnvironment) {
 
