@@ -1,13 +1,18 @@
 plugins {
-  //  alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.buildsrc)
     alias(libs.plugins.ksp)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.buildsrc)
 
 }
-
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17)) // Use JDK 17
+    }
+}
 dependencies {
-    // Apply the kotlinx bundle of dependencies from the version catalog (`gradle/libs.versions.toml`).
+    implementation(project(":api"))
     implementation(libs.bundles.kotlinxEcosystem)
     implementation(libs.ksp)
     testImplementation(kotlin("test"))

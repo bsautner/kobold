@@ -45,7 +45,8 @@ kotlin {
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
             dependencies {
-                //implementation(kotlin("stdlib-js"))
+                implementation(kotlin("stdlib-common"))
+                implementation(project(":api"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
@@ -54,25 +55,21 @@ kotlin {
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.runtime.compose)
-
+                implementation(libs.kotlinxSerialization)
+                implementation(libs.bundles.ktor)
                 implementation(kotlin("stdlib"))
-
 
             }
         }
 
         val wasmJsMain by getting {
             dependencies {
-
+                implementation(project(":api"))
                 implementation(compose.runtime)
                 implementation(kotlin("stdlib"))
                 implementation(kotlin("stdlib-wasm-js"))
-                // https://mvnrepository.com/artifact/org.jetbrains.compose.runtime/runtime-wasm-js
                 implementation("org.jetbrains.compose.runtime:runtime-wasm-js:1.7.3")
-
                 implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.3")
-
-
             }
         }
     }

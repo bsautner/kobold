@@ -40,10 +40,15 @@ androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle
 
 androidx-arch-core-common = { group = "androidx.arch.core", name = "core-common", version.ref = "androidx-arch-core-common" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+ktor-html = { group = "io.ktor", name = "ktor-server-html-builder", version.ref = "ktor" }
+ktor-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
+ktor-resources = { group = "io.ktor", name = "ktor-server-resources", version.ref = "ktor" }
+ktor-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+ktor = ["ktor-html", "ktor-core", "ktor-resources", "ktor-json"]
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +37,19 @@ fun App() {
 fun formTest() {
    Box(Modifier.fillMaxSize()) {
        Text("Hello World!", Modifier.align(Alignment.Center))
+       var textState by remember { mutableStateOf("Hello") }
+
+       TextField(
+           value = textState,
+           onValueChange = { textState = it },
+           label = { Text("Label") }
+
+       )
+       Button(onClick = {
+           println("Hello World!")
+       }, Modifier.align(Alignment.Center)) {
+           Text("Greeting")
+       }
 
 }
 
