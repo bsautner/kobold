@@ -14,6 +14,7 @@ version = "1.0-SNAPSHOT"
 
 ksp {
     arg("source", "demo")
+    arg("output-dir", "$buildDir/generated/ksp/common/kotlin")
 }
 
 kotlin {
@@ -44,6 +45,7 @@ kotlin {
 
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
+            kotlin.srcDir("$buildDir/generated/ksp/common/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(project(":api"))
@@ -100,5 +102,15 @@ tasks.withType<org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec> {
         "--enable-nontrapping-float-to-int",
         "-O0"  // Minimal optimization for faster debugging
     )
+}
+
+tasks.named("compileKotlinWasmJs") {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+
+
+
+tasks.named("compileKotlinJvm") {
+    dependsOn("kspCommonMainKotlinMetadata")
 }
 

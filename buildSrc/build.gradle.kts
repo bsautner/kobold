@@ -27,3 +27,4 @@ configurations.all {
         force("androidx.annotation:annotation:1.7.0")
     }
 }
+

@@ -1,5 +1,6 @@
 package io.github.bsautner.ksp
 
+import androidx.compose.runtime.Composable
 import io.ktor.http.*
 import kotlin.reflect.KClass
 
@@ -16,7 +17,9 @@ interface KPost<T, R> {
     var process: (T) -> R
 }
 
-
+interface Kompose  {
+    val render: @Composable () -> KomposeResponse
+}
 
 inline fun <reified T, reified R> KPost<T, R>.getPostBodyClass() : KClass<*> {
     return T::class

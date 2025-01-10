@@ -15,5 +15,8 @@ dependencies {
     implementation(project(":api"))
     implementation(libs.bundles.kotlinxEcosystem)
     implementation(libs.ksp)
+    implementation(libs.bundles.ktor)
+    implementation(libs.bundles.poet)
     testImplementation(kotlin("test"))
 }
+

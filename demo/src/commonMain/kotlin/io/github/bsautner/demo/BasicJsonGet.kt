@@ -12,15 +12,15 @@ import kotlinx.serialization.Transient
 @Serializable
 data class Test(val name : String = "") : KJsonResponse()
 
-
 /**
  * This will be detected at compile time and calls to /test will be routed to this lamba
  */
+
 @KRouting()
 @Resource("/test")
 class BasicJsonGet: KGet<KJsonResponse> {
 
     @Transient
-    override var render: () -> KResponse = { Test("Hello World") }
+    override var render: () -> KResponse = { Test("Hello World!!!") }
 
 }

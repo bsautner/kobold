@@ -45,11 +45,13 @@ ktor-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor"
 ktor-resources = { group = "io.ktor", name = "ktor-server-resources", version.ref = "ktor" }
 ktor-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
+poet = {group = "com.squareup", name = "kotlinpoet", version.ref = "poet_version"}
+poet-ksp = {group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "poet_version"}
 
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
 ktor = ["ktor-html", "ktor-core", "ktor-resources", "ktor-json"]
-
+poet = ["poet", "poet-ksp"]
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

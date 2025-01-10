@@ -1,8 +1,10 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-     alias(libs.plugins.serialization)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
 }
 
 java {
@@ -24,20 +26,32 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
+
     }
 
     sourceSets {
-        val jsMain by getting {}
+        val jsMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+
+            }
+        }
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
             dependencies {
+
                 implementation(kotlin("stdlib-common"))
                 implementation(libs.bundles.ktor)
+                implementation(compose.runtime)
+             //   implementation(compose.foundation)
+              //  implementation(compose.material)
+              //  implementation(compose.ui)
             }
         }
         val jvmMain by getting {
             kotlin.srcDir("src/jvmMain/kotlin")
             dependencies {
+
                 implementation(kotlin("stdlib"))
             }
         }

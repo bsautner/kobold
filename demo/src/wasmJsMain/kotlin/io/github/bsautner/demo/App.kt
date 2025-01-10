@@ -18,25 +18,30 @@ fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { "hi there." }
-                formTest()
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                  //  Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
+         ComposeExample().render.invoke()
+
+//            Button(onClick = { showContent = !showContent }) {
+//                Text("Click me!")
+//            }
+//            AnimatedVisibility(showContent) {
+              //  val greeting = remember { "hi there." }
+             //   formTest()
+
+//                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+//                  //  Image(painterResource(Res.drawable.compose_multiplatform), null)
+//                    Text("Compose: $greeting")
+//                }
+        //    }
         }
     }
 }
 
+
+
 @Composable
 fun formTest() {
    Box(Modifier.fillMaxSize()) {
-       Text("Hello World!", Modifier.align(Alignment.Center))
+       Text("Hello World!2", Modifier.align(Alignment.Center))
        var textState by remember { mutableStateOf("Hello") }
 
        TextField(
