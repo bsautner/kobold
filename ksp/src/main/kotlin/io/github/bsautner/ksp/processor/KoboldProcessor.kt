@@ -94,20 +94,60 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         addComposeImports(file)
         val fun1 = FunSpec.builder(className)
             .addAnnotation( ClassName("androidx.compose.runtime", "Composable"))
-            .addStatement(
-                """
-                val list = introspectSerializableClass<PostBodyExample>()    
-                Box(Modifier.fillMaxSize()) {
-                    list.forEach {
-                      Row {
-                            Text(it.name)
-                        }     
+//            .addStatement(
+//                """
+//                val list = introspectSerializableClass<PostBodyExample>()
+//                Box(Modifier.fillMaxSize()) {
+//                    list.forEach {
+//                      Row {
+//                            Text(it.name)
+//                        }
+//                    }
+//                    //Text("I'm generated!", Modifier.align(Alignment.Center))
+//                    Text("I'm generated!")
+//                }
+//                """.trimIndent()
+//            )
+            .addStatement("""
+                
+                @Composable
+                fun SimpleForm() {
+                    var name by remember { mutableStateOf("") }
+
+                    Column {
+                        // Label
+                        BasicText("Enter your name:")
+
+                        // Text field
+                        BasicTextField(
+                            value = name,
+                            onValueChange = { name = it }
+                        )
+
+                        // Spacer for layout
+                        Spacer(Modifier.height(16.dp))
+
+                        // Text field with a simple border
+                        BasicTextField(
+                            value = name,
+                            onValueChange = { name = it },
+                            textStyle = TextStyle(color = Color.Black),
+                            modifier = Modifier
+                                .border(1.dp, Color.Gray)
+                                .padding(8.dp)
+                        )
+                        Spacer(Modifier.height(16.dp))
+                        // Simple clickable text acting as a "submit button"
+                        BasicText(
+                            text = "Submit",
+                            modifier = Modifier.clickable {
+                                // Handle form submission
+                                println("Form submitted with name: name")
+                            }
+                        )
                     }
-                    //Text("I'm generated!", Modifier.align(Alignment.Center))
-                    Text("I'm generated!")
                 }
-                """.trimIndent()
-            )
+            """.trimIndent())
             .build()
         file
             .addFileComment(Copy.comment)
@@ -125,15 +165,26 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
     private fun addComposeImports(builder: FileSpec.Builder) {
         builder
-            .addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Row")
-            .addImport("androidx.compose.material", "Text")
-            .addImport("androidx.compose.runtime", "Composable")
+            .addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
+            .addImport("androidx.compose.foundation", "border", "clickable")
+            .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
+            .addImport("androidx.compose.material", "Button", "MaterialTheme", "Text", "TextField")
+            .addImport("androidx.compose.material", "Text", "Button")
+            .addImport("androidx.compose.runtime", "Composable", "remember", "mutableStateOf", "getValue", "setValue")
             .addImport("androidx.compose.ui", "Modifier", "Alignment")
+            .addImport("androidx.compose.ui.graphics", "Color")
+
+            .addImport("androidx.compose.ui.text", "TextStyle")
+            .addImport("androidx.compose.ui.unit", "dp")
+
+
             .addImport("io.github.bsautner.ksp", "introspectSerializableClass")
-     }
+
+
+    }
 
     private fun log(text: Any) {
-        logger.warn("ksp cg: ${Date()} $text")
+        logger.info("ksp cg: ${Date()} $text")
     }
 
 
