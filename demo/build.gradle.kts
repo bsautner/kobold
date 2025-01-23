@@ -12,13 +12,23 @@ plugins {
 group = "io.github.bsautner"
 version = "1.0-SNAPSHOT"
 
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+
 ksp {
     arg("source", "demo")
     arg("output-dir", "$buildDir/generated/ksp/common/kotlin")
 }
 
 kotlin {
-
+    jvmToolchain(21)
     jvm() {}
 
     @OptIn(ExperimentalWasmDsl::class)
@@ -85,7 +95,7 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 

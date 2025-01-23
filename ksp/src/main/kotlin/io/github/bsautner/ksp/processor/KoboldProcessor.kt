@@ -10,6 +10,7 @@ import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.writeTo
 import io.github.bsautner.ksp.Kompose
 import io.github.bsautner.ksp.annotations.KRouting
+import io.github.bsautner.ksp.introspectSerializableClass
 import io.ktor.resources.*
 import java.io.File
 import java.util.*
@@ -58,7 +59,7 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         }
         classDeclaration.superTypes.forEach {
             val superType = it.resolve()
-            log("----super-type Processor ${it.toString() }")
+            log("----super-type Processor ${it.toString()}")
             if (superType.declaration is KSClassDeclaration) {
                 val superTypeClassDecl = superType.declaration as KSClassDeclaration
                 // Compare fully qualified names
@@ -88,54 +89,55 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         log("--ksp Composable Processor $packageName $className")
         val outputClass = getAutoRoutingKClassName(classDeclaration)
         log("--outputClass $outputClass")
-
+        val annotation = getAutoRoutingKClassName(classDeclaration)?.second
 
         val file = FileSpec.builder(packageName, className)
         addComposeImports(file)
         val fun1 = FunSpec.builder(className)
-            .addAnnotation( ClassName("androidx.compose.runtime", "Composable"))
-//            .addStatement(
-//                """
-//                val list = introspectSerializableClass<PostBodyExample>()
-//                Box(Modifier.fillMaxSize()) {
-//                    list.forEach {
-//                      Row {
-//                            Text(it.name)
-//                        }
-//                    }
-//                    //Text("I'm generated!", Modifier.align(Alignment.Center))
-//                    Text("I'm generated!")
-//                }
-//                """.trimIndent()
-//            )
-            .addStatement("""
-                
-                @Composable
-                fun SimpleForm() {
-                    var name by remember { mutableStateOf("") }
-
+            .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
+            .addCode(
+                """
+                   var name by remember { mutableStateOf("") }
+                   val fields = introspectSerializableClass<$annotation>()
+                   
                     Column {
                         // Label
-                        BasicText("Enter your name:")
-
-                        // Text field
-                        BasicTextField(
-                            value = name,
-                            onValueChange = { name = it }
-                        )
-
-                        // Spacer for layout
-                        Spacer(Modifier.height(16.dp))
-
-                        // Text field with a simple border
-                        BasicTextField(
-                            value = name,
-                            onValueChange = { name = it },
-                            textStyle = TextStyle(color = Color.Black),
-                            modifier = Modifier
-                                .border(1.dp, Color.Gray)
-                                .padding(8.dp)
-                        )
+                           Spacer(Modifier.height(16.dp))
+                        BasicText("$annotation")
+                           Spacer(Modifier.height(16.dp))
+                        fields.forEach { field ->
+                            println("field:${'$'}{field} ")
+                            when (field.type) {
+                                        "kotlin.String" -> {
+                                          println("in string field...")
+                                        Column {
+                                                    Text(
+                                                        text = field.name,
+                                                        style = TextStyle(color = Color.Gray),
+                                                        modifier = Modifier.padding(bottom = 4.dp)
+                                                    )
+                                                    BasicTextField(
+                                                        value = name,
+                                                        onValueChange = { name = it },
+                                                        textStyle = TextStyle(color = Color.Black),
+                                                        modifier = Modifier
+                                                            .border(1.dp, Color.Gray)
+                                                            .padding(8.dp)
+                                                    )
+                                                }
+                                        }
+                                  
+                            else -> {
+                                    BasicTextField(
+                                            value = name,
+                                            onValueChange = { name = it }
+                                    )
+                            }
+                        }
+                          Spacer(Modifier.height(16.dp))
+                    }
+                         
+                    
                         Spacer(Modifier.height(16.dp))
                         // Simple clickable text acting as a "submit button"
                         BasicText(
@@ -146,13 +148,13 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
                             }
                         )
                     }
-                }
-            """.trimIndent())
+                
+            """.trimIndent()
+            )
             .build()
         file
             .addFileComment(Copy.comment)
             .addFunction(fun1)
-
 
 
         val output = env.options["output-dir"]?.let { File(it) }
@@ -165,7 +167,15 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
     private fun addComposeImports(builder: FileSpec.Builder) {
         builder
-            .addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
+            .addImport(
+                "androidx.compose.foundation.layout",
+                "Box",
+                "fillMaxSize",
+                "Column",
+                "Spacer",
+                "height",
+                "padding"
+            )
             .addImport("androidx.compose.foundation", "border", "clickable")
             .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
             .addImport("androidx.compose.material", "Button", "MaterialTheme", "Text", "TextField")
@@ -233,47 +243,47 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
     private fun createClient(env: SymbolProcessorEnvironment) {
 
-     //   if (!File("$generatedDir/Test").exists()) {
-            val className = "TestBuild"
-            val file = FileSpec.builder("io.github.bsautner", className)
-            log("creating client for $className")
+        //   if (!File("$generatedDir/Test").exists()) {
+        val className = "TestBuild"
+        val file = FileSpec.builder("io.github.bsautner", className)
+        log("creating client for $className")
         //    val outputDir = File(generatedDir)
-          //  log("Directory:${outputDir.exists()} ${outputDir.absolutePath} ")
-           // outputDir.mkdirs()
+        //  log("Directory:${outputDir.exists()} ${outputDir.absolutePath} ")
+        // outputDir.mkdirs()
 
-          //  file.addAnnotation(annotationSpec)
-         //   file.addAnnotation(ClassName("kotlin.js", "JsExport"))
-          ///  file.addImport("kotlin.js", "JsExport", "ExperimentalJsExport")
-            //     .addCode(CodeBlock.builder().addStatement("test") .build())
-            //file.addCode (topBlock)
-            val generatedClass = TypeSpec.classBuilder(className)
-                .addProperty(
-                    PropertySpec.builder("bar", String::class)
-                        .initializer("\"ben49\"")
-                        .build()
-                ).build()
-            file.addType(generatedClass)
-          //  log(file.build())
-            log(file.build().relativePath)
-            val f = File(file.build().relativePath)
-            log(f.exists().toString())
-            val output = env.options["output-dir"]?.let { File(it) }
-            output?.let {
-                it.mkdirs()
-                file.build().writeTo(it)
-            }
-            val check = File(output, file.build().relativePath)
-            log("checking: ${check.exists()}")
-            if (check.exists()) {
-
-            }
-
-            // file.build().writeTo(env.codeGenerator, false)
-
-          //  val writeTo = file.build().writeTo(outputDir)
-            log("done client 1")
+        //  file.addAnnotation(annotationSpec)
+        //   file.addAnnotation(ClassName("kotlin.js", "JsExport"))
+        ///  file.addImport("kotlin.js", "JsExport", "ExperimentalJsExport")
+        //     .addCode(CodeBlock.builder().addStatement("test") .build())
+        //file.addCode (topBlock)
+        val generatedClass = TypeSpec.classBuilder(className)
+            .addProperty(
+                PropertySpec.builder("bar", String::class)
+                    .initializer("\"ben49\"")
+                    .build()
+            ).build()
+        file.addType(generatedClass)
+        //  log(file.build())
+        log(file.build().relativePath)
+        val f = File(file.build().relativePath)
+        log(f.exists().toString())
+        val output = env.options["output-dir"]?.let { File(it) }
+        output?.let {
+            it.mkdirs()
+            file.build().writeTo(it)
         }
+        val check = File(output, file.build().relativePath)
+        log("checking: ${check.exists()}")
+        if (check.exists()) {
+
+        }
+
+        // file.build().writeTo(env.codeGenerator, false)
+
+        //  val writeTo = file.build().writeTo(outputDir)
+        log("done client 1")
     }
+}
 
 
 

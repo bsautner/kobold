@@ -4,19 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a662b8f8-7f1e-415e-9109-1939400b2ca1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="748ffa1a-84cf-4186-8e71-b24b2a52591f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/api_js.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/api_js.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/api_jvm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/api_jvm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/api_wasm_js.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/api_wasm_js.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_wasm_js_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_wasm_js_1_0_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/kotlin/kotlin-jvm.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/kotlin-jvm.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/ksp/introspectSerializableClass.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/ksp/introspectSerializableClass.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,189 +26,43 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
-    <projectState path="$PROJECT_DIR$/demo">
-      <ProjectState />
-    </projectState>
-  </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$/mutliplatform">
-          <activation />
-        </task>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
-        <task path="$PROJECT_DIR$/demo">
-          <activation />
-        </task>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="demo" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="demo" type="2d1252cf:ModuleNode" />
-                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
-  </component>
-  <component name="FileColors">
-    <fileColor scope="Open Files" color="Rose" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="Kotlin Object" />
-        <option value="Kotlin File" />
-        <option value="Kotlin Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KotlinScriptingSettings">
-    <option name="suppressDefinitionsCheck" value="true" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 6
+  &quot;associatedIndex&quot;: 7
 }</component>
-  <component name="ProjectId" id="2rOsV8VuFBmITYvAPtugeEAXiVX" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2rdKDyhy3OaHPe7S2sK1hUdNrlj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.kobold:demo [wasmJsBrowserRun].executor": "Run",
-    "Gradle.main [jvm].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/ben/Code/ktor/kobold/demo/src/commonMain/kotlin/io/github/bsautner/demo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.stylelint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.4632184",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Font",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/ktor/kobold&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo" />
-      <recent name="$PROJECT_DIR$/api/src/main/kotlin/io/github/bsautner/ksp" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/demo/src/commonMain" />
-      <recent name="$PROJECT_DIR$/ksp/src/main/kotlin" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/api/src/commonMain/kotlin" />
-      <recent name="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo" />
-      <recent name="$PROJECT_DIR$/ksp/src/main/resources/META-INF" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Gradle.kobold:demo [wasmJsBrowserRun]">
-    <configuration name="kobold:demo [wasmJsBrowserRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="wasmJsBrowserRun" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
       <method v="2" />
     </configuration>
-    <configuration name="kobold:demo [wasmJsBrowserRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="wasmJsBrowserRun" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="main [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="-DmainClass=io.github.bsautner.demo.MainKt --quiet" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jvmRun" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.kobold:demo [wasmJsBrowserRun]" />
-        <item itemvalue="Gradle.main [jvm]" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -222,58 +75,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a662b8f8-7f1e-415e-9109-1939400b2ca1" name="Changes" comment="" />
-      <created>1736441476806</created>
+      <changelist id="748ffa1a-84cf-4186-8e71-b24b2a52591f" name="Changes" comment="" />
+      <created>1736883396411</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1736441476806</updated>
-      <workItem from="1736441478199" duration="4048000" />
-      <workItem from="1736445530871" duration="5116000" />
-      <workItem from="1736450654785" duration="4145000" />
-      <workItem from="1736454804349" duration="868000" />
-      <workItem from="1736455676522" duration="210000" />
-      <workItem from="1736455890655" duration="8931000" />
-      <workItem from="1736519899189" duration="7194000" />
-      <workItem from="1736546117901" duration="1869000" />
-      <workItem from="1736776014536" duration="4548000" />
-      <workItem from="1736792635738" duration="2851000" />
-      <workItem from="1736868888749" duration="653000" />
-      <workItem from="1736869545665" duration="201000" />
-      <workItem from="1736870270896" duration="234000" />
-      <workItem from="1736870508320" duration="981000" />
-      <workItem from="1736871492185" duration="554000" />
-      <workItem from="1736872064008" duration="1523000" />
-      <workItem from="1736879389101" duration="217000" />
-      <workItem from="1736879614182" duration="1407000" />
+      <updated>1736883396411</updated>
+      <workItem from="1736883397740" duration="44000" />
+      <workItem from="1736951512363" duration="2190000" />
+      <workItem from="1736974293988" duration="730000" />
+      <workItem from="1737060242651" duration="43000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="86ccbf6e-bcf7-4915-a922-8b38e9237ff7" value="TOOL_WINDOW" />
-      </map>
-    </option>
-    <option name="TAB_STATES">
-      <map>
-        <entry key="86ccbf6e-bcf7-4915-a922-8b38e9237ff7">
-          <value>
-            <State />
-          </value>
-        </entry>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

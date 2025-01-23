@@ -3,14 +3,14 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21)) // Use JDK 17
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 

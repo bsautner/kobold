@@ -19,6 +19,7 @@ class MyUserInterface(render: @Composable () -> Unit) : KCompose(render)
 @KRouting(PostBodyExample::class)
 @Resource("/test")
 data object ComposeExample: Kompose {
+
     @Contextual
     override val render: KCompose = MyUserInterface {
         ComposeExampleComposable()
