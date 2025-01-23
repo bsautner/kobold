@@ -1,4 +1,4 @@
-package io.github.bsautner.ksp
+package io.github.bsautner.kobold
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.serializer

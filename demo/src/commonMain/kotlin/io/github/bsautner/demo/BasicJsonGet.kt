@@ -1,9 +1,9 @@
 package io.github.bsautner.demo
 
-import io.github.bsautner.ksp.KGet
-import io.github.bsautner.ksp.KJsonResponse
-import io.github.bsautner.ksp.KResponse
-import io.github.bsautner.ksp.annotations.KRouting
+import io.github.bsautner.kobold.KGet
+import io.github.bsautner.kobold.KJsonResponse
+import io.github.bsautner.kobold.KResponse
+import io.github.bsautner.kobold.annotations.KRouting
 import io.ktor.resources.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

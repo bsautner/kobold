@@ -1,6 +1,5 @@
-package io.github.bsautner.ksp
+package io.github.bsautner.kobold
 
-import androidx.compose.runtime.Composable
 import kotlin.reflect.KClass
 
 

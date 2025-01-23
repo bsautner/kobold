@@ -1,4 +1,4 @@
-package io.github.bsautner.ksp.annotations
+package io.github.bsautner.kobold.annotations
 
 import kotlin.reflect.KClass
 

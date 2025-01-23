@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="748ffa1a-84cf-4186-8e71-b24b2a52591f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/api_js.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/api_js.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/api_jvm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/api_jvm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/api_wasm_js.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/api_wasm_js.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_jvm_1_0_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/demo_wasm_js_1_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/demo_wasm_js_1_0_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/client/ApiClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/ksp/KActions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/KActions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/ksp/KRoute.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/KRoute.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/ksp/annotations/KRouteResource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/annotations/KRouteResource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/ksp/introspectSerializableClass.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/introspectSerializableClass.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/demo/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/BasicJsonGet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/BasicJsonGet.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,31 +92,38 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2rdKDyhy3OaHPe7S2sK1hUdNrlj" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.kobold:demo [wasmJsBrowserRun].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/ktor/kobold&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.4632184&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.kobold:demo [wasmJsBrowserRun].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/ben/Code/ktor/kobold",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.4632184",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold" />
+    </key>
+  </component>
   <component name="RunManager" selected="Gradle.kobold:demo [wasmJsBrowserRun]">
     <configuration name="kobold:demo [wasmJsBrowserRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -177,7 +188,7 @@
       <workItem from="1737060242651" duration="43000" />
       <workItem from="1737641245727" duration="13196000" />
       <workItem from="1737654855434" duration="223000" />
-      <workItem from="1737655083063" duration="653000" />
+      <workItem from="1737655083063" duration="4945000" />
     </task>
     <servers />
   </component>

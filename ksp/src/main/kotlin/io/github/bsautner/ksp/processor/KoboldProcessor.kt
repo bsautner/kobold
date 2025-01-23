@@ -7,14 +7,12 @@ import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.validate
 import com.squareup.kotlinpoet.*
-import com.squareup.kotlinpoet.ksp.writeTo
-import io.github.bsautner.ksp.Kompose
-import io.github.bsautner.ksp.annotations.KRouting
-import io.github.bsautner.ksp.introspectSerializableClass
+import io.github.bsautner.kobold.Kompose
+import io.github.bsautner.kobold.annotations.KRouting
 import io.ktor.resources.*
+import io.ktor.server.routing.*
 import java.io.File
 import java.util.*
-import kotlin.reflect.full.primaryConstructor
 
 
 lateinit var logger: KSPLogger
@@ -88,13 +86,15 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         val packageName = classDeclaration.packageName.asString()
         log("--ksp Composable Processor $packageName $className")
         val outputClass = getAutoRoutingKClassName(classDeclaration)
+        val route = getRouteClassDeclaration(classDeclaration)
+        log("ROUTE: ${route}")
         log("--outputClass $outputClass")
         val annotation = getAutoRoutingKClassName(classDeclaration)?.second
         val defaults = getAutoRoutingKClassName(classDeclaration)?.third
 
         val defaultValues = extractDefaultValues(classDeclaration)
         val file = FileSpec.builder(packageName, className)
-        addComposeImports(file)
+        addComposeImports(file, outputClass!!)
         val fun1 = FunSpec.builder(className)
             .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
 
@@ -163,13 +163,43 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
                     
                         Spacer(Modifier.height(16.dp))
                         // Simple clickable text acting as a "submit button"
-                        BasicText(
-                            text = "Submit",
-                            modifier = Modifier.clickable {
-                                // Handle form submission
-                                println("Form submitted with name: name")
-                            }
-                        )
+                      
+                        
+                        Button(onClick = {
+            CoroutineScope(Dispatchers.Default).launch {
+                val postBody = ${outputClass.second}(
+            
+ 
+                
+"""
+        )
+
+        //todo - make fields without defaults required
+        //todo - elvis op return the correct type
+        defaults?.forEach {
+            fun1.addCode("""
+                 ${it.key} = defaults.value["${it.key}"] ?: "",
+                 
+                    
+            """.trimIndent())
+        }
+        fun1.addCode(")")
+
+
+        fun1.addCode("""
+         
+                try {
+                    val response = ApiClient.postData("${route}", postBody)
+                    println("Response: ${"$"}{response.bodyAsText()}")
+                } catch (e: Exception) {
+                    println("Error:  ${"$"}{e.message}")
+                }
+            }
+        }) {
+            Text("OK")
+        }
+                        
+                        
                     }
                 
             """.trimIndent()
@@ -188,7 +218,7 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
 
 
-    private fun addComposeImports(builder: FileSpec.Builder) {
+    private fun addComposeImports(builder: FileSpec.Builder, outputClass: Triple<String, String, Map<String, String?>>) {
         builder
             .addImport(
                 "androidx.compose.foundation.layout",
@@ -209,15 +239,28 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
             .addImport("androidx.compose.ui.text", "TextStyle")
             .addImport("androidx.compose.ui.unit", "dp")
+            .addImport("kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
+
+            .addImport("io.ktor.client.statement", "bodyAsText")
 
 
-            .addImport("io.github.bsautner.ksp", "introspectSerializableClass")
+            .addImport("io.github.bsautner.kobold", "introspectSerializableClass")
+            .addImport("io.github.bsautner.kobold.client", "ApiClient")
+
+
+            .addImport(outputClass.first, outputClass.second)
 
 
     }
 
     private fun log(text: Any) {
         logger.warn("ksp cg: ${Date()} $text")
+    }
+
+    private fun getRoute(classDeclaration: KSClassDeclaration): String? {
+        return getRouteClassDeclaration(classDeclaration)
+
+
     }
 
     private fun getAutoRoutingKClassName(classDeclaration: KSClassDeclaration): Triple<String, String, Map<String, String?>>? {
@@ -233,6 +276,21 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
         return Triple(packageName, className, defaultValues)
     }
+
+    private fun getRouteClassDeclaration(classDeclaration: KSClassDeclaration): String? {
+        val autoRoutingAnnotation = classDeclaration.annotations
+            .firstOrNull { it.shortName.asString() == Resource::class.simpleName }
+
+        autoRoutingAnnotation?.arguments?.forEach { argument ->
+            log("!!!!!!!!!  ${argument.name?.getShortName()}")
+            if (argument.name?.getShortName() == "path") {
+                return argument.value.toString()
+
+            }
+        }
+        return null
+    }
+
     private fun getSerializableClassDeclaration(classDeclaration: KSClassDeclaration): KSClassDeclaration? {
         val autoRoutingAnnotation = classDeclaration.annotations
             .firstOrNull { it.shortName.asString() == KRouting::class.simpleName }

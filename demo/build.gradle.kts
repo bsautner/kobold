@@ -68,7 +68,9 @@ kotlin {
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.androidx.lifecycle.runtime.compose)
                 implementation(libs.kotlinxSerialization)
-                implementation(libs.bundles.ktor)
+                implementation(libs.bundles.ktorServer)
+                implementation(libs.bundles.ktorClient)
+
                 implementation(kotlin("stdlib"))
 
             }
@@ -80,6 +82,8 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(kotlin("stdlib"))
                 implementation(kotlin("stdlib-wasm-js"))
+                implementation(libs.bundles.ktorClient)
+
                 implementation("org.jetbrains.compose.runtime:runtime-wasm-js:1.7.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.3")
             }

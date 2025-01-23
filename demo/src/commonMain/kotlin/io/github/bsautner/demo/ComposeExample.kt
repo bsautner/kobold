@@ -1,12 +1,10 @@
 package io.github.bsautner.demo
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import io.github.bsautner.ksp.KCompose
-import io.github.bsautner.ksp.KJsonResponse
-import io.github.bsautner.ksp.Kompose
-import io.github.bsautner.ksp.annotations.KRouting
-import io.github.bsautner.ksp.introspectSerializableClass
+import io.github.bsautner.kobold.KCompose
+import io.github.bsautner.kobold.KJsonResponse
+import io.github.bsautner.kobold.Kompose
+import io.github.bsautner.kobold.annotations.KRouting
 import io.ktor.resources.*
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
