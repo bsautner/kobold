@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="api-wasm-js">
-    <output-path>$PROJECT_DIR$/api/build/libs</output-path>
-    <root id="archive" name="api-wasm-js.jar">
-      <element id="module-output" name="kobold.api.wasmJsMain" />
-    </root>
-  </artifact>
-</component>
