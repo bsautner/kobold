@@ -12,7 +12,11 @@ import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostBodyExample(private val firstName: String, private val lastName: String) : KJsonResponse()
+data class PostBodyExample(
+                           private val firstName: String = "foo",
+                           private val lastName: String = "bar",
+                           private val test: String
+                        ) : KJsonResponse()
 
 class MyUserInterface(render: @Composable () -> Unit) : KCompose(render)
 

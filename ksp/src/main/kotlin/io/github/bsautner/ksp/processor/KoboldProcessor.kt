@@ -90,18 +90,41 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         val outputClass = getAutoRoutingKClassName(classDeclaration)
         log("--outputClass $outputClass")
         val annotation = getAutoRoutingKClassName(classDeclaration)?.second
+        val defaults = getAutoRoutingKClassName(classDeclaration)?.third
 
+        val defaultValues = extractDefaultValues(classDeclaration)
         val file = FileSpec.builder(packageName, className)
         addComposeImports(file)
         val fun1 = FunSpec.builder(className)
             .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
-            .addCode(
+
+        fun1.addCode("""
+                 val defaults = remember { mutableStateOf(mutableMapOf<String, String?>()) }
+                 var isInitialized by remember { mutableStateOf(false) }
+
+        """.trimIndent())
+        fun1.beginControlFlow(" LaunchedEffect(Unit)")
+        defaults?.forEach {
+            fun1.addCode("defaults.value[\"${it.key}\"] = ${it.value}\n")
+        }
+        fun1.addCode("isInitialized = true\n")
+        fun1.endControlFlow()
+
+        fun1.addCode("""
+             if (!isInitialized) {
+        // Show a loading state while defaults are not yet set
+        Text("Loading...")
+        return
+    }
+        """.trimIndent())
+
+
+        fun1.addCode(
                 """
-                   var name by remember { mutableStateOf("") }
+                                           
+                 
                    val fields = introspectSerializableClass<$annotation>()
-                   
                     Column {
-                        // Label
                            Spacer(Modifier.height(16.dp))
                         BasicText("$annotation")
                            Spacer(Modifier.height(16.dp))
@@ -109,7 +132,8 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
                             println("field:${'$'}{field} ")
                             when (field.type) {
                                         "kotlin.String" -> {
-                                          println("in string field...")
+                                          println("in string field ${"$"}{field.name} ${"$"}{defaults.value[field.name] }")
+
                                         Column {
                                                     Text(
                                                         text = field.name,
@@ -117,8 +141,12 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
                                                         modifier = Modifier.padding(bottom = 4.dp)
                                                     )
                                                     BasicTextField(
-                                                        value = name,
-                                                        onValueChange = { name = it },
+                                                        value =  defaults.value[field.name] ?: "",
+                                                    onValueChange = { newValue ->
+                                defaults.value = defaults.value.toMutableMap().apply {
+                                    this[field.name] = newValue
+                                }
+                            },
                                                         textStyle = TextStyle(color = Color.Black),
                                                         modifier = Modifier
                                                             .border(1.dp, Color.Gray)
@@ -127,12 +155,7 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
                                                 }
                                         }
                                   
-                            else -> {
-                                    BasicTextField(
-                                            value = name,
-                                            onValueChange = { name = it }
-                                    )
-                            }
+                            else -> {}
                         }
                           Spacer(Modifier.height(16.dp))
                     }
@@ -151,12 +174,10 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
                 
             """.trimIndent()
             )
-            .build()
+           // .build()
         file
             .addFileComment(Copy.comment)
-            .addFunction(fun1)
-
-
+            .addFunction(fun1.build())
         val output = env.options["output-dir"]?.let { File(it) }
         output?.let {
             it.mkdirs()
@@ -164,6 +185,8 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         }
 
     }
+
+
 
     private fun addComposeImports(builder: FileSpec.Builder) {
         builder
@@ -180,7 +203,7 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
             .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
             .addImport("androidx.compose.material", "Button", "MaterialTheme", "Text", "TextField")
             .addImport("androidx.compose.material", "Text", "Button")
-            .addImport("androidx.compose.runtime", "Composable", "remember", "mutableStateOf", "getValue", "setValue")
+            .addImport("androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
             .addImport("androidx.compose.ui", "Modifier", "Alignment")
             .addImport("androidx.compose.ui.graphics", "Color")
 
@@ -194,52 +217,68 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
     }
 
     private fun log(text: Any) {
-        logger.info("ksp cg: ${Date()} $text")
+        logger.warn("ksp cg: ${Date()} $text")
     }
 
+    private fun getAutoRoutingKClassName(classDeclaration: KSClassDeclaration): Triple<String, String, Map<String, String?>>? {
+        val serializableClass = getSerializableClassDeclaration(classDeclaration) ?: return null
 
-    private fun getAutoRoutingKClassName(classDeclaration: KSClassDeclaration): Pair<String, String>? {
-        // Find the AutoRouting annotation
+        val qualifiedName = serializableClass.qualifiedName?.asString() ?: return null
+        val packageName = serializableClass.packageName.asString()
+        val className = serializableClass.simpleName.asString()
 
-        classDeclaration.annotations.forEach {
-            log("getAutoRoutingKClassName ${it.shortName.asString()}")
-        }
+        // Extract default values
+        val defaultValues = extractDefaultValues(serializableClass)
+        log("***********defaultValues: $defaultValues")
 
+        return Triple(packageName, className, defaultValues)
+    }
+    private fun getSerializableClassDeclaration(classDeclaration: KSClassDeclaration): KSClassDeclaration? {
         val autoRoutingAnnotation = classDeclaration.annotations
             .firstOrNull { it.shortName.asString() == KRouting::class.simpleName }
 
-
-        // If the annotation is present, retrieve its argument
-        autoRoutingAnnotation?.arguments?.forEach { argument: KSValueArgument ->
-
+        autoRoutingAnnotation?.arguments?.forEach { argument ->
             if (argument.name?.getShortName() == "serializableResponse") {
                 val kClassReference = argument.value
-
                 if (kClassReference is KSType) {
-                    val param = kClassReference.declaration
-                    val p = param::class.primaryConstructor
-                    p?.let {
-                        p.parameters.forEach {
-                            log("param $it")
-                        }
-                    }
-                    val qualifiedName = param.qualifiedName?.asString()
-
-                    param.packageName.let { packageName ->
-                        param.simpleName.let { simpleNameName ->
-                            return Pair(packageName.asString(), simpleNameName.asString())
-                        }
-                    }
-
-
+                    return kClassReference.declaration as? KSClassDeclaration
                 }
-
             }
         }
-
         return null
     }
+    private fun extractDefaultValues(classDeclaration: KSClassDeclaration): Map<String, String?> {
+        val defaultValues = mutableMapOf<String, String?>()
 
+        // Read the original source file
+        val fileText = classDeclaration.containingFile?.let { file ->
+            file.filePath?.let { path -> File(path).readText() }
+        } ?: return defaultValues
+
+        // Handle missing primary constructor (common in data classes)
+        val constructorParams = classDeclaration.primaryConstructor?.parameters
+            ?: classDeclaration.getAllFunctions()
+                .firstOrNull { it.simpleName.asString() == "<init>" }
+                ?.parameters
+            ?: return defaultValues
+
+        constructorParams.forEach { param ->
+            val paramName = param.name?.asString() ?: return@forEach
+
+            // Regex to extract `paramName: Type = defaultValue`
+            val regex = Regex("$paramName\\s*:\\s*\\w+\\s*=\\s*(\\S+)")
+            val match = regex.find(fileText)
+
+            val defaultValue = match?.groupValues?.get(1)?.let {
+                 it.trim().trimEnd(',')
+            }
+            log("!!! default: $defaultValue")
+            // If a default value is found, store it; otherwise, set null
+            defaultValues[paramName] = defaultValue
+        }
+
+        return defaultValues
+    }
 
     private fun createClient(env: SymbolProcessorEnvironment) {
 
