@@ -7,11 +7,18 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
     alias(libs.plugins.ksp)
+    id("io.ktor.plugin") version "3.0.2"
 }
 
 group = "io.github.bsautner"
 version = "1.0-SNAPSHOT"
 
+application {
+    mainClass.set("io.github.bsautner.kobold.main")
+
+    val isDevelopment: Boolean = project.ext.has("development")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -29,7 +36,9 @@ ksp {
 
 kotlin {
     jvmToolchain(21)
-    jvm() {}
+    jvm()
+
+
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -51,7 +60,16 @@ kotlin {
     }
 
     sourceSets {
-        val jvmMain by getting {}
+        val jvmMain by getting {
+            kotlin.srcDir("src/jvmMain/kotlin")
+            resources.srcDir("src/jvmMain/resources")
+            dependencies {
+                implementation(libs.ktor.netty)
+                implementation(libs.bundles.ktorServer)
+                implementation(libs.bundles.ktorClient)
+
+            }
+        }
 
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
@@ -70,7 +88,6 @@ kotlin {
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.bundles.ktorServer)
                 implementation(libs.bundles.ktorClient)
-
                 implementation(kotlin("stdlib"))
 
             }
@@ -128,3 +145,6 @@ tasks.named("compileKotlinJvm") {
     dependsOn("kspCommonMainKotlinMetadata")
 }
 
+tasks.withType<ProcessResources> {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}

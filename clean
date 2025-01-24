@@ -1,0 +1,8 @@
+./gradlew clean --info
+rm -fvR ./build
+rm -fvR ./demo/build
+rm -fvR ./api/build
+rm -fvR ./ksp/build
+rm -fvR ./buildSrc/build
+rm -fvR ./kotlin-js-store
+./gradlew clean --info

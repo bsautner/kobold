@@ -44,7 +44,7 @@ kotlin {
             dependencies {
 
                 implementation(kotlin("stdlib-common"))
-                implementation(libs.bundles.ktorServer)
+           //     api(libs.bundles.ktorServer)
                 implementation(libs.bundles.ktorClient)
 
                 implementation(compose.runtime)

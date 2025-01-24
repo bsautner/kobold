@@ -44,10 +44,13 @@ ktor-html = { group = "io.ktor", name = "ktor-server-html-builder", version.ref 
 ktor-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
 ktor-resources = { group = "io.ktor", name = "ktor-server-resources", version.ref = "ktor" }
 ktor-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-netty = { group =  "io.ktor", name="ktor-server-netty", version.ref = "ktor" }
+ktor-cn = { group= "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core" , version.ref = "ktor" }
 ktor-client-content = { group = "io.ktor", name = "ktor-client-content-negotiation" , version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging" , version.ref = "ktor" }
-
+ktor-client-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 
 poet = {group = "com.squareup", name = "kotlinpoet", version.ref = "poet_version"}
@@ -55,8 +58,8 @@ poet-ksp = {group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "poet
 
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
-ktorServer = ["ktor-html", "ktor-core", "ktor-resources", "ktor-json"]
-ktorClient = ["ktor-client-core", "ktor-client-content", "ktor-client-logging"]
+ktorServer = ["ktor-html", "ktor-core", "ktor-resources", "ktor-json", "ktor-cn"]
+ktorClient = ["ktor-client-core", "ktor-client-content", "ktor-client-logging", "ktor-client-json"]
 poet = ["poet", "poet-ksp"]
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
