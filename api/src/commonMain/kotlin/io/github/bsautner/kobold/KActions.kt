@@ -15,7 +15,7 @@ interface KPost<T, R> {
     var process: (T) -> R
 }
 
-interface Kompose  {
+interface KComposable  {
     val render: KCompose
 }
 

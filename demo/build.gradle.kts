@@ -145,6 +145,3 @@ tasks.named("compileKotlinJvm") {
     dependsOn("kspCommonMainKotlinMetadata")
 }
 
-tasks.withType<ProcessResources> {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}

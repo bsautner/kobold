@@ -5,4 +5,4 @@ import kotlin.reflect.KClass
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class KRouting(val serializableResponse: KClass<*> = Any::class)
+annotation class Kobold(val serializableResponse: KClass<*> = Any::class)

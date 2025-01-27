@@ -2,7 +2,8 @@ package io.github.bsautner.ksp.processor
 
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSType
-import io.github.bsautner.kobold.annotations.KRouting
+import com.google.devtools.ksp.symbol.KSValueArgument
+import io.github.bsautner.kobold.annotations.Kobold
 import java.io.File
 
 class ClassHelper {
@@ -59,7 +60,7 @@ class ClassHelper {
 
     private fun getSerializableClassDeclaration(classDeclaration: KSClassDeclaration): KSClassDeclaration? {
         val autoRoutingAnnotation = classDeclaration.annotations
-            .firstOrNull { it.shortName.asString() == KRouting::class.simpleName }
+            .firstOrNull { it.shortName.asString() == Kobold::class.simpleName }
 
         autoRoutingAnnotation?.arguments?.forEach { argument ->
             if (argument.name?.getShortName() == "serializableResponse") {
@@ -71,5 +72,16 @@ class ClassHelper {
         }
         return null
     }
+
+
+}
+
+fun KSClassDeclaration.getImport() : Pair<String, String> {
+    val qualifiedName = this.qualifiedName?.asString()
+        ?: throw IllegalArgumentException("Class declaration must have a qualified name")
+
+    val packageName = qualifiedName.substringBeforeLast(".")
+    val className = qualifiedName.substringAfterLast(".")
+    return Pair(packageName, className)
 
 }
