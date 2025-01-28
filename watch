@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "who watches the watchers?"
+
+# Find all source files in the watched directories
+find ./kmp/src ./demo/src ./api/src ./ksp/src -type f | entr -r ./gradlew build

@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11065e0d-a5a0-4da4-9ebb-131d50bd9cf1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/KActions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/KActions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/annotations/KRouteResource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/annotations/Kobold.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/demo/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/BasicJsonGet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/BasicJsonGet.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ClassHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ClassHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +43,31 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kobold" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kobold" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
             </expand>
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -65,7 +86,9 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Application [jvm].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kobold:demo [wasmJsRun].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold:ksp [build].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
@@ -79,7 +102,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -226,6 +249,9 @@
       <workItem from="1737736023008" duration="5000" />
       <workItem from="1737736319852" duration="516000" />
       <workItem from="1737737402891" duration="1165000" />
+      <workItem from="1737985848082" duration="2258000" />
+      <workItem from="1737988156887" duration="1420000" />
+      <workItem from="1738074448528" duration="12919000" />
     </task>
     <servers />
   </component>

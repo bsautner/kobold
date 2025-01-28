@@ -9,14 +9,17 @@ import com.google.devtools.ksp.validate
 import io.github.bsautner.kobold.KComposable
 import io.github.bsautner.kobold.annotations.Kobold
 import io.ktor.resources.*
+import java.io.File
 import java.util.*
 
 
 lateinit var logger: KSPLogger
 
-class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProcessor {
-    private val composeGenerator = ComposeGenerator(env)
-    private val autoRouter : AutoRouter = AutoRouter ()
+
+
+class KoboldProcessor(private val env: SymbolProcessorEnvironment, historyFile:  File) : BaseProcessor(env,  historyFile), SymbolProcessor {
+    private val composeGenerator = ComposeGenerator(env, historyFile)
+    private val autoRouter : AutoRouter = AutoRouter (env, historyFile)
     private val processedSymbols = mutableSetOf<KSAnnotated>()
     private val processedResources = mutableSetOf<KSAnnotated>()
 
@@ -43,7 +46,9 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
 
         processedSymbols.addAll(symbols)
-    //    processList(symbols)
+        processList(symbols)
+        log("Kobold Finished!")
+        purge()
         return emptyList()
     }
 
@@ -53,11 +58,9 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
 
             list.forEach {
                 processClass(it as KSClassDeclaration)
-
             }
         }
     }
-
     private fun processClass(classDeclaration: KSClassDeclaration) {
         classDeclaration.superTypes.forEach {
             val superType = it.resolve()
@@ -81,13 +84,8 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment) : SymbolProce
         }
     }
 
+
 }
-
-
-fun log(text: Any) {
-    logger.warn("ksp cg: ${Date()} $text")
-}
-
 
 
 

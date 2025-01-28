@@ -5,8 +5,9 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
 import io.github.bsautner.ksp.processor.RoutingGenerator.getRouteClassDeclaration
 import java.io.File
+import java.util.UUID
 
-class ComposeGenerator(private val env: SymbolProcessorEnvironment) {
+class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : BaseProcessor(env, historyFile) {
 
     private val classHelper = ClassHelper()
 
@@ -26,8 +27,8 @@ class ComposeGenerator(private val env: SymbolProcessorEnvironment) {
         fileBuilder
             .addFileComment(Const.comment)
             .addFunction(functionBuilder.build())
-
-        writeToFile(fileBuilder)
+        log("Created Composable: ${fileBuilder.packageName}.${fileBuilder.name}" )
+        writeToFile(fileBuilder.build())
     }
 
     private fun generateComposableBody(classMetaData: ClassHelper.ClassMetaData, route: String): CodeBlock {
@@ -183,11 +184,5 @@ class ComposeGenerator(private val env: SymbolProcessorEnvironment) {
             .addImport(classMetaData.packageName, classMetaData.className)
     }
 
-    private fun writeToFile(fileBuilder: FileSpec.Builder) {
-        val outputDir = env.options["output-dir"]?.let { File(it) }
-        outputDir?.let {
-            it.mkdirs()
-            fileBuilder.build().writeTo(it)
-        }
-    }
+
 }

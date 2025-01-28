@@ -20,6 +20,7 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
@@ -27,7 +28,6 @@ java {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
-
 
 ksp {
     arg("source", "demo")
