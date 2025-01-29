@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11065e0d-a5a0-4da4-9ebb-131d50bd9cf1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/demo/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/watch" beforeDir="false" afterPath="$PROJECT_DIR$/watch" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,6 +243,7 @@
       <workItem from="1737985848082" duration="2258000" />
       <workItem from="1737988156887" duration="1420000" />
       <workItem from="1738074448528" duration="12919000" />
+      <workItem from="1738155833616" duration="308000" />
     </task>
     <servers />
   </component>

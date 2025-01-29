@@ -2,4 +2,5 @@
 echo "who watches the watchers?"
 
 # Find all source files in the watched directories
-find ./demo/src ./api/src ./ksp/src -type f | entr -r ./gradlew build
+./gradlew clean build
+find ./demo/src ./api/src ./ksp/src -type f | entr -r ./gradlew :ksp:test

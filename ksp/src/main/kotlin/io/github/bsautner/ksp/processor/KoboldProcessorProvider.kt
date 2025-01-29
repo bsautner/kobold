@@ -3,20 +3,14 @@ package io.github.bsautner.ksp.processor
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import io.github.bsautner.ksp.processor.util.touchFile
 import java.io.File
 import java.util.UUID
 
 class KoboldProcessorProvider : SymbolProcessorProvider {
 	override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-		val sessionId = UUID.randomUUID()
-		val historyDirectory = File(TEMP_PATH)
-		val historyFile = File(historyDirectory, sessionId.toString())
 
-		if (! historyFile.exists()) {
-			touchFile(historyFile)
-		}
-
-		if (environment.options["output-dir"] == null) {
+		if (environment.options[OUTPUT_DIR] == null) {
 			logger.error(
 				"Kobold output directory not set!.  Please add this to your build.gradle: ksp {\n" +
 						"    arg(\"source\", \"demo\")\n" +
@@ -24,19 +18,21 @@ class KoboldProcessorProvider : SymbolProcessorProvider {
 						"}"
 			)
 		}
+
+		val sessionId = UUID.randomUUID()
+	    var outputDir = File(environment.options[OUTPUT_DIR].toString())
+		val historyFile = File(outputDir, sessionId.toString())
+
+		if (! historyFile.exists()) {
+			outputDir.mkdirs()
+			touchFile(historyFile)
+		}
+
+
 		return KoboldProcessor(environment, historyFile)
 	}
 	companion object {
-		const val  TEMP_PATH = "/tmp/kobold"
-	}
-}
-
-fun touchFile(file: File) {
-
-	if (!file.exists()) {
-		file.createNewFile()
-	} else {
-		file.setLastModified(System.currentTimeMillis())
+		const val OUTPUT_DIR = "output-dir"
 	}
 
 }
