@@ -12,6 +12,7 @@ open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File)
 
 	private var logger: KSPLogger = env.logger
 	private var outputDir : File = File(env.options["output-dir"].toString())
+    private var enableDeleting = true //TODO make config
 
 	fun log(text: Any) {
 		 logger.warn("$PREFIX ${Date()} $text")
@@ -24,7 +25,7 @@ open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File)
 			val target = "$outputDir/${fileSpec.packageName.replace('.', '/')}/${fileSpec.name}.kt"
 
 			val targetFile = File(target)
-			log("Checking Target ${targetFile.exists()}  $target")
+			log("Checking Target. Exists = ${targetFile.exists()}  $target")
 			if (targetFile.exists()) {
 				val content = targetFile.readText()
 				val newContent = buildString {
@@ -32,7 +33,7 @@ open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File)
 				}
 				if (content.trim() == newContent.trim()) {
 					log("Skipping identical content")
-					historyFile.writeText("${outputDir}/${fileSpec.relativePath}")
+					historyFile.appendText ("${outputDir}/${fileSpec.relativePath}\n")
 				} else {
 					createFile(fileSpec)
 				}
@@ -44,7 +45,8 @@ open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File)
 
 	fun createFile(fileSpec: FileSpec) : File {
 		val result = fileSpec.writeTo(outputDir)
-    	 historyFile.writeText(result.absolutePath)
+    	 historyFile.appendText("${result.absolutePath}\n")
+		log("Created File : ${result.path}")
 		return result
 	}
 
@@ -68,7 +70,7 @@ open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File)
 		log("Deleting old code from build preserving ${goodList.size}")
 		deleteOldCode(outputDir, goodList)
 		log("Deleting history file: ${historyFile.absolutePath}")
-	    historyFile.delete()
+	   if (enableDeleting) {  historyFile.delete() }
 	}
 
 
@@ -80,10 +82,8 @@ open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File)
 					deleteOldCode(it, goodList)
 				} else if (!goodList.contains(it.path)) {
 					log("!!!DELETING Old Code ${it.path}")
-					it.delete()
-					goodList.forEach {
-						log("!!!!!!----- ${it}")
-					}
+					if (enableDeleting) { it.delete() }
+
 				}
 			}
 		}

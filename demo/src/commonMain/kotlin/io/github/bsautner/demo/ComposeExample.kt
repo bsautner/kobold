@@ -24,7 +24,7 @@ data object ComposeExample: KComposable {
 
     @Contextual
     override val render: KCompose = MyUserInterface {
-     //   ComposeExampleComposable()
+         ComposeExampleComposable()
     }
 }
 

@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11065e0d-a5a0-4da4-9ebb-131d50bd9cf1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/Hello.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/BasicJsonGet.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/BasicJsonGet.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/demo/ComposeExample.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold/Routing.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/AutoRouter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/BaseProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/BaseProcessorTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/watch" beforeDir="false" afterPath="$PROJECT_DIR$/watch" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +52,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -55,8 +64,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -74,31 +83,41 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Application [jvm].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold:demo [wasmJsRun].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold:ksp [build].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/ktor/kobold/demo/src/jvmMain/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Application [jvm].executor": "Run",
+    "Gradle.BaseProcessorTest.Test Multiple Writes.executor": "Run",
+    "Gradle.BaseProcessorTest.benlog test collecting and deleting files.executor": "Run",
+    "Gradle.BaseProcessorTest.create files test.executor": "Run",
+    "Gradle.BaseProcessorTest.test collecting and deleting files.executor": "Run",
+    "Gradle.BaseProcessorTest.test purge.executor": "Run",
+    "Gradle.BaseProcessorTest.test toFile ext function.executor": "Run",
+    "Gradle.Build kobold.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.kobold [build].executor": "Run",
+    "Gradle.kobold:demo [wasmJsRun].executor": "Run",
+    "Gradle.kobold:ksp [build].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/ben/Code/ktor/kobold",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "Errors",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/demo/src/jvmMain" />
       <recent name="$PROJECT_DIR$/demo/src/jvmMain/kotlin" />
     </key>
@@ -106,8 +125,8 @@
       <recent name="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.kobold:ksp [build]">
-    <configuration name="Application [jvm] (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.Application [jvm]">
+    <configuration name="Application [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
@@ -129,18 +148,20 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="Application [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="BaseProcessorTest.Test Multiple Writes" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="-DmainClass=io.github.bsautner.ApplicationKt --quiet" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="jvmRun" />
+            <option value=":ksp:test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.BaseProcessorTest.Test Multiple Writes&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -148,35 +169,61 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kobold:demo [wasmJsRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="BaseProcessorTest.create files test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="wasmJsRun" />
+            <option value=":ksp:test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.BaseProcessorTest.create files test&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kobold:ksp [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="BaseProcessorTest.test purge" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/ksp" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":ksp:test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.BaseProcessorTest.test purge&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="kobold [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -208,10 +255,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.kobold:ksp [build]" />
-        <item itemvalue="Gradle.Application [jvm] (1)" />
         <item itemvalue="Gradle.Application [jvm]" />
-        <item itemvalue="Gradle.kobold:demo [wasmJsRun]" />
+        <item itemvalue="Gradle.kobold [build]" />
+        <item itemvalue="Gradle.BaseProcessorTest.Test Multiple Writes" />
+        <item itemvalue="Gradle.BaseProcessorTest.test purge" />
+        <item itemvalue="Gradle.BaseProcessorTest.create files test" />
       </list>
     </recent_temporary>
   </component>
@@ -244,11 +292,31 @@
       <workItem from="1737988156887" duration="1420000" />
       <workItem from="1738074448528" duration="12919000" />
       <workItem from="1738155833616" duration="308000" />
+      <workItem from="1738169001196" duration="16792000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/BaseProcessorTest.kt</url>
+          <line>67</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/BaseProcessorTest.kt</url>
+          <line>54</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

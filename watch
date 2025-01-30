@@ -1,5 +1,22 @@
 #!/bin/bash
-echo "who watches the watchers?"
 
-# Find all source files in the watched directories
-find ./demo/src ./api/src ./ksp/src -type f | entr -r ./gradlew build
+#find ./demo/src ./api/src ./ksp/src -type f | entr -r ./gradlew build -x test
+(find ./demo/src ./api/src ./ksp/src -type f; echo "./demo/build/generated/ksp/.watchfile") | entr -r bash -c '
+    ./gradlew build -x test &
+
+    # Define the directory to monitor
+    MONITORED_DIR="./demo/build/generated/ksp/common/kotlin/io/github/bsautner/kobold/annotations"
+    WATCHFILE="./demo/build/generated/ksp/.watchfile"
+
+    # Ensure the watchfile exists
+    mkdir -p "$(dirname "$WATCHFILE")"
+    touch "$WATCHFILE"
+
+    # Check if the directory was removed
+    if [[ ! -d "$MONITORED_DIR" ]]; then
+        echo "Directory deleted, waiting for recreation..."
+        while [[ ! -d "$MONITORED_DIR" ]]; do sleep 1; done
+        echo "Directory recreated, opening Dolphin..."
+        dolphin "$MONITORED_DIR" &
+    fi
+'

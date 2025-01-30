@@ -125,7 +125,7 @@ class BaseProcessorTest {
 		val code : FileSpec = FileSpec.builder( testPackage, fileName ).build()
 		val junk = File(rootDir, "bad_code.kt")
 
-		processorUnderTest.writeToFile(code)
+		processorUnderTest.writeToFile(code, true)
 		assertTrue {
 			code.toFile(rootDir).exists()
 			processorUnderTest.historyFile.exists()
@@ -142,6 +142,18 @@ class BaseProcessorTest {
 		processorUnderTest.purge()
 
 
+	}
+
+	@Test
+	fun  `Test Multiple Writes`() {
+		val code2 : FileSpec = FileSpec.builder( testPackage,  "bar" ).build()
+		val code1 : FileSpec = FileSpec.builder( testPackage, "foo" ).build()
+
+		processorUnderTest.writeToFile(code1)
+		processorUnderTest.writeToFile(code2)
+//		history.appendText("foo\n")
+//		history.appendText("bar\n")
+		assertEquals(2, history.readLines().size)
 	}
 
 }

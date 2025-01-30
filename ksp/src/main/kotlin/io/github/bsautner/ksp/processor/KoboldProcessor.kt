@@ -32,8 +32,16 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment, historyFile: 
        val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
            .filter { it is KSClassDeclaration && it.validate() }
           .filterNot { it in processedResources }
-        autoRouter.createRouter(resourcesToProcess)
+
         log("Found ${resourcesToProcess.toList().size} Resources")
+        resourcesToProcess.forEach {
+            log("---- ${(it as KSClassDeclaration).simpleName.asString()}")
+        }
+
+        if (resourcesToProcess.toList().isNotEmpty()) {
+            autoRouter.createRouter(resourcesToProcess)
+        }
+        log("************************************************************************")
         processedResources.addAll(resourcesToProcess)
 
         val annotationFqName = Kobold::class.qualifiedName!!
@@ -41,7 +49,10 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment, historyFile: 
             .filter { it is KSClassDeclaration && it.validate() }
             .filterNot { it in processedSymbols }
             .toList()
-        log("Found ${symbols.size} Annotated Classes")
+//        log("Found ${symbols.size} Kobold Annotated Classes")
+//        symbols.forEach {
+//            log("---- ${(it as KSClassDeclaration).simpleName.asString()}")
+//        }
 
 
 
