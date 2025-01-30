@@ -8,7 +8,7 @@ import java.io.File
 import java.util.*
 
 
-open class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File) {
+abstract class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File) : KoboldClassBuilder {
 
 	private var logger: KSPLogger = env.logger
 	private var outputDir : File = File(env.options["output-dir"].toString())

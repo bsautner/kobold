@@ -38,34 +38,25 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 		val annotationFqName = Resource::class.qualifiedName!!
 		val symbols = resolver.getSymbolsWithAnnotation(annotationFqName)
 		val sequence = symbols.filter { it is KSClassDeclaration && it.validate() }
-		val js = env.options["js"] == "true"
 		val generatedDir = env.options["ksp.generated.dir"] //?: error("KSP generated directory not specified!")
-		log("generatedDir: $generatedDir")
-
 		if (sequence.toList().isNotEmpty()) {
-
-			createRouter(sequence)
-
-
+			create(sequence)
 		}
 		return sequence.toList()
 	}
 
-	fun createRouter(sequence: Sequence<KSAnnotated>) {
+	override fun create(sequence: Sequence<KSAnnotated>) {
 
 		log("Creating Router with ${sequence.toList().size} symbols.")
-		//  log("starting code generation 2 ${env.options}")
 		val className = "AutoRouter"
 		val classPackage = Kobold::class.qualifiedName?.substringBeforeLast(".")
-
-
 		val specBuilder = FileSpec.builder(classPackage!!, className)
 		addImports(specBuilder, sequence)
 		specBuilder.addFunction(
 			FunSpec
 				.builder("autoRoute")
 				.receiver(Application::class)
-				.addCode(buildCodeBlock(sequence))
+				.addCode(generate(sequence))
 				.build()
 		)
 		val specFile = specBuilder.build()
@@ -76,7 +67,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 
 	}
 
-	private fun addImports(file: FileSpec.Builder, sequence: Sequence<KSAnnotated>) {
+	override fun addImports(file: FileSpec.Builder, sequence: Sequence<KSAnnotated>) {
 
 
 		file.addImport("io.ktor.server.routing", "routing")
@@ -105,8 +96,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 		}
 	}
 
-
-	private fun buildCodeBlock(sequence: Sequence<KSAnnotated>): CodeBlock {
+	override fun generate(sequence: Sequence<KSAnnotated>): CodeBlock {
 
 		log("Building Code Block from ${sequence.toList().size}")
 		val builder = CodeBlock.builder()
@@ -117,7 +107,6 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 
 		return builder.build()
 	}
-
 
 	private fun buildRouteCodeBlock(sequence: Sequence<KSAnnotated>): CodeBlock {
 		val builder = CodeBlock.builder()
@@ -235,28 +224,11 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 
 	}
 
-//fun KSClassDeclaration.getImport() : Pair<String, String> {
-//	val qualifiedName = this.qualifiedName?.asString()
-//		?: throw IllegalArgumentException("Class declaration must have a qualified name")
-//
-//	val packageName = qualifiedName.substringBeforeLast(".")
-//	val className = qualifiedName.substringAfterLast(".")
-//	return Pair(packageName, className)
-//
-//}
-
 	fun getAutoRoutingKClassName(classDeclaration: KSClassDeclaration): Pair<String, String>? {
-		// Find the AutoRouting annotation
-
-//	classDeclaration.annotations.forEach {
-//		log(it.shortName.asString())
-//	}
 
 		val autoRoutingAnnotation = classDeclaration.annotations
 			.firstOrNull { it.shortName.asString() == Kobold::class.simpleName }
 
-
-		// If the annotation is present, retrieve its argument
 		autoRoutingAnnotation?.arguments?.forEach { argument: KSValueArgument ->
 
 			if (argument.name?.getShortName() == "serializableResponse") {
@@ -280,7 +252,6 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 
 		return null
 	}
-
 
 	// Function to check if the class or any of its superclasses implement the given interface
 	fun KSClassDeclaration.implementsInterface(interfaceClass: KClass<*>): Boolean {

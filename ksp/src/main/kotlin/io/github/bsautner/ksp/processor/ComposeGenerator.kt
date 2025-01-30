@@ -1,6 +1,8 @@
 package io.github.bsautner.ksp.processor
 
+import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
+import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
 import io.github.bsautner.ksp.processor.RoutingGenerator.getRouteClassDeclaration
@@ -11,18 +13,19 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : Ba
 
     private val classHelper = ClassHelper()
 
-    fun createComposable(classDeclaration: KSClassDeclaration) {
+    override fun create(sequence: Sequence<KSAnnotated>) {
+
+        val classDeclaration = sequence.first() as KSClassDeclaration
         val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
         val packageName = classDeclaration.packageName.asString()
-        val classMetaData = classHelper.getUserProvidedDataClass(classDeclaration)
-        val route = getRouteClassDeclaration(classDeclaration) ?: ""
 
         val fileBuilder = FileSpec.builder(packageName, outputClassName)
-        addComposeImports(fileBuilder, classMetaData)
+
+        addImports(fileBuilder, sequence)
 
         val functionBuilder = FunSpec.builder(outputClassName)
             .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
-            .addCode(generateComposableBody(classMetaData, route))
+            .addCode(generate(sequence))
 
         fileBuilder
             .addFileComment(Const.comment)
@@ -31,12 +34,36 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : Ba
         writeToFile(fileBuilder.build())
     }
 
-    private fun generateComposableBody(classMetaData: ClassHelper.ClassMetaData, route: String): CodeBlock {
+    override fun addImports(builder: FileSpec.Builder,sequence: Sequence<KSAnnotated>) {
+
+        val classMetaData = classHelper.getUserProvidedDataClass(sequence.first() as KSClassDeclaration)
+
+        builder.addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
+            .addImport("androidx.compose.foundation", "border", "clickable")
+            .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
+            .addImport("androidx.compose.material", "Button", "Text")
+            .addImport("androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
+            .addImport("androidx.compose.ui", "Modifier", "Alignment")
+            .addImport("androidx.compose.ui.graphics", "Color")
+            .addImport("androidx.compose.ui.text", "TextStyle")
+            .addImport("androidx.compose.ui.unit", "dp")
+            .addImport("kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
+            .addImport("io.ktor.client.statement", "bodyAsText")
+            .addImport("io.github.bsautner.kobold", "introspectSerializableClass")
+            .addImport("io.github.bsautner.kobold.client", "ApiClient")
+
+            .addImport(classMetaData.packageName, classMetaData.className)
+    }
+
+    override fun generate(sequence: Sequence<KSAnnotated>): CodeBlock {
         val code = CodeBlock.builder()
 
         code.addStatement("val defaults = remember { mutableStateOf(mutableMapOf<String, String?>()) }")
         code.addStatement("var isInitialized by remember { mutableStateOf(false) }")
+        val classDeclaration = sequence.first() as KSClassDeclaration
+        val classMetaData = classHelper.getUserProvidedDataClass(classDeclaration)
 
+        val route = getRouteClassDeclaration(classDeclaration) ?: ""
         // LaunchedEffect block for initialization
         code.beginControlFlow("LaunchedEffect(Unit)")
         classMetaData.defaultValues.forEach {
@@ -166,23 +193,5 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : Ba
 
         return code.build()
     }
-
-    private fun addComposeImports(builder: FileSpec.Builder, classMetaData: ClassHelper.ClassMetaData) {
-        builder.addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
-            .addImport("androidx.compose.foundation", "border", "clickable")
-            .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
-            .addImport("androidx.compose.material", "Button", "Text")
-            .addImport("androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
-            .addImport("androidx.compose.ui", "Modifier", "Alignment")
-            .addImport("androidx.compose.ui.graphics", "Color")
-            .addImport("androidx.compose.ui.text", "TextStyle")
-            .addImport("androidx.compose.ui.unit", "dp")
-            .addImport("kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
-            .addImport("io.ktor.client.statement", "bodyAsText")
-            .addImport("io.github.bsautner.kobold", "introspectSerializableClass")
-            .addImport("io.github.bsautner.kobold.client", "ApiClient")
-            .addImport(classMetaData.packageName, classMetaData.className)
-    }
-
 
 }
