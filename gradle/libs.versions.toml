@@ -12,19 +12,11 @@ compose-multiplatform = "1.7.3"
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJSON = "1.7.2"
 kotlinxCoroutines = "1.8.1"
-junit = "4.13.2"
 kotlin = "2.1.0"
-ktor = "3.0.2"
-logback = "1.5.12"
+ktor = "3.0.3"
 ksp = "2.1.0-1.0.29"
 serialization = "2.0.21"
-ktor_version = "3.0.2"
-ksp_version = "2.1.0-1.0.29"
 poet_version = "2.0.0"
-logback_version = "1.4.14"
-serialization_version = "1.7.3"
-kotlinx_html_version = "0.11.0"
-koin_version = "3.5.6"
 
 
 [libraries]
@@ -42,10 +34,15 @@ androidx-arch-core-common = { group = "androidx.arch.core", name = "core-common"
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
 ktor-html = { group = "io.ktor", name = "ktor-server-html-builder", version.ref = "ktor" }
 ktor-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
+
+ktor-core-jvm = { group = "io.ktor", name = "ktor-server-core-jvm", version.ref = "ktor" }
 ktor-resources = { group = "io.ktor", name = "ktor-server-resources", version.ref = "ktor" }
 ktor-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-netty = { group =  "io.ktor", name="ktor-server-netty", version.ref = "ktor" }
 ktor-cn = { group= "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-common = { group = "io.ktor", name = "ktor-server-host-common", version.ref = "ktor"}
+ktor-yaml = { group = "io.ktor", name = "ktor-server-config-yaml", version.ref = "ktor"}
+
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core" , version.ref = "ktor" }
 ktor-client-content = { group = "io.ktor", name = "ktor-client-content-negotiation" , version.ref = "ktor" }
@@ -58,7 +55,9 @@ poet-ksp = {group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "poet
 
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
-ktorServer = ["ktor-html", "ktor-core", "ktor-resources", "ktor-json", "ktor-cn"]
+ktorServer = ["ktor-html", "ktor-core", "ktor-resources", "ktor-json", "ktor-cn", "ktor-common"]
+ktorJvmServer = ["ktor-html", "ktor-core-jvm", "ktor-resources", "ktor-json", "ktor-cn", "ktor-common", "ktor-yaml"]
+
 ktorClient = ["ktor-client-core", "ktor-client-content", "ktor-client-logging", "ktor-client-json"]
 poet = ["poet", "poet-ksp"]
 [plugins]

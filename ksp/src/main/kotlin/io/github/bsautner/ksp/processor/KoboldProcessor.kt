@@ -1,35 +1,29 @@
 package io.github.bsautner.ksp.processor
 
-import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.symbol.*
+import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.validate
 import io.github.bsautner.kobold.KComposable
 import io.github.bsautner.kobold.annotations.Kobold
 import io.ktor.resources.*
-import java.io.File
-import java.util.*
 
-
-lateinit var logger: KSPLogger
-
-
-
-class KoboldProcessor(private val env: SymbolProcessorEnvironment, historyFile:  File) : BaseProcessor(env,  historyFile), SymbolProcessor {
-    private val composeGenerator = ComposeGenerator(env, historyFile)
-    private val autoRouter : AutoRouter = AutoRouter (env, historyFile)
+class KoboldProcessor(private val env: SymbolProcessorEnvironment,  sessionId: String) : BaseProcessor(env,  sessionId), SymbolProcessor {
+    private val composeGenerator = ComposeGenerator(env, sessionId)
+    private val autoRouter : AutoRouter = AutoRouter (env, sessionId)
     private val processedSymbols = mutableSetOf<KSAnnotated>()
     private val processedResources = mutableSetOf<KSAnnotated>()
 
-
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        logger = env.logger
+
         log("KSP Processor Started!!!")
         val resourcesName = Resource::class.qualifiedName!!
 
-       val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
+
+
+               val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
            .filter { it is KSClassDeclaration && it.validate() }
           .filterNot { it in processedResources }
 
@@ -49,17 +43,12 @@ class KoboldProcessor(private val env: SymbolProcessorEnvironment, historyFile: 
             .filter { it is KSClassDeclaration && it.validate() }
             .filterNot { it in processedSymbols }
             .toList()
-//        log("Found ${symbols.size} Kobold Annotated Classes")
-//        symbols.forEach {
-//            log("---- ${(it as KSClassDeclaration).simpleName.asString()}")
-//        }
-
 
 
         processedSymbols.addAll(symbols)
         processList(symbols)
         log("Kobold Finished!")
-        purge()
+        purge(env, sessionId)
         return emptyList()
     }
 

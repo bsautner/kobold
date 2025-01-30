@@ -9,30 +9,21 @@ import java.util.UUID
 
 class KoboldProcessorProvider : SymbolProcessorProvider {
 	override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
+//
+//		if (environment.options[OUTPUT_DIR] == null) {
+//			logger.error(
+//				"Kobold output directory not set!.  Please add this to your build.gradle: ksp {\n" +
+//						"    arg(\"source\", \"demo\")\n" +
+//						"    arg(\"output-dir\", \"${"$"}{layout.buildDirectory.get().asFile}/generated/ksp/common/kotlin\")\n" +
+//						"}"
+//			)
+//		}
 
-		if (environment.options[OUTPUT_DIR] == null) {
-			logger.error(
-				"Kobold output directory not set!.  Please add this to your build.gradle: ksp {\n" +
-						"    arg(\"source\", \"demo\")\n" +
-						"    arg(\"output-dir\", \"${"$"}{layout.buildDirectory.get().asFile}/generated/ksp/common/kotlin\")\n" +
-						"}"
-			)
-		}
-
-		val sessionId = UUID.randomUUID()
-	    var outputDir = File(environment.options[OUTPUT_DIR].toString())
-		val historyFile = File(outputDir, sessionId.toString())
-
-		if (! historyFile.exists()) {
-			outputDir.mkdirs()
-			touchFile(historyFile)
-		}
+		val sessionId = UUID.randomUUID().toString()
 
 
-		return KoboldProcessor(environment, historyFile)
+		return KoboldProcessor(environment, sessionId)
 	}
-	companion object {
-		const val OUTPUT_DIR = "output-dir"
-	}
+
 
 }

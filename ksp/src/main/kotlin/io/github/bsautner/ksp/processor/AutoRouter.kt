@@ -29,10 +29,8 @@ import io.github.bsautner.kobold.annotations.KoboldStatic
  * TODO - add sorting and organize the generated routes.
  * add kdocs
  *
- *
- *
  */
-class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProcessor(env, history), SymbolProcessor {
+class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : BaseProcessor(env, sessionId), SymbolProcessor {
 
 	override fun process(resolver: Resolver): List<KSAnnotated> {
 		val annotationFqName = Resource::class.qualifiedName!!
@@ -71,7 +69,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 		val specFile = specBuilder.build()
 		log("Router Created ${specFile.relativePath}")
 
-		writeToFile(specFile)
+		writeToFile(specFile, PlatformType.jvm)
 
 
 	}
@@ -89,6 +87,8 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 			.addImport("io.ktor.server.request", "receiveMultipart", "receiveParameters")
 			.addImport("io.ktor.http", "HttpStatusCode")
 			.addImport("kotlin.reflect", "safeCast")
+			.addImport("io.ktor.server.http.content", "staticResources", "staticFiles")
+			.addImport("java.io", "File")
 
 
 
@@ -177,14 +177,16 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 					ksc.annotations.firstOrNull { it.shortName.asString() == Resource::class.simpleName }?.let {
 						log("Found Static Resource Annotation")
 					     it.arguments.firstOrNull { check -> check.name?.asString() == "path" }?.let { resource ->
-							log("Found Path Resource $resource")
+							log("Found Path Resource ${resource.value}")
 						     ksc.annotations.firstOrNull { it.shortName.asString() == KoboldStatic::class.simpleName }?.let {
 							     log("Found Static Annotation")
 							     val path = it.arguments.firstOrNull { check -> check.name?.asString() == "path" }?.let { path ->
-								     log("Found Path Param $path")
-								     getBlock.beginControlFlow("staticFiles", resource, "File($path)")
-									     .addStatement("default(\"index.html\"")
-									     .endControlFlow()
+								     log("Found Path Param ${path.value}")
+
+								     getBlock. beginControlFlow("staticFiles(%S, File(%S))", resource.value, path.value)
+								     getBlock.addStatement("default(%S)", "index.html")
+								     getBlock. endControlFlow()
+
 							     }
 
 						     }
@@ -203,14 +205,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 					 *         }
 					 *     }
 					 *
-					 *
-					 *     routing {
-					 *         post<TestClass> {
-					 *              val response : TestResponse = it.process(call.receive())
-					 *              call.respond(response,  typeInfo = TypeInfo(TestResponse::class))
-					 *         }
-					 *     }
-					 *
+
 					 */
 					val responsePackage = getAutoRoutingKClassName(ksc)?.first
 					val responseClass = getAutoRoutingKClassName(ksc)?.second
@@ -218,7 +213,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 					log("***************${responseClass!!::class.simpleName}")
 					log("***************${responsePackage}")
 					if (responseClass.isEmpty() == true) {
-						logger.error("AutoRouter processed a POST but the post body KClass is missing from the Annotation.")
+					//	logger.error("AutoRouter processed a POST but the post body KClass is missing from the Annotation.")
 					}
 
 					getBlock.beginControlFlow("post<${ksc.simpleName.asString()}>")
@@ -232,7 +227,6 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 		}
 
 		return builder.build()
-
 	}
 
 //fun KSClassDeclaration.getImport() : Pair<String, String> {
