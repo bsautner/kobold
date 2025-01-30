@@ -7,7 +7,7 @@ import io.github.bsautner.ksp.processor.RoutingGenerator.getRouteClassDeclaratio
 import java.io.File
 import java.util.UUID
 
-class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : BaseProcessor(env, historyFile) {
+class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : BaseProcessor(env, sessionId) {
 
     private val classHelper = ClassHelper()
 
@@ -28,7 +28,7 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : Ba
             .addFileComment(Const.comment)
             .addFunction(functionBuilder.build())
         log("Created Composable: ${fileBuilder.packageName}.${fileBuilder.name}" )
-        writeToFile(fileBuilder.build())
+        writeToFile(fileBuilder.build(), PlatformType.js)
     }
 
     private fun generateComposableBody(classMetaData: ClassHelper.ClassMetaData, route: String): CodeBlock {
@@ -40,7 +40,7 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : Ba
         // LaunchedEffect block for initialization
         code.beginControlFlow("LaunchedEffect(Unit)")
         classMetaData.defaultValues.forEach {
-            code.addStatement("defaults.value[\"${it.key}\"] = ${it.value}")
+            code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
         }
         code.addStatement("isInitialized = true")
         code.endControlFlow()
@@ -109,7 +109,7 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  historyFile: File) : Ba
                     },
                     enabled = isFormValid
                 ) {
-                    Text("OK 4")
+                    Text("OK 5")
                 }
             }
             """.trimIndent()

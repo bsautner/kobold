@@ -9,22 +9,17 @@ import io.ktor.resources.*
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class PostBodyExample(
-                           private val firstName: String = "foo",
-                           private val lastName: String = "bar",
-                           private val test: String
-                        ) : KJsonResponse()
+
 
 class MyUserInterface(render: @Composable () -> Unit) : KCompose(render)
 
-@Kobold(PostBodyExample::class)
+@Kobold(TestPost::class)
 @Resource("/test")
 data object ComposeExample: KComposable {
 
     @Contextual
     override val render: KCompose = MyUserInterface {
-     //   ComposeExampleComposable()
+         ComposeExampleComposable()
     }
 }
 

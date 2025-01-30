@@ -1,3 +1,5 @@
+
+
 ./gradlew clean --info
 rm -fvR ./build
 rm -fvR ./demo/build
