@@ -2,6 +2,8 @@ package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
 
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
+import com.google.devtools.ksp.symbol.KSAnnotated
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import io.github.bsautner.ksp.processor.BaseProcessor
 import io.github.bsautner.ksp.processor.PlatformType
@@ -22,7 +24,22 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class ProcessorUnderTest(env: SymbolProcessorEnvironment, sessionId: String) : BaseProcessor(env, sessionId) {}
+class ProcessorUnderTest(env: SymbolProcessorEnvironment, sessionId: String) : BaseProcessor(env, sessionId) {
+	override fun create(sequence: Sequence<KSAnnotated>) {
+		TODO("Not yet implemented")
+	}
+
+	override fun addImports(
+		builder: FileSpec.Builder,
+		sequence: Sequence<KSAnnotated>
+	) {
+		TODO("Not yet implemented")
+	}
+
+	override fun generate(sequence: Sequence<KSAnnotated>): CodeBlock {
+		TODO("Not yet implemented")
+	}
+}
 
 @TestInstance(Lifecycle.PER_METHOD)
 class BaseProcessorTest {

@@ -4,10 +4,9 @@ import io.github.bsautner.kobold.KGet
 import io.github.bsautner.kobold.KJsonResponse
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.kobold.KPostBody
-import io.github.bsautner.kobold.KResponse
 import io.github.bsautner.kobold.KStatic
-import io.github.bsautner.kobold.annotations.Kobold
-import io.github.bsautner.kobold.annotations.KoboldStatic
+import io.github.bsautner.kobold.Kobold
+import io.github.bsautner.kobold.KoboldStatic
 import io.ktor.resources.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

@@ -77,7 +77,7 @@ kotlin {
             kotlin.srcDir("$buildDir/generated/ksp/common/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(project(":api"))
+                api(project(":api"))
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)

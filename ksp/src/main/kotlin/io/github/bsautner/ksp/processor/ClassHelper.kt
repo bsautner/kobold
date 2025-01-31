@@ -2,8 +2,7 @@ package io.github.bsautner.ksp.processor
 
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSType
-import com.google.devtools.ksp.symbol.KSValueArgument
-import io.github.bsautner.kobold.annotations.Kobold
+import io.github.bsautner.kobold.Kobold
 import java.io.File
 
 class ClassHelper {

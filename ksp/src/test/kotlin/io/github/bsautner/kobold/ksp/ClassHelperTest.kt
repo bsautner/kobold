@@ -1,10 +1,8 @@
 package io.github.bsautner.utils.io.github.bsautner.kobold.ksp
 
-import io.github.bsautner.kobold.KStatic
-import io.github.bsautner.kobold.annotations.KoboldStatic
+import io.github.bsautner.kobold.KoboldStatic
 import io.github.bsautner.ksp.processor.ClassHelper
 import io.ktor.resources.Resource
-import io.ktor.server.config.configLoaders
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import kotlin.test.Test

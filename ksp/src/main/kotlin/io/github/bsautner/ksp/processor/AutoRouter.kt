@@ -9,12 +9,11 @@ import io.github.bsautner.kobold.KGet
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.kobold.KStatic
 import io.github.bsautner.kobold.KWeb
-import io.github.bsautner.kobold.annotations.Kobold
+import io.github.bsautner.kobold.Kobold
 import io.ktor.resources.*
 import io.ktor.server.application.*
-import java.util.*
 import kotlin.reflect.KClass
-import io.github.bsautner.kobold.annotations.KoboldStatic
+import io.github.bsautner.kobold.KoboldStatic
 
 /**
  * TODO - add sorting and organize the generated routes.

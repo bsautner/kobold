@@ -7,7 +7,7 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.validate
 import io.github.bsautner.kobold.KComposable
-import io.github.bsautner.kobold.annotations.Kobold
+import io.github.bsautner.kobold.Kobold
 import io.ktor.resources.*
 
 class KoboldProcessor(env: SymbolProcessorEnvironment,  sessionId: String):  SymbolProcessor {

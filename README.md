@@ -1,6 +1,22 @@
 # kobold
 
 
+## To get started
+
+Create a new multiplatform project using [Jetbrains Wizard](https://kmp.jetbrains.com/) 
+
+add to gradle 
+```agsl
+
+ksp {
+arg("jvm-output-dir", "$buildDir/generated/ksp/jvm/kotlin")
+arg("kmp-output-dir", "$buildDir/generated/ksp/common/kotlin")
+}
+
+```
+
+
+
 This project uses [Gradle](https://gradle.org/).
 To build and run the application, use the *Gradle* tool window by clicking the Gradle icon in the right-hand toolbar,
 or run it directly from the terminal:
