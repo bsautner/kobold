@@ -1,60 +1,38 @@
 package io.github.bsautner.ksp.processor
 
-import com.google.devtools.ksp.processing.KSPLogger
-import com.google.devtools.ksp.processing.Resolver
-import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.*
-import com.google.devtools.ksp.validate
-import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
-import com.squareup.kotlinpoet.ksp.writeTo
 import io.github.bsautner.kobold.KGet
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.kobold.KStatic
 import io.github.bsautner.kobold.KWeb
 import io.github.bsautner.kobold.annotations.Kobold
-import io.ktor.http.parseHeaderValue
 import io.ktor.resources.*
 import io.ktor.server.application.*
-import java.io.File
 import java.util.*
 import kotlin.reflect.KClass
-import com.google.devtools.ksp.symbol.*
 import io.github.bsautner.kobold.annotations.KoboldStatic
 
 /**
  * TODO - add sorting and organize the generated routes.
  * add kdocs
  *
- *
- *
  */
-class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProcessor(env, history), SymbolProcessor {
-
-	override fun process(resolver: Resolver): List<KSAnnotated> {
-		val annotationFqName = Resource::class.qualifiedName!!
-		val symbols = resolver.getSymbolsWithAnnotation(annotationFqName)
-		val sequence = symbols.filter { it is KSClassDeclaration && it.validate() }
-		val generatedDir = env.options["ksp.generated.dir"] //?: error("KSP generated directory not specified!")
-		if (sequence.toList().isNotEmpty()) {
-			create(sequence)
-		}
-		return sequence.toList()
-	}
+class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : BaseProcessor(env, sessionId) {
 
 	override fun create(sequence: Sequence<KSAnnotated>) {
 
 		log("Creating Router with ${sequence.toList().size} symbols.")
-		val className = "AutoRouter"
+
 		val classPackage = Kobold::class.qualifiedName?.substringBeforeLast(".")
-		val specBuilder = FileSpec.builder(classPackage!!, className)
+		val specBuilder = FileSpec.builder(classPackage!!, TARGET_ROUTER_NAME)
 		addImports(specBuilder, sequence)
 		specBuilder.addFunction(
 			FunSpec
-				.builder("autoRoute")
+				.builder(TARGET_ROUTER_FUN_NAME)
 				.receiver(Application::class)
 				.addCode(generate(sequence))
 				.build()
@@ -62,7 +40,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 		val specFile = specBuilder.build()
 		log("Router Created ${specFile.relativePath}")
 
-		writeToFile(specFile)
+		writeToFile(specFile, PlatformType.jvm)
 
 
 	}
@@ -80,6 +58,8 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 			.addImport("io.ktor.server.request", "receiveMultipart", "receiveParameters")
 			.addImport("io.ktor.http", "HttpStatusCode")
 			.addImport("kotlin.reflect", "safeCast")
+			.addImport("io.ktor.server.http.content", "staticResources", "staticFiles")
+			.addImport("java.io", "File")
 
 
 
@@ -111,122 +91,84 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 	private fun buildRouteCodeBlock(sequence: Sequence<KSAnnotated>): CodeBlock {
 		val builder = CodeBlock.builder()
 		log("Building Code Block for ${sequence.toList().size} routes")
+
 		sequence.toList().forEach {
 			(it as KSClassDeclaration).let { ksc ->
-
-				val getBlock = CodeBlock.builder()
 				log("Processing Route: ${ksc.qualifiedName?.asString()}")
 				if (ksc.implementsInterface(KGet::class)) {
-					val target = getAutoRoutingKClassName(ksc)
-					log("target $target")
-					getBlock.beginControlFlow("get<${ksc.simpleName.asString()}>")
-					//	getBlock.add("call.respond(HttpStatusCode.OK,  it.render.invoke())")
-					val responseClass = getAutoRoutingKClassName(ksc)
-					getBlock.addStatement("// response class ${responseClass == null}")
-					responseClass?.let {
-						getBlock.addStatement(" call.respond(it.render.invoke() as ${responseClass.second}, typeInfo = TypeInfo(${responseClass.second}::class))")
-					}
-					getBlock.endControlFlow()
+						 builder.add(createGetRouter(ksc))
 				}
 				if (ksc.implementsInterface(KWeb::class)) {
-					/**
-					 *   routing {
-					 *         get<Website.HomePage> {
-					 *             call.respondHtml {
-					 *
-					 *                 body {
-					 *                     it.render.invoke(this)
-					 *
-					 *                 }
-					 *             }
-					 *
-					 *         }
-					 *     }
-					 */
-
-					getBlock.beginControlFlow("get<${ksc.simpleName.asString()}>")
-
-					getBlock.beginControlFlow("call.respondHtml")
-					getBlock.beginControlFlow("body")
-					getBlock.addStatement("it.render.invoke(this)")
-					getBlock.endControlFlow().endControlFlow()
-
-					// getBlock.addStatement(" call.respond(it.render.invoke() as ${responseClass.second}, typeInfo = TypeInfo(${responseClass.second}::class))")
-
-					getBlock.endControlFlow()
+						 builder.add(createWebRoute(ksc))
 				}
-
-
-				//				staticFiles("/", File("build/dist/wasmJs/productionExecutable")) {
-//					default("index.html")
-//				}
-				if (ksc.implementsInterface(KStatic::class)) {
-					log("Processing Static Resources")
-
-					ksc.annotations.firstOrNull { it.shortName.asString() == Resource::class.simpleName }?.let {
-						log("Found Static Resource Annotation")
-					     it.arguments.firstOrNull { check -> check.name?.asString() == "path" }?.let { resource ->
-							log("Found Path Resource $resource")
-						     ksc.annotations.firstOrNull { it.shortName.asString() == KoboldStatic::class.simpleName }?.let {
-							     log("Found Static Annotation")
-							     val path = it.arguments.firstOrNull { check -> check.name?.asString() == "path" }?.let { path ->
-								     log("Found Path Param $path")
-								     getBlock.beginControlFlow("staticFiles", resource, "File($path)")
-									     .addStatement("default(\"index.html\"")
-									     .endControlFlow()
-							     }
-
-						     }
-						}
-
-					}
+ 				if (ksc.implementsInterface(KStatic::class)) {
+			            builder.add(createStaticRoute(ksc))
 				}
-
 				if (ksc.implementsInterface(KPost::class)) {
-					/**
-					 *   routing {
-					 *         post<Sensor> {
-					 *             val body = call.receive(it.getPostBodyClass())
-					 *             val response = it.process(body as TestPostBody)
-					 *             call.respond(response, TypeInfo(it.getPostResponseBodyClass()))
-					 *         }
-					 *     }
-					 *
-					 *
-					 *     routing {
-					 *         post<TestClass> {
-					 *              val response : TestResponse = it.process(call.receive())
-					 *              call.respond(response,  typeInfo = TypeInfo(TestResponse::class))
-					 *         }
-					 *     }
-					 *
-					 */
-					val responsePackage = getAutoRoutingKClassName(ksc)?.first
-					val responseClass = getAutoRoutingKClassName(ksc)?.second
-
-					log("***************${responseClass!!::class.simpleName}")
-					log("***************${responsePackage}")
-					if (responseClass.isEmpty() == true) {
-						logger.error("AutoRouter processed a POST but the post body KClass is missing from the Annotation.")
-					}
-
-					getBlock.beginControlFlow("post<${ksc.simpleName.asString()}>")
-					getBlock.addStatement("val response : $responseClass = it.process(call.receive())")
-					getBlock.addStatement(" call.respond(response,  typeInfo = TypeInfo($responseClass::class))")
-
-					getBlock.endControlFlow()
+						builder.add(createPostRoute(ksc) )
 				}
-				builder.add(getBlock.build())
+
 			}
 		}
 
 		return builder.build()
-
 	}
 
-	fun getAutoRoutingKClassName(classDeclaration: KSClassDeclaration): Pair<String, String>? {
+	private fun createPostRoute(declaration: KSClassDeclaration) : CodeBlock {
+		val block = CodeBlock.builder()
 
-		val autoRoutingAnnotation = classDeclaration.annotations
+		val responseClass = getAutoRoutingKClassName(declaration)?.second
+		block.beginControlFlow("post<${declaration.simpleName.asString()}>")
+		block.addStatement("val response : $responseClass = it.process(call.receive())")
+		block.addStatement(" call.respond(response,  typeInfo = TypeInfo($responseClass::class))")
+
+		block.endControlFlow()
+		return block.build()
+	}
+
+	private fun createStaticRoute(declaration: KSClassDeclaration) : CodeBlock {
+		val block = CodeBlock.builder()
+		declaration.annotations.firstOrNull { it.shortName.asString() == Resource::class.simpleName }?.let {
+			it.arguments.firstOrNull { check -> check.name?.asString() == PATH}?.let { resource ->
+				declaration.annotations.firstOrNull { it.shortName.asString() == KoboldStatic::class.simpleName }?.let {
+				 it.arguments.firstOrNull { check -> check.name?.asString() == PATH }?.let { path ->
+						block. beginControlFlow("staticFiles(%S, File(%S))", resource.value, path.value)
+						.addStatement("default(%S)", "index.html")
+						. endControlFlow()
+					}
+				}
+			}
+		}
+		return block.build()
+	}
+
+	private fun createWebRoute(declaration: KSClassDeclaration): CodeBlock {
+		val block = CodeBlock.builder()
+		return block
+			.beginControlFlow("get<${declaration.simpleName.asString()}>")
+    	     .beginControlFlow("call.respondHtml")
+		.beginControlFlow("body")
+		.addStatement("it.render.invoke(this)")
+		.endControlFlow().endControlFlow()
+		.endControlFlow()
+			.build()
+	}
+
+	fun createGetRouter(declaration: KSClassDeclaration): CodeBlock {
+		val block = CodeBlock.builder()
+		block.beginControlFlow("get<${declaration.simpleName.asString()}>")
+		val responseClass = getAutoRoutingKClassName(declaration)
+		responseClass?.let {
+			block.addStatement(" call.respond(it.render.invoke() as ${responseClass.second}, typeInfo = TypeInfo(${responseClass.second}::class))")
+		}
+		block.endControlFlow()
+
+		return block.build()
+	}
+
+	fun getAutoRoutingKClassName(declaration: KSClassDeclaration): Pair<String, String>? {
+
+		val autoRoutingAnnotation = declaration.annotations
 			.firstOrNull { it.shortName.asString() == Kobold::class.simpleName }
 
 		autoRoutingAnnotation?.arguments?.forEach { argument: KSValueArgument ->
@@ -274,6 +216,13 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  history: File) : BaseProc
 		}
 
 		return checkSuperTypes()
+	}
+
+	companion object {
+
+		const val TARGET_ROUTER_NAME = "AutoRouter"
+		const val TARGET_ROUTER_FUN_NAME = "autoRoute"
+		const val PATH = "path"
 	}
 
 }

@@ -3,23 +3,35 @@ package io.github.bsautner.ksp.processor
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.squareup.kotlinpoet.FileSpec
-import io.github.bsautner.ksp.processor.util.parentDir
+import io.github.bsautner.ksp.processor.util.touchFile
 import java.io.File
 import java.util.*
 
+enum class PlatformType {
+	jvm, js
+}
 
-abstract class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: File) : KoboldClassBuilder {
+
+abstract class BaseProcessor(env: SymbolProcessorEnvironment, val sessionId: String) : KoboldClassBuilder{
 
 	private var logger: KSPLogger = env.logger
-	private var outputDir : File = File(env.options["output-dir"].toString())
-    private var enableDeleting = true //TODO make config
+	private var commonOutputDir : File = File(env.options["kmp-output-dir"].toString())
+	private var jvmOutputDir : File = File(env.options["jvm-output-dir"].toString())
+    private var enableDeleting = false //TODO make config
 
 	fun log(text: Any) {
 		 logger.warn("$PREFIX ${Date()} $text")
 	}
 
-	fun writeToFile(fileSpec: FileSpec) {
+	fun writeToFile(fileSpec: FileSpec, platform: PlatformType) {
 
+		val outputDir = getOutputDir(platform)
+		val historyFile = File(outputDir, sessionId.toString())
+
+		if (! historyFile.exists()) {
+			outputDir.mkdirs()
+			touchFile(historyFile)
+		}
 		outputDir.let {
 
 			val target = "$outputDir/${fileSpec.packageName.replace('.', '/')}/${fileSpec.name}.kt"
@@ -35,15 +47,25 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: F
 					log("Skipping identical content")
 					historyFile.appendText ("${outputDir}/${fileSpec.relativePath}\n")
 				} else {
-					createFile(fileSpec)
+					createFile(fileSpec, outputDir, historyFile)
 				}
 			} else {
-				createFile(fileSpec,)
+				createFile(fileSpec, outputDir, historyFile)
 			}
 		}
 	}
 
-	fun createFile(fileSpec: FileSpec) : File {
+	private fun getOutputDir(platform: PlatformType): File {
+		val outputDir = {
+			when (platform) {
+				PlatformType.jvm -> jvmOutputDir
+				PlatformType.js -> commonOutputDir
+			}
+		}.invoke()
+		return outputDir
+	}
+
+	fun createFile(fileSpec: FileSpec, outputDir : File, historyFile: File) : File {
 		val result = fileSpec.writeTo(outputDir)
     	 historyFile.appendText("${result.absolutePath}\n")
 		log("Created File : ${result.path}")
@@ -51,35 +73,51 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment, val historyFile: F
 	}
 
 
-	fun purge() {
+	fun purge(env: SymbolProcessorEnvironment, sessionId: String) {
 
-		val goodList = mutableListOf<String>()
-		if (historyFile.exists()) {
+		PlatformType.entries.forEach {
+			val outputDir = getOutputDir(it)
+			val historyFile = File(outputDir, sessionId.toString())
+			val goodList = mutableListOf<String>()
+			if (historyFile.exists()) {
 
 
 				log("Looking at logs: ${historyFile.path}")
-		     	historyFile.readLines().forEach { goodFile ->
+				historyFile.readLines().forEach { goodFile ->
 					if (! goodList.contains(goodFile)) {
 						log("Preserving $goodFile from deletion" )
 						goodList.add(goodFile)
 					}
 
 				}
- 			}
+			}
 
-		log("Deleting old code from build preserving ${goodList.size}")
-		deleteOldCode(outputDir, goodList)
-		log("Deleting history file: ${historyFile.absolutePath}")
-	   if (enableDeleting) {  historyFile.delete() }
+			log("Deleting old code from build preserving ${goodList.size}")
+			env.options["jvm-output-dir"]?.let {
+				deleteOldCode(File(it), goodList, historyFile)
+			}
+
+			env.options["kmp-output-dir"]?.let {
+				deleteOldCode(File(it), goodList, historyFile)
+			}
+
+			log("Deleting history file: ${historyFile.absolutePath}")
+			if (enableDeleting) {
+				historyFile.delete()
+			}
+
+
+		}
+
 	}
 
 
-	fun deleteOldCode(dir: File, goodList: MutableList<String>) {
+	fun deleteOldCode(dir: File, goodList: MutableList<String>, historyFile: File) {
 
 		dir.listFiles().forEach {
 			if (it.absolutePath != historyFile.absolutePath) {
 				if (it.isDirectory) {
-					deleteOldCode(it, goodList)
+					deleteOldCode(it, goodList, historyFile)
 				} else if (!goodList.contains(it.path)) {
 					log("!!!DELETING Old Code ${it.path}")
 					if (enableDeleting) { it.delete() }

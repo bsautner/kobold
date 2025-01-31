@@ -30,8 +30,8 @@ java {
 }
 
 ksp {
-    arg("source", "demo")
-    arg("output-dir", "$buildDir/generated/ksp/common/kotlin")
+       arg("jvm-output-dir", "$buildDir/generated/ksp/jvm/kotlin")
+        arg("kmp-output-dir", "$buildDir/generated/ksp/common/kotlin")
 }
 
 kotlin {
@@ -63,9 +63,10 @@ kotlin {
         val jvmMain by getting {
             kotlin.srcDir("src/jvmMain/kotlin")
             resources.srcDir("src/jvmMain/resources")
+            kotlin.srcDir("$buildDir/generated/ksp/jvm/kotlin")
             dependencies {
                 implementation(libs.ktor.netty)
-                implementation(libs.bundles.ktorServer)
+                implementation(libs.bundles.ktorJvmServer)
                 implementation(libs.bundles.ktorClient)
 
             }
