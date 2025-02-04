@@ -1,13 +1,7 @@
 package io.github.bsautner.kobold
 
 
-import io.github.bsautner.demo.TestClass
-import io.github.bsautner.demo.TestPost
-import io.github.bsautner.demo.TestResponse
-import io.github.bsautner.kobold.annotations.autoRoute
 
-import io.ktor.http.HttpStatusCode
-import io.ktor.resources.Resource
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -29,7 +23,7 @@ fun main() {
             json()
         }
         install(Resources)
-        autoRoute()
+        //autoRoute()
     }.start(wait = true)
 }
 

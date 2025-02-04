@@ -7,34 +7,27 @@ import io.github.bsautner.ksp.processor.util.touchFile
 import java.io.File
 import java.util.*
 
-enum class PlatformType {
-	jvm, js
-}
+//TODO mark all files dirty, process with not dirty mark and delete dirty files.
 
-
-abstract class BaseProcessor(env: SymbolProcessorEnvironment, val sessionId: String) : KoboldClassBuilder{
+abstract class BaseProcessor(env: SymbolProcessorEnvironment) : KoboldClassBuilder{
 
 	private var logger: KSPLogger = env.logger
-	private var commonOutputDir : File = File(env.options["kmp-output-dir"].toString())
-	private var jvmOutputDir : File = File(env.options["jvm-output-dir"].toString())
-    private var enableDeleting = false //TODO make config
+	private var outputDirOption : File =
+				File(env.options["output-dir"].toString())
+
 
 	fun log(text: Any) {
-		 logger.warn("$PREFIX ${Date()} $text")
+		 logger.warn("${Date()} $text")
 	}
 
-	fun writeToFile(fileSpec: FileSpec, platform: PlatformType) {
+	fun writeToFile(fileSpec: FileSpec) {
 
-		val outputDir = getOutputDir(platform)
-		val historyFile = File(outputDir, sessionId.toString())
 
-		if (! historyFile.exists()) {
-			outputDir.mkdirs()
-			touchFile(historyFile)
-		}
-		outputDir.let {
+		log(fileSpec.tags)
+		fileSpec.tag(TargetPlatform::class)?.let {
+			val outputDir = File("$outputDirOption/${it.name}/kotlin")
 
-			val target = "$outputDir/${fileSpec.packageName.replace('.', '/')}/${fileSpec.name}.kt"
+			val target = "${outputDir.absolutePath}/${fileSpec.packageName.replace('.', '/')}/${fileSpec.name}.kt"
 
 			val targetFile = File(target)
 			log("Checking Target. Exists = ${targetFile.exists()}  $target")
@@ -45,90 +38,28 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment, val sessionId: Str
 				}
 				if (content.trim() == newContent.trim()) {
 					log("Skipping identical content")
-					historyFile.appendText ("${outputDir}/${fileSpec.relativePath}\n")
+					//TODO mark as not dirty
 				} else {
-					createFile(fileSpec, outputDir, historyFile)
+					createFile(fileSpec, outputDir)
 				}
 			} else {
-				createFile(fileSpec, outputDir, historyFile)
+				createFile(fileSpec, outputDir)
 			}
 		}
 	}
 
-	private fun getOutputDir(platform: PlatformType): File {
-		val outputDir = {
-			when (platform) {
-				PlatformType.jvm -> jvmOutputDir
-				PlatformType.js -> commonOutputDir
-			}
-		}.invoke()
-		return outputDir
-	}
 
-	fun createFile(fileSpec: FileSpec, outputDir : File, historyFile: File) : File {
+
+	fun createFile(fileSpec: FileSpec, outputDir : File) : File {
 		val result = fileSpec.writeTo(outputDir)
-    	 historyFile.appendText("${result.absolutePath}\n")
 		log("Created File : ${result.path}")
 		return result
 	}
 
 
-	fun purge(env: SymbolProcessorEnvironment, sessionId: String) {
-
-		PlatformType.entries.forEach {
-			val outputDir = getOutputDir(it)
-			val historyFile = File(outputDir, sessionId.toString())
-			val goodList = mutableListOf<String>()
-			if (historyFile.exists()) {
-
-
-				log("Looking at logs: ${historyFile.path}")
-				historyFile.readLines().forEach { goodFile ->
-					if (! goodList.contains(goodFile)) {
-						log("Preserving $goodFile from deletion" )
-						goodList.add(goodFile)
-					}
-
-				}
-			}
-
-			log("Deleting old code from build preserving ${goodList.size}")
-			env.options["jvm-output-dir"]?.let {
-				deleteOldCode(File(it), goodList, historyFile)
-			}
-
-			env.options["kmp-output-dir"]?.let {
-				deleteOldCode(File(it), goodList, historyFile)
-			}
-
-			log("Deleting history file: ${historyFile.absolutePath}")
-			if (enableDeleting) {
-				historyFile.delete()
-			}
-
-
-		}
-
-	}
-
-
-	fun deleteOldCode(dir: File, goodList: MutableList<String>, historyFile: File) {
-
-		dir.listFiles().forEach {
-			if (it.absolutePath != historyFile.absolutePath) {
-				if (it.isDirectory) {
-					deleteOldCode(it, goodList, historyFile)
-				} else if (!goodList.contains(it.path)) {
-					log("!!!DELETING Old Code ${it.path}")
-					if (enableDeleting) { it.delete() }
-
-				}
-			}
-		}
-	}
 
 	companion object {
-		const val PREFIX = "benlog"
+		const val PREFIX = "ksp my stuff::"
 
 
 	}

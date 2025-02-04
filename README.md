@@ -1,19 +1,22 @@
 # kobold
 
-
 ## To get started
 
 Create a new multiplatform project using [Jetbrains Wizard](https://kmp.jetbrains.com/) 
 
 add to gradle 
-```agsl
+```
 
 ksp {
-arg("jvm-output-dir", "$buildDir/generated/ksp/jvm/kotlin")
-arg("kmp-output-dir", "$buildDir/generated/ksp/common/kotlin")
+arg("jvm-output-dir", "${project.layout.buildDirectory}/generated/ksp/jvm/kotlin")
+arg("kmp-output-dir", "${project.layout.buildDirectory}/generated/ksp/common/kotlin")
 }
 
+    ksp(libs.kobold.ksp)
+    implementation(libs.kobold.api.jvm)
+
 ```
+
 
 
 

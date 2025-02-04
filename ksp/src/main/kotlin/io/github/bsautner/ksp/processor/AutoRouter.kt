@@ -5,6 +5,7 @@ import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
+import io.github.bsautner.kobold.KComposable
 import io.github.bsautner.kobold.KGet
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.kobold.KStatic
@@ -18,20 +19,22 @@ import io.github.bsautner.kobold.KoboldStatic
 /**
  * TODO - add sorting and organize the generated routes.
  * add kdocs
- *
+ * fail on response and request objects not being Serializable
  */
-class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : BaseProcessor(env, sessionId) {
-
+class AutoRouter(val env: SymbolProcessorEnvironment) : BaseProcessor(env) {
+	private val classHelper = ClassHelper()
 	override fun create(sequence: Sequence<KSAnnotated>) {
 
-		log("Creating Router with ${sequence.toList().size} symbols.")
-
+		log("Creating Router ${env.options["project"]} with ${sequence.toList().size} symbols.")
+		val project = env.options["project"] ?: ""
+		val fn = "${project.first().uppercase()}${project.removeRange(0, 1)}"
 		val classPackage = Kobold::class.qualifiedName?.substringBeforeLast(".")
-		val specBuilder = FileSpec.builder(classPackage!!, TARGET_ROUTER_NAME)
+		val specBuilder = FileSpec.builder(classPackage!!, "$fn$TARGET_ROUTER_NAME")
+		specBuilder.tag(TargetPlatform::class, TargetPlatform.jvmMain)
 		addImports(specBuilder, sequence)
 		specBuilder.addFunction(
 			FunSpec
-				.builder(TARGET_ROUTER_FUN_NAME)
+				.builder("$project$TARGET_ROUTER_NAME")
 				.receiver(Application::class)
 				.addCode(generate(sequence))
 				.build()
@@ -39,7 +42,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : Base
 		val specFile = specBuilder.build()
 		log("Router Created ${specFile.relativePath}")
 
-		writeToFile(specFile, PlatformType.jvm)
+		writeToFile(specFile)
 
 
 	}
@@ -66,10 +69,14 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : Base
 
 			val import = (it as KSClassDeclaration).getImport()
 			file.addImport(import.first, import.second)
+			val typeParams = classHelper.getTypeParameters(it)
+			//val annotationClass = getAutoRoutingKClassName(it)
+			typeParams.let { params ->
+				val meta1 = classHelper.getClassMetaData(it)
+				file.addImport(meta1.packageName, meta1.className)
 
-			val annotationClass = getAutoRoutingKClassName(it)
-			annotationClass?.let {
-				file.addImport(annotationClass.first, annotationClass.second)
+				val meta2 = classHelper.getClassMetaData(it)
+				file.addImport(meta2.packageName, meta2.className)
 			}
 
 		}
@@ -97,7 +104,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : Base
 				if (ksc.implementsInterface(KGet::class)) {
 						 builder.add(createGetRouter(ksc))
 				}
-				if (ksc.implementsInterface(KWeb::class)) {
+			    if (ksc.implementsInterface(KWeb::class)) {
 						 builder.add(createWebRoute(ksc))
 				}
  				if (ksc.implementsInterface(KStatic::class)) {
@@ -116,10 +123,18 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : Base
 	private fun createPostRoute(declaration: KSClassDeclaration) : CodeBlock {
 		val block = CodeBlock.builder()
 
-		val responseClass = getAutoRoutingKClassName(declaration)?.second
-		block.beginControlFlow("post<${declaration.simpleName.asString()}>")
-		block.addStatement("val response : $responseClass = it.process(call.receive())")
-		block.addStatement(" call.respond(response,  typeInfo = TypeInfo($responseClass::class))")
+		val metaData = classHelper.getTypeParameters(declaration)
+		log("Creating post router with metadata: $metaData")
+		log("--params: ${metaData.first().params.toList()}")
+		log("-- interfaces: ${metaData.first().interfaces.toList()}")
+
+		metaData.first().let {
+
+			block.beginControlFlow("post<${it.className}>")
+			block.addStatement("val response : ${it.params.first().className} = it.process(call.receive())")
+		//	block.addStatement(" call.respond(response,  typeInfo = TypeInfo(${it.params.}::class))")
+
+		}
 
 		block.endControlFlow()
 		return block.build()
@@ -131,7 +146,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : Base
 			it.arguments.firstOrNull { check -> check.name?.asString() == PATH}?.let { resource ->
 				declaration.annotations.firstOrNull { it.shortName.asString() == KoboldStatic::class.simpleName }?.let {
 				 it.arguments.firstOrNull { check -> check.name?.asString() == PATH }?.let { path ->
-						block. beginControlFlow("staticFiles(%S, File(%S))", resource.value, path.value)
+						block. beginControlFlow("staticResources(%S, %S)", resource.value, path.value)
 						.addStatement("default(%S)", "index.html")
 						. endControlFlow()
 					}
@@ -156,71 +171,25 @@ class AutoRouter(val env: SymbolProcessorEnvironment,  sessionId: String) : Base
 	fun createGetRouter(declaration: KSClassDeclaration): CodeBlock {
 		val block = CodeBlock.builder()
 		block.beginControlFlow("get<${declaration.simpleName.asString()}>")
-		val responseClass = getAutoRoutingKClassName(declaration)
-		responseClass?.let {
-			block.addStatement(" call.respond(it.render.invoke() as ${responseClass.second}, typeInfo = TypeInfo(${responseClass.second}::class))")
+
+		val metaData = classHelper.getTypeParameters(declaration)
+		log(metaData)
+
+		metaData.first().let {
+
+			block.addStatement(" call.respond(it.render.invoke() as $it, typeInfo = TypeInfo($it::class))")
+
 		}
+
 		block.endControlFlow()
 
 		return block.build()
 	}
 
-	fun getAutoRoutingKClassName(declaration: KSClassDeclaration): Pair<String, String>? {
-
-		val autoRoutingAnnotation = declaration.annotations
-			.firstOrNull { it.shortName.asString() == Kobold::class.simpleName }
-
-		autoRoutingAnnotation?.arguments?.forEach { argument: KSValueArgument ->
-
-			if (argument.name?.getShortName() == "serializableResponse") {
-				val kClassReference = argument.value
-
-				if (kClassReference is KSType) {
-					val param = kClassReference.declaration
-					val qualifiedName = param.qualifiedName?.asString()
-
-					param.packageName.let { packageName ->
-						param.simpleName.let { simpleNameName ->
-							return Pair(packageName.asString(), simpleNameName.asString())
-						}
-					}
-
-
-				}
-
-			}
-		}
-
-		return null
-	}
-
-	// Function to check if the class or any of its superclasses implement the given interface
-	fun KSClassDeclaration.implementsInterface(interfaceClass: KClass<*>): Boolean {
-		val interfaceFqn = interfaceClass.qualifiedName ?: return false
-
-		fun KSClassDeclaration.checkSuperTypes(): Boolean {
-			// Check if any of the super types match the interface
-			return this.superTypes.any { superTypeRef: KSTypeReference ->
-				val resolvedType: KSType = superTypeRef.resolve()
-				val declaration = resolvedType.declaration as? KSClassDeclaration
-
-				// Check if the resolved type's qualified name matches the interface
-				if (resolvedType.declaration.qualifiedName?.asString() == interfaceFqn) {
-					return true
-				}
-
-				// Recursively check the super types of the current super class
-				declaration?.checkSuperTypes() ?: false
-			}
-		}
-
-		return checkSuperTypes()
-	}
-
 	companion object {
 
 		const val TARGET_ROUTER_NAME = "AutoRouter"
-		const val TARGET_ROUTER_FUN_NAME = "autoRoute"
+
 		const val PATH = "path"
 	}
 

@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
     alias(libs.plugins.ksp)
-    id("io.ktor.plugin") version "3.0.2"
+    alias(libs.plugins.ktor)
 }
 
 group = "io.github.bsautner"
@@ -30,8 +30,8 @@ java {
 }
 
 ksp {
-       arg("jvm-output-dir", "$buildDir/generated/ksp/jvm/kotlin")
-        arg("kmp-output-dir", "$buildDir/generated/ksp/common/kotlin")
+       arg("output-dir",  project.layout.buildDirectory.get().asFile.absolutePath + "/generated/ksp")
+       arg("project", project.name)
 }
 
 kotlin {
@@ -63,8 +63,10 @@ kotlin {
         val jvmMain by getting {
             kotlin.srcDir("src/jvmMain/kotlin")
             resources.srcDir("src/jvmMain/resources")
-            kotlin.srcDir("$buildDir/generated/ksp/jvm/kotlin")
+            kotlin.srcDir("${project.layout.buildDirectory}/generated/ksp/jvm/kotlin")
             dependencies {
+                implementation(kotlin("stdlib"))
+
                 implementation(libs.ktor.netty)
                 implementation(libs.bundles.ktorJvmServer)
                 implementation(libs.bundles.ktorClient)
@@ -74,7 +76,7 @@ kotlin {
 
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
-            kotlin.srcDir("$buildDir/generated/ksp/common/kotlin")
+            kotlin.srcDir("${project.layout.buildDirectory}/generated/ksp/common/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api(project(":api"))
@@ -89,7 +91,7 @@ kotlin {
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.bundles.ktorServer)
                 implementation(libs.bundles.ktorClient)
-                implementation(kotlin("stdlib"))
+
 
             }
         }
@@ -98,7 +100,6 @@ kotlin {
             dependencies {
                 implementation(project(":api"))
                 implementation(compose.runtime)
-                implementation(kotlin("stdlib"))
                 implementation(kotlin("stdlib-wasm-js"))
                 implementation(libs.bundles.ktorClient)
 
@@ -121,10 +122,6 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     }
 }
 
-tasks.withType<com.google.devtools.ksp.gradle.KspTask> {
-    println("ksp task from kmp compilation")
-    outputs.upToDateWhen { false }
-}
 tasks.withType<org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec> {
     binaryenArgs = mutableListOf(
         "--enable-gc",
@@ -142,6 +139,10 @@ tasks.named("compileKotlinWasmJs") {
 
 
 
+tasks.withType<com.google.devtools.ksp.gradle.KspTask> {
+    println("ksp task from kmp compilation")
+    outputs.upToDateWhen { false }
+}
 tasks.named("compileKotlinJvm") {
     dependsOn("kspCommonMainKotlinMetadata")
 }

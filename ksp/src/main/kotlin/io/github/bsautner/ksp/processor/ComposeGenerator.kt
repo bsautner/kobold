@@ -1,15 +1,14 @@
 package io.github.bsautner.ksp.processor
 
-import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
+import io.github.bsautner.kobold.KPost
+import io.github.bsautner.kobold.KResponse
 import io.github.bsautner.ksp.processor.RoutingGenerator.getRouteClassDeclaration
-import java.io.File
-import java.util.UUID
 
-class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : BaseProcessor(env, sessionId) {
+class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
     private val classHelper = ClassHelper()
 
@@ -18,9 +17,12 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
         val classDeclaration = sequence.first() as KSClassDeclaration
         val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
         val packageName = classDeclaration.packageName.asString()
+        log("Creating Composable: $packageName.$outputClassName")
+
+
 
         val fileBuilder = FileSpec.builder(packageName, outputClassName)
-
+        fileBuilder.tag(TargetPlatform::class, TargetPlatform.commonMain)
         addImports(fileBuilder, sequence)
 
         val functionBuilder = FunSpec.builder(outputClassName)
@@ -31,13 +33,19 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
             .addFileComment(Const.comment)
             .addFunction(functionBuilder.build())
         log("Created Composable: ${fileBuilder.packageName}.${fileBuilder.name}" )
-        writeToFile(fileBuilder.build(), PlatformType.js)
+        writeToFile(fileBuilder.build())
     }
+
+
 
     override fun addImports(builder: FileSpec.Builder,sequence: Sequence<KSAnnotated>) {
 
-        val classMetaData = classHelper.getUserProvidedDataClass(sequence.first() as KSClassDeclaration)
 
+        sequence.toList().forEach {
+            val classMetaData = classHelper.getClassMetaData (sequence.first() as KSClassDeclaration)
+
+	        classMetaData.let { cmd -> builder.addImport(cmd.packageName, cmd.className) }
+        }
         builder.addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
             .addImport("androidx.compose.foundation", "border", "clickable")
             .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
@@ -52,7 +60,7 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
             .addImport("io.github.bsautner.kobold", "introspectSerializableClass")
             .addImport("io.github.bsautner.kobold.client", "ApiClient")
 
-            .addImport(classMetaData.packageName, classMetaData.className)
+
     }
 
     override fun generate(sequence: Sequence<KSAnnotated>): CodeBlock {
@@ -61,31 +69,37 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
         code.addStatement("val defaults = remember { mutableStateOf(mutableMapOf<String, String?>()) }")
         code.addStatement("var isInitialized by remember { mutableStateOf(false) }")
         val classDeclaration = sequence.first() as KSClassDeclaration
-        val classMetaData = classHelper.getUserProvidedDataClass(classDeclaration)
 
-        val route = getRouteClassDeclaration(classDeclaration) ?: ""
-        // LaunchedEffect block for initialization
-        code.beginControlFlow("LaunchedEffect(Unit)")
-        classMetaData.defaultValues.forEach {
-            code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
-        }
-        code.addStatement("isInitialized = true")
-        code.endControlFlow()
+        val typeParams = classHelper.getTypeParameters(classDeclaration)
 
-        // Loading State
-        code.add(
-            """
+        typeParams.first().let { classMetaData ->
+
+
+            classMetaData.defaultValues.forEach {
+                code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
+            }
+
+            val route = getRouteClassDeclaration(classDeclaration) ?: ""
+            // LaunchedEffect block for initialization
+            code.beginControlFlow("LaunchedEffect(Unit)")
+
+            code.addStatement("isInitialized = true")
+            code.endControlFlow()
+
+            // Loading State
+            code.add(
+                """
             if (!isInitialized) {
                 Text("Loading...")
                 return
             }
             """.trimIndent()
-        )
+            )
 
-        // State for validation tracking
-        code.add("\n")
-        code.add(
-            """
+            // State for validation tracking
+            code.add("\n")
+            code.add(
+                """
             val requiredFieldsValid = remember { mutableStateOf(mutableMapOf<String, Boolean>()) }
             val fields = introspectSerializableClass<${classMetaData.className}>()
             
@@ -101,15 +115,15 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
                 BasicText("${classMetaData.className}")
                 Spacer(Modifier.height(16.dp))
             """.trimIndent()
-        )
-        code.add("\n")
-        // Generate form fields
-        code.add(generateFormFields(classMetaData))
+            )
+            code.add("\n")
+            // Generate form fields
+            code.add(generateFormFields(classMetaData))
 
-        // Submit button
-        code.add("\n")
-        code.add(
-            """
+            // Submit button
+            code.add("\n")
+            code.add(
+                """
                 val isFormValid = requiredFieldsValid.value.all { it.value }
                 
                 Button(
@@ -117,14 +131,14 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
                         CoroutineScope(Dispatchers.Default).launch {
                             val postBody = ${classMetaData.className}(
             """.trimIndent()
-        )
+            )
 
-        classMetaData.defaultValues.forEach {
-            code.addStatement("${it.key} = defaults.value[\"${it.key}\"] ?: \"\",")
-        }
+            classMetaData.defaultValues.forEach {
+                code.addStatement("${it.key} = defaults.value[\"${it.key}\"] ?: \"\",")
+            }
 
-        code.add(
-            """
+            code.add(
+                """
                             )
                             try {
                                 val response = ApiClient.postData("$route", postBody)
@@ -136,11 +150,18 @@ class ComposeGenerator(env: SymbolProcessorEnvironment,  sessionId: String) : Ba
                     },
                     enabled = isFormValid
                 ) {
-                    Text("OK 5")
+                    Text("OK 10")
                 }
             }
             """.trimIndent()
-        )
+
+            )
+
+
+        }
+
+
+
 
         return code.build()
     }

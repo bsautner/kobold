@@ -5,10 +5,12 @@ import kotlinx.serialization.Serializable
 import kotlin.jvm.Transient
 import kotlin.reflect.KClass
 
+@Serializable
+open class KJsonResponse : KResponse
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class Kobold(val serializableResponse: KClass<*> = Any::class)
+annotation class Kobold()
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
@@ -21,8 +23,7 @@ interface KRequest
 @Serializable
 open class KPostBody : KRequest
 
-@Serializable
-open class KJsonResponse : KResponse
+
 
 @Serializable
 open class KHtmlResponse : KResponse

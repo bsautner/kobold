@@ -10,13 +10,13 @@ import kotlinx.serialization.Contextual
 
 class MyUserInterface(render: @Composable () -> Unit) : KCompose(render)
 
-@Kobold(TestPost::class)
+@Kobold
 @Resource("/test")
 data object ComposeExample: KComposable {
 
     @Contextual
     override val render: KCompose = MyUserInterface {
-         ComposeExampleComposable()
+         //ComposeExampleComposable()
     }
 }
 

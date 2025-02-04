@@ -9,20 +9,23 @@ import com.google.devtools.ksp.validate
 import io.github.bsautner.kobold.KComposable
 import io.github.bsautner.kobold.Kobold
 import io.ktor.resources.*
+import kotlin.math.log
 
-class KoboldProcessor(env: SymbolProcessorEnvironment,  sessionId: String):  SymbolProcessor {
-    private val composeGenerator = ComposeGenerator(env, sessionId)
-    private val autoRouter: AutoRouter = AutoRouter(env, sessionId)
+class KoboldProcessor(val env: SymbolProcessorEnvironment):  SymbolProcessor {
+    private val composeGenerator = ComposeGenerator(env)
+    private val autoRouter: AutoRouter = AutoRouter(env)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
 
         val resourcesName = Resource::class.qualifiedName!!
-        val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
-            .filter { it is KSClassDeclaration && it.validate() }
-         if (resourcesToProcess.toList().isNotEmpty()) {
-            autoRouter.create(resourcesToProcess)
-        }
 
+        processKtorResources(resolver, resourcesName)
+        processKoboldAnnotations(resolver)
+
+        return emptyList()
+    }
+
+    private fun processKoboldAnnotations(resolver: Resolver) {
         val annotationFqName = Kobold::class.qualifiedName!!
         val symbols = resolver.getSymbolsWithAnnotation(annotationFqName)
             .filter { it is KSClassDeclaration && it.validate() }
@@ -30,10 +33,16 @@ class KoboldProcessor(env: SymbolProcessorEnvironment,  sessionId: String):  Sym
         symbols.toList().forEach {
             processSymbols(sequenceOf(it))
         }
-
-
-        return emptyList()
     }
+
+    private fun processKtorResources(resolver: Resolver, resourcesName: String) {
+        val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
+            .filter { it is KSClassDeclaration && it.validate() }
+        if (resourcesToProcess.toList().isNotEmpty()) {
+            autoRouter.create(resourcesToProcess)
+        }
+    }
+
     private fun processSymbols(sequence: Sequence<KSAnnotated>) {
 
                 val classDeclaration = sequence.first() as KSClassDeclaration

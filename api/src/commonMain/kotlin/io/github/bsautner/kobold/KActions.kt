@@ -4,12 +4,12 @@ import kotlin.reflect.KClass
 
 
 interface KGet<T: KResponse> {
-    var render: () -> T
+    val render: () -> T
 }
 
 
-interface KPost<T : KResponse, R : KPostBody> {
-    var process: (R) -> T
+interface KPost<T : KPostBody, R : KResponse> {
+    val process: (T) -> R
 }
 
 interface KStatic
@@ -18,13 +18,13 @@ interface KComposable  {
     val render: KCompose
 }
 interface KWeb<T> {
-    var render: (T) -> Unit
+    val render: (T) -> Unit
 }
 
-inline fun <reified T : KResponse, reified R: KPostBody> KPost<T, R>.getPostBodyClass() : KClass<T> {
+inline fun <reified T : KPostBody, reified R: KResponse > KPost<T, R>.getPostBodyClass() : KClass<T> {
     return T::class
 }
-inline fun <reified T: KResponse, reified R : KPostBody> KPost<T, R>.getPostResponseBodyClass() : KClass<R> {
+inline fun <reified T: KPostBody, reified R: KResponse> KPost<T, R>.getPostResponseBodyClass() : KClass<R> {
     return R::class
 }
 

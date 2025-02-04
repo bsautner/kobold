@@ -6,7 +6,6 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import io.github.bsautner.ksp.processor.BaseProcessor
-import io.github.bsautner.ksp.processor.PlatformType
 import io.github.bsautner.ksp.processor.toFile
 import io.github.bsautner.ksp.processor.util.isEmpty
 import io.github.bsautner.ksp.processor.util.notExist
@@ -24,7 +23,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class ProcessorUnderTest(env: SymbolProcessorEnvironment, sessionId: String) : BaseProcessor(env, sessionId) {
+class ProcessorUnderTest(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 	override fun create(sequence: Sequence<KSAnnotated>) {
 		TODO("Not yet implemented")
 	}
@@ -51,7 +50,6 @@ class BaseProcessorTest {
 	val env = mockk<SymbolProcessorEnvironment>()
 	val logger = mockk<KSPLogger>()
 	val rootDir = File("/home/ben/kobold_tests")
-	val history = File(rootDir, sessionId)
 	val code : FileSpec = FileSpec.builder( testPackage, fileName ).build()
 	lateinit var  processorUnderTest : BaseProcessor
 
@@ -61,7 +59,7 @@ class BaseProcessorTest {
 		every { logger.info(any()) }  returns Unit
 		every { env.logger }  returns logger
 		every { env.options } returns mapOf<String, String>("jvm-output-dir" to rootDir.absolutePath)
-		processorUnderTest = ProcessorUnderTest(env, sessionId)
+		processorUnderTest = ProcessorUnderTest(env)
 
 	}
 
@@ -92,7 +90,7 @@ class BaseProcessorTest {
 	@Test
 	fun `create files test`() {
 
-		val createdFile = processorUnderTest.createFile(code, rootDir, history)
+		val createdFile = processorUnderTest.createFile(code, rootDir)
 		assertEquals(code.toFile(rootDir),  createdFile)
 		assertTrue { createdFile.isFile }
 		val fileOnDisk = File(createdFile.absolutePath)
@@ -101,17 +99,11 @@ class BaseProcessorTest {
 			! fileOnDisk.isDirectory
 		}
 
-		assertTrue { history.exists() }
-		val historyList  = history.readLines()
-		assertTrue {
-			historyList.isNotEmpty()
-		}
-		assertEquals(historyList.first(), createdFile.absolutePath)
 	}
 
 	@Test @Ignore
 	fun `test purge`() {
-		val createdFile = processorUnderTest.createFile(code, rootDir, history)
+		val createdFile = processorUnderTest.createFile(code, rootDir)
 		val badFile = touchFile(File(rootDir, "bad.kt"))
 		assertTrue {
 				code.toFile(rootDir).exists()
@@ -119,16 +111,12 @@ class BaseProcessorTest {
 				badFile.exists()
 		}
 
-		processorUnderTest.purge(env, sessionId)
 		assertTrue {
 			code.toFile(rootDir).exists()
 			code.toFile(rootDir).isFile
 		}
 		assertTrue {
 			badFile.notExist()
-		}
-		assertTrue {
-			history.notExist()
 		}
 
 
@@ -141,11 +129,10 @@ class BaseProcessorTest {
 		val code2 : FileSpec = FileSpec.builder( testPackage,  "bar" ).build()
 		val code1 : FileSpec = FileSpec.builder( testPackage, "foo" ).build()
 
-		processorUnderTest.writeToFile(code1, PlatformType.jvm)
-		processorUnderTest.writeToFile(code2, PlatformType.jvm)
+		processorUnderTest.writeToFile(code1)
+		processorUnderTest.writeToFile(code2)
 //		history.appendText("foo\n")
 //		history.appendText("bar\n")
-		assertEquals(2, history.readLines().size)
 	}
 
 }

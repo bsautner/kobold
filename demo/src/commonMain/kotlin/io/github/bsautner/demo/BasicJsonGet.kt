@@ -20,32 +20,6 @@ data class TestResponse(val firstName: String = "foo", val lastName: String = "b
 data class TestPost(val firstName: String = "foo", val lastName: String = "bar") : KPostBody()
 
 
-/**
- * This will be detected at compile time and calls to /test will be routed to this lamba
- */
-
-@Kobold(TestResponse::class)
-@Resource("/test")
-class BasicJsonGet: KGet<KJsonResponse> {
-
-	override var render: () -> KJsonResponse
-		get() = TODO("Not yet implemented")
-		set(value) {}
-
-}
-
-@Kobold(TestResponse::class)
-@Resource("/test")
-class TestClass: KPost<TestResponse, TestPost> {
-
-	@Transient
-	override var process: (TestPost) -> TestResponse = {
-
-		TestResponse("foo", "bar")
-
-	}
-
-}
 @KoboldStatic("build/dist/wasmJs/productionExecutable")
 @Resource("/")
 class StaticExample()  : KStatic
