@@ -1,6 +1,10 @@
 [![Code Security](https://github.com/bsautner/kobold/actions/workflows/codeql.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/codeql.yml) [![CI with Gradle](https://github.com/bsautner/kobold/actions/workflows/gradle.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle.yml)
 
-# kobold
+# Kobold 
+
+A code generator for Kotlin Multiplatform, Jetpack Compose and Ktor
+
+<img src="Writerside/images/kobold.webp" width="512">)
 
 ## To get started
 
