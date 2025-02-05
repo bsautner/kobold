@@ -1,8 +1,10 @@
 package io.github.bsautner.ksp.processor
 
+import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSTypeReference
+import io.github.bsautner.kobold.KPost
 import io.github.bsautner.kobold.KResponse
 import io.github.bsautner.kobold.Kobold
 import kotlinx.serialization.Serializable
@@ -14,11 +16,13 @@ data class TypeParams(val request: KSClassDeclaration?, val response: KSClassDec
 class ClassHelper {
 
     data class ClassMetaData(
-        val packageName: String,
-        val className: String,
-        val defaultValues: Map<String, String?>,
-        val params: List<ClassMetaData>,
-        val interfaces: Sequence<KSClassDeclaration>
+        val declaration: KSClassDeclaration,
+        val packageName: String = "",
+        val qualifiedName: String = "",
+        val simpleName: String = "",
+        val defaultValues: Map<String, String?> = emptyMap<String, String>(),
+        val params: Map<String, List<ClassMetaData>> = emptyMap<String, List<ClassMetaData>>(),
+        val interfaces: Sequence<KSClassDeclaration> = emptySequence<KSClassDeclaration>()
     )
 
 //    fun getUserProvidedDataClass(classDeclaration: KSClassDeclaration): ClassMetaData? {
@@ -36,11 +40,12 @@ class ClassHelper {
     fun getClassMetaData(classDeclaration: KSClassDeclaration): ClassMetaData {
 
         val packageName = classDeclaration.packageName.asString()
-        val className = classDeclaration.simpleName.asString()
+        val className = classDeclaration.qualifiedName?.asString() ?: classDeclaration.simpleName.asString()
+        val simpleName = classDeclaration.simpleName.asString()
         val defaultValues = extractDefaultValues(classDeclaration)
         val typeParams = getTypeParameters(classDeclaration)
         val interfaces = getImplementedInterfaces(classDeclaration)
-        return ClassMetaData(packageName, className, defaultValues, typeParams, interfaces)
+        return ClassMetaData(classDeclaration, packageName, className, simpleName, defaultValues, typeParams, interfaces)
     }
 
     fun getImplementedInterfaces(declaration: KSClassDeclaration): Sequence<KSClassDeclaration> {
@@ -88,13 +93,6 @@ class ClassHelper {
         return defaultValues
     }
 
-    @Serializable
-    data class TestData(val foo: String, val bar: String) : KResponse
-
-    @Kobold()
-    class TestClass() {
-
-    }
     fun getSerializableClassDeclaration(classDeclaration: KSClassDeclaration): KSClassDeclaration? {
         // Try to get the Kobold annotation and its 'serializableResponse' argument.
         val autoRoutingAnnotation = classDeclaration.annotations
@@ -117,31 +115,36 @@ class ClassHelper {
         return null
     }
 
-    fun getTypeParameters(classDeclaration: KSClassDeclaration): List<ClassMetaData> {
-        val kPostType = classDeclaration.superTypes
-            .map { it.resolve() }
+    fun getTypeParameters(classDeclaration: KSClassDeclaration): Map<String, List<ClassMetaData>> {
+        val interfacesTypeParams = mutableMapOf<String, List<ClassMetaData>>()
+        val implementedInterfaces: Sequence<KSTypeReference> = classDeclaration.superTypes
+        implementedInterfaces.forEach { typeRef ->
+               val resolvedType = typeRef.resolve()
+               val interfaceName = resolvedType.declaration.qualifiedName?.asString()
+                ?: resolvedType.declaration.simpleName.asString()
 
+            // Extract the type parameters used in the interface (if any).
+            val typeParams = resolvedType.arguments.mapNotNull { arg ->
+                arg.type?.resolve()?.declaration?.let { declaration ->
 
-        val result = mutableListOf<ClassMetaData>()
+                    getClassMetaData(declaration as KSClassDeclaration)
 
-        // Resolve the first type argument (LoginResponse).
-        kPostType.forEach {
-
-            val declaration = it.declaration as? KSClassDeclaration
-            declaration?.let {
-                val md = getClassMetaData(declaration)
-                result.add(md)
+                }
             }
 
+            // Only add interfaces that have type parameters.
+            if (typeParams.isNotEmpty()) {
+                interfacesTypeParams[interfaceName] = typeParams
+            }
         }
-         return result
-
-
+        return interfacesTypeParams
     }
+
+
 
 }
 
-fun KSClassDeclaration.getImport() : Pair<String, String> {
+fun KSClassDeclaration.getImport(): Pair<String, String> {
     val qualifiedName = this.qualifiedName?.asString()
         ?: throw IllegalArgumentException("Class declaration must have a qualified name")
 
@@ -172,8 +175,7 @@ fun KSClassDeclaration.implementsInterface(interfaceClass: KClass<*>): Boolean {
         }
     }
 
-    val result =  checkSuperTypes()
+    val result = checkSuperTypes()
 
     return result
 }
-

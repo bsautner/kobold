@@ -9,7 +9,7 @@ import java.util.UUID
 
 class KoboldProcessorProvider : SymbolProcessorProvider {
 	override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-		return KoboldProcessor(environment)
+		return KoboldProcessor(environment) {}
 	}
 
 

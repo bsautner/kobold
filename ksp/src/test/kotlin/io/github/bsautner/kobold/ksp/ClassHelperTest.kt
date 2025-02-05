@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalCompilerApi::class)
+
 package io.github.bsautner.utils.io.github.bsautner.kobold.ksp
 
 import com.google.devtools.ksp.symbol.KSAnnotation
@@ -7,9 +9,10 @@ import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSValueArgument
 import io.github.bsautner.kobold.KoboldStatic
 import io.github.bsautner.ksp.processor.ClassHelper
-import io.ktor.resources.Resource
+import io.ktor.resources.*
 import io.mockk.every
 import io.mockk.mockk
+import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestInstance.Lifecycle
 import kotlin.test.Test
@@ -23,6 +26,7 @@ class ClassHelperTest {
 
 	@Resource("/") @KoboldStatic("test")
 	class StaticTest
+
 
 	@Test
 	fun `returns serializableResponse class when provided in Kobold annotation`() {

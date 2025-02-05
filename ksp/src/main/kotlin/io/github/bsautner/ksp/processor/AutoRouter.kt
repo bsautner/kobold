@@ -22,11 +22,11 @@ import io.github.bsautner.kobold.KoboldStatic
  * fail on response and request objects not being Serializable
  */
 class AutoRouter(val env: SymbolProcessorEnvironment) : BaseProcessor(env) {
-	private val classHelper = ClassHelper()
+
 	override fun create(sequence: Sequence<KSAnnotated>) {
 
 		log("Creating Router ${env.options["project"]} with ${sequence.toList().size} symbols.")
-		val project = env.options["project"] ?: ""
+		val project = env.options["project"] ?: "na"
 		val fn = "${project.first().uppercase()}${project.removeRange(0, 1)}"
 		val classPackage = Kobold::class.qualifiedName?.substringBeforeLast(".")
 		val specBuilder = FileSpec.builder(classPackage!!, "$fn$TARGET_ROUTER_NAME")
@@ -48,7 +48,7 @@ class AutoRouter(val env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 	}
 
 	override fun addImports(file: FileSpec.Builder, sequence: Sequence<KSAnnotated>) {
-
+		super.addImports(file, sequence)
 
 		file.addImport("io.ktor.server.routing", "routing")
 			.addImport("io.ktor.server.resources", "get", "post", "delete", "put")
@@ -73,10 +73,10 @@ class AutoRouter(val env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 			//val annotationClass = getAutoRoutingKClassName(it)
 			typeParams.let { params ->
 				val meta1 = classHelper.getClassMetaData(it)
-				file.addImport(meta1.packageName, meta1.className)
+				file.addImport(meta1.packageName, meta1.simpleName)
 
 				val meta2 = classHelper.getClassMetaData(it)
-				file.addImport(meta2.packageName, meta2.className)
+				file.addImport(meta2.packageName, meta2.simpleName)
 			}
 
 		}
@@ -123,20 +123,24 @@ class AutoRouter(val env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 	private fun createPostRoute(declaration: KSClassDeclaration) : CodeBlock {
 		val block = CodeBlock.builder()
 
-		val metaData = classHelper.getTypeParameters(declaration)
+		val metaData = classHelper.getClassMetaData(declaration)
 		log("Creating post router with metadata: $metaData")
-		log("--params: ${metaData.first().params.toList()}")
-		log("-- interfaces: ${metaData.first().interfaces.toList()}")
+		//log("--params: ${metaData.first().params.toList()}")
+		//log("-- interfaces: ${metaData.first().interfaces.toList()}")
+		val pth = KPost::class.qualifiedName
+		log("$pth")
+		pth?.let {
+			metaData.params[pth]?.let {
+				val request = it[0].simpleName
+				val response = it[1].simpleName
+				block.beginControlFlow("post<${metaData.simpleName}>")
+				block.addStatement("val response : $response = it.process(call.receive())")
+				block.addStatement("call.respond(response,  typeInfo = TypeInfo($response::class))")
 
-		metaData.first().let {
-
-			block.beginControlFlow("post<${it.className}>")
-			block.addStatement("val response : ${it.params.first().className} = it.process(call.receive())")
-		//	block.addStatement(" call.respond(response,  typeInfo = TypeInfo(${it.params.}::class))")
-
+				block.endControlFlow()
+			}
 		}
 
-		block.endControlFlow()
 		return block.build()
 	}
 
@@ -174,12 +178,12 @@ class AutoRouter(val env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
 		val metaData = classHelper.getTypeParameters(declaration)
 		log(metaData)
-
-		metaData.first().let {
-
-			block.addStatement(" call.respond(it.render.invoke() as $it, typeInfo = TypeInfo($it::class))")
-
-		}
+//
+//		metaData.first().let {
+//
+//			block.addStatement(" call.respond(it.render.invoke() as $it, typeInfo = TypeInfo($it::class))")
+//
+//		}
 
 		block.endControlFlow()
 

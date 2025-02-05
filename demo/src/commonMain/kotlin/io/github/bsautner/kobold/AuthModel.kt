@@ -1,12 +1,6 @@
-package io.github.bsautner.demo
+package io.github.bsautner.kobold
 
 import androidx.compose.runtime.Composable
-import io.github.bsautner.kobold.KComposable
-import io.github.bsautner.kobold.KCompose
-import io.github.bsautner.kobold.KPost
-import io.github.bsautner.kobold.KPostBody
-import io.github.bsautner.kobold.KResponse
-import io.github.bsautner.kobold.Kobold
 
 import io.ktor.resources.Resource
 import kotlinx.serialization.Contextual

@@ -93,9 +93,17 @@ dependencies {
 
     implementation(libs.bundles.poet)
     testImplementation(kotlin("test"))
+    testImplementation("dev.zacsweers.kctfork:ksp:0.7.0")
+    testImplementation("dev.zacsweers.kctfork:core:0.7.0")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     implementation("ch.qos.logback:logback-classic:1.4.14")
     testImplementation("io.mockk:mockk:1.13.16")
-
+    testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.1.10")
 }
 
+tasks.withType<Test> {
+    reports.junitXml.required = false
+}
+tasks.withType<Test>().configureEach {
+    reports.html.required = false
+}

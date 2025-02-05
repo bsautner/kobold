@@ -11,34 +11,34 @@ import io.github.bsautner.kobold.Kobold
 import io.ktor.resources.*
 import kotlin.math.log
 
-class KoboldProcessor(val env: SymbolProcessorEnvironment):  SymbolProcessor {
+class KoboldProcessor(env: SymbolProcessorEnvironment, private val onProcess: (KSClassDeclaration) -> Unit):  SymbolProcessor {
     private val composeGenerator = ComposeGenerator(env)
     private val autoRouter: AutoRouter = AutoRouter(env)
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-
         val resourcesName = Resource::class.qualifiedName!!
-
-        processKtorResources(resolver, resourcesName)
-        processKoboldAnnotations(resolver)
-
+        processKtorResources(resolver, resourcesName, onProcess)
+        processKoboldAnnotations(resolver, onProcess)
         return emptyList()
     }
 
-    private fun processKoboldAnnotations(resolver: Resolver) {
+    private fun processKoboldAnnotations(resolver: Resolver, onProcess: (KSClassDeclaration) -> Unit) {
         val annotationFqName = Kobold::class.qualifiedName!!
         val symbols = resolver.getSymbolsWithAnnotation(annotationFqName)
             .filter { it is KSClassDeclaration && it.validate() }
-
         symbols.toList().forEach {
+            onProcess(it as KSClassDeclaration)
             processSymbols(sequenceOf(it))
         }
     }
 
-    private fun processKtorResources(resolver: Resolver, resourcesName: String) {
+    private fun processKtorResources(resolver: Resolver, resourcesName: String, onProcess: (KSClassDeclaration) -> Unit) {
         val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
             .filter { it is KSClassDeclaration && it.validate() }
         if (resourcesToProcess.toList().isNotEmpty()) {
+            resourcesToProcess.toList().forEach {
+                onProcess(it as KSClassDeclaration)
+            }
             autoRouter.create(resourcesToProcess)
         }
     }

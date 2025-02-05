@@ -1,4 +1,4 @@
-package io.github.bsautner.demo
+package io.github.bsautner.kobold
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport

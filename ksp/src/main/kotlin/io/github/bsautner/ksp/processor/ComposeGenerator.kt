@@ -10,7 +10,6 @@ import io.github.bsautner.ksp.processor.RoutingGenerator.getRouteClassDeclaratio
 
 class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
-    private val classHelper = ClassHelper()
 
     override fun create(sequence: Sequence<KSAnnotated>) {
 
@@ -18,13 +17,9 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
         val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
         val packageName = classDeclaration.packageName.asString()
         log("Creating Composable: $packageName.$outputClassName")
-
-
-
         val fileBuilder = FileSpec.builder(packageName, outputClassName)
         fileBuilder.tag(TargetPlatform::class, TargetPlatform.commonMain)
         addImports(fileBuilder, sequence)
-
         val functionBuilder = FunSpec.builder(outputClassName)
             .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
             .addCode(generate(sequence))
@@ -40,12 +35,8 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
     override fun addImports(builder: FileSpec.Builder,sequence: Sequence<KSAnnotated>) {
 
+        super.addImports(builder, sequence)
 
-        sequence.toList().forEach {
-            val classMetaData = classHelper.getClassMetaData (sequence.first() as KSClassDeclaration)
-
-	        classMetaData.let { cmd -> builder.addImport(cmd.packageName, cmd.className) }
-        }
         builder.addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
             .addImport("androidx.compose.foundation", "border", "clickable")
             .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
@@ -72,10 +63,13 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
         val typeParams = classHelper.getTypeParameters(classDeclaration)
 
-        typeParams.first().let { classMetaData ->
 
 
-            classMetaData.defaultValues.forEach {
+        typeParams.entries.firstOrNull()?.value?.firstOrNull()?.let { typeParams ->
+
+
+            typeParams.defaultValues.forEach {
+
                 code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
             }
 
@@ -98,10 +92,11 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
             // State for validation tracking
             code.add("\n")
+
             code.add(
                 """
             val requiredFieldsValid = remember { mutableStateOf(mutableMapOf<String, Boolean>()) }
-            val fields = introspectSerializableClass<${classMetaData.className}>()
+            val fields = introspectSerializableClass<${typeParams.simpleName}>()
             
             LaunchedEffect(fields) {
                 val validationState = fields.associate { field ->
@@ -112,13 +107,13 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
             
             Column {
                 Spacer(Modifier.height(16.dp))
-                BasicText("${classMetaData.className}")
+                BasicText("${typeParams.simpleName}")
                 Spacer(Modifier.height(16.dp))
             """.trimIndent()
             )
             code.add("\n")
             // Generate form fields
-            code.add(generateFormFields(classMetaData))
+            code.add(generateFormFields(typeParams))
 
             // Submit button
             code.add("\n")
@@ -129,11 +124,11 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                 Button(
                     onClick = {
                         CoroutineScope(Dispatchers.Default).launch {
-                            val postBody = ${classMetaData.className}(
+                            val postBody = ${typeParams.simpleName}(
             """.trimIndent()
             )
 
-            classMetaData.defaultValues.forEach {
+            typeParams.defaultValues.forEach {
                 code.addStatement("${it.key} = defaults.value[\"${it.key}\"] ?: \"\",")
             }
 

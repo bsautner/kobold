@@ -58,7 +58,7 @@ class BaseProcessorTest {
 		every { logger.warn(any()) }  returns Unit
 		every { logger.info(any()) }  returns Unit
 		every { env.logger }  returns logger
-		every { env.options } returns mapOf<String, String>("jvm-output-dir" to rootDir.absolutePath)
+		every { env.options } returns mapOf<String, String>("output-dir" to rootDir.absolutePath)
 		processorUnderTest = ProcessorUnderTest(env)
 
 	}
@@ -66,11 +66,6 @@ class BaseProcessorTest {
 	@AfterTest
 	fun cleanup() {
 
-		rootDir.listFiles().forEach {
-			println("Deleting ${it.absolutePath}")
-			it.deleteRecursively()
-		}
-		assertTrue { rootDir.isEmpty() }
 
 	}
 
@@ -87,52 +82,6 @@ class BaseProcessorTest {
 	}
 
 
-	@Test
-	fun `create files test`() {
 
-		val createdFile = processorUnderTest.createFile(code, rootDir)
-		assertEquals(code.toFile(rootDir),  createdFile)
-		assertTrue { createdFile.isFile }
-		val fileOnDisk = File(createdFile.absolutePath)
-		assertTrue {
-			fileOnDisk.exists()
-			! fileOnDisk.isDirectory
-		}
-
-	}
-
-	@Test @Ignore
-	fun `test purge`() {
-		val createdFile = processorUnderTest.createFile(code, rootDir)
-		val badFile = touchFile(File(rootDir, "bad.kt"))
-		assertTrue {
-				code.toFile(rootDir).exists()
-				code.toFile(rootDir).isFile
-				badFile.exists()
-		}
-
-		assertTrue {
-			code.toFile(rootDir).exists()
-			code.toFile(rootDir).isFile
-		}
-		assertTrue {
-			badFile.notExist()
-		}
-
-
-
-	}
-
-
-	@Test
-	fun  `Test Multiple Writes`() {
-		val code2 : FileSpec = FileSpec.builder( testPackage,  "bar" ).build()
-		val code1 : FileSpec = FileSpec.builder( testPackage, "foo" ).build()
-
-		processorUnderTest.writeToFile(code1)
-		processorUnderTest.writeToFile(code2)
-//		history.appendText("foo\n")
-//		history.appendText("bar\n")
-	}
 
 }

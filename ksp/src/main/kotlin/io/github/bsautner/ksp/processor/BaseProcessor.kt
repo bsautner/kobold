@@ -2,8 +2,12 @@ package io.github.bsautner.ksp.processor
 
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
+import com.google.devtools.ksp.symbol.KSAnnotated
+import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import io.github.bsautner.ksp.processor.util.touchFile
+import io.ktor.server.config.configLoaders
 import java.io.File
 import java.util.*
 
@@ -12,17 +16,15 @@ import java.util.*
 abstract class BaseProcessor(env: SymbolProcessorEnvironment) : KoboldClassBuilder{
 
 	private var logger: KSPLogger = env.logger
-	private var outputDirOption : File =
-				File(env.options["output-dir"].toString())
-
+	private val output = env.options["output-dir"] ?: "/tmp/kobold"
+	private var outputDirOption : File = File(output)
+	val classHelper = ClassHelper()
 
 	fun log(text: Any) {
-		 logger.warn("${Date()} $text")
+		 logger.info("ben: $text")
 	}
 
 	fun writeToFile(fileSpec: FileSpec) {
-
-
 		log(fileSpec.tags)
 		fileSpec.tag(TargetPlatform::class)?.let {
 			val outputDir = File("$outputDirOption/${it.name}/kotlin")
@@ -55,6 +57,27 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment) : KoboldClassBuild
 		log("Created File : ${result.path}")
 		return result
 	}
+
+	override fun addImports(
+		builder: FileSpec.Builder,
+		sequence: Sequence<KSAnnotated>
+	) {
+
+		sequence.toList().forEach {
+
+
+			val classMetaData = classHelper.getClassMetaData (sequence.first() as KSClassDeclaration)
+
+			classMetaData.let { cmd ->
+				builder.addImport(cmd.packageName, cmd.simpleName)
+				addImports(builder, cmd.interfaces)
+				cmd.params.forEach { p ->
+					addImports(builder, p.value.map { it.declaration } .asSequence())
+				}
+			}
+		}
+	}
+
 
 
 
