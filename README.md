@@ -1,3 +1,5 @@
+[![CodeQL Advanced](https://github.com/bsautner/kobold/actions/workflows/codeql.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/codeql.yml) | 
+
 # kobold
 
 ## To get started
