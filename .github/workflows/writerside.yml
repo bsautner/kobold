@@ -1,6 +1,5 @@
 name: Deploy Writerside to GitHub Pages
 
-# Trigger on pushes to the main branch (you can adjust this as needed)
 on:
   push:
     branches:
