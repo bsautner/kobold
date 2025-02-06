@@ -20,13 +20,9 @@ annotation class KoboldStatic(val path: String)
 interface KResponse
 interface KRequest
 
-@Serializable
-open class KPostBody : KRequest
 
 
 
-@Serializable
-open class KHtmlResponse : KResponse
 
 open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
 

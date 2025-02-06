@@ -1,6 +1,6 @@
 package io.github.bsautner.kobold.client
 
-import io.github.bsautner.kobold.KPostBody
+import io.github.bsautner.kobold.KRequest
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -18,7 +18,7 @@ object ApiClient {
         }
     }
 
-    suspend inline fun <reified T : KPostBody> postData(endpoint: String, data: T): HttpResponse {
+    suspend inline fun <reified T : KRequest> postData(endpoint: String, data: T): HttpResponse {
         return client.post(endpoint) {
             contentType(ContentType.Application.Json)
             setBody(data)

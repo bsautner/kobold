@@ -2,14 +2,9 @@ package io.github.bsautner.ksp.processor
 
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.symbol.KSAnnotated
-import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
-import io.github.bsautner.ksp.processor.util.touchFile
-import io.ktor.server.config.configLoaders
+import io.github.bsautner.ksp.classtools.ClassHelper
 import java.io.File
-import java.util.*
 
 //TODO mark all files dirty, process with not dirty mark and delete dirty files.
 
@@ -21,11 +16,12 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment) : KoboldClassBuild
 	val classHelper = ClassHelper()
 
 	fun log(text: Any) {
-		 logger.info("ben: $text")
+		 logger.warn("ben: $text")
 	}
 
 	fun writeToFile(fileSpec: FileSpec) {
 		log(fileSpec.tags)
+		log("Writing to file: ${fileSpec.tag(TargetPlatform::class)}")
 		fileSpec.tag(TargetPlatform::class)?.let {
 			val outputDir = File("$outputDirOption/${it.name}/kotlin")
 
@@ -50,50 +46,21 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment) : KoboldClassBuild
 		}
 	}
 
-
-
 	fun createFile(fileSpec: FileSpec, outputDir : File) : File {
 		val result = fileSpec.writeTo(outputDir)
 		log("Created File : ${result.path}")
 		return result
 	}
 
-	override fun addImports(
-		builder: FileSpec.Builder,
-		sequence: Sequence<KSAnnotated>
-	) {
 
-		sequence.toList().forEach {
-
-
-			val classMetaData = classHelper.getClassMetaData (sequence.first() as KSClassDeclaration)
-
-			classMetaData.let { cmd ->
-				builder.addImport(cmd.packageName, cmd.simpleName)
-				addImports(builder, cmd.interfaces)
-				cmd.params.forEach { p ->
-					addImports(builder, p.value.map { it.declaration } .asSequence())
-				}
-			}
-		}
-	}
-
-
-
-
-	companion object {
-		const val PREFIX = "ksp my stuff::"
-
-
-	}
-
+//		list.forEach {
+//				builder.addImport(it.packageName, it.simpleName)
+//				addImports(builder, it.typeParameters)
+//				addImports(builder, it.interfaces)
+//			}
+//		}
 }
-
-
-fun FileSpec.toFile(rootDir: File) : File {
-	return File(rootDir, this.relativePath)
-}
-
-
-
+	fun FileSpec.toFile(rootDir: File) : File {
+		return File(rootDir, this.relativePath)
+	}
 

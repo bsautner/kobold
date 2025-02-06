@@ -6,22 +6,22 @@ import io.ktor.resources.Resource
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
-class LoginPage(render: @Composable () -> Unit) : KCompose(render)
+class MyLoginPage(render: @Composable () -> Unit) : KCompose(render)
 
 @Serializable
-data class LoginData(val userName: String = "foo", val password: String = "bar") : KPostBody()
+data class MyLoginData(val userName: String = "foo", val password: String = "bar") : KRequest
 
 @Serializable
-data class LoginResponse(val message: String) : KResponse
+data class MyLoginResponse(val message: String) : KResponse
 
 @Kobold @Resource("/login")
-data object Login: KComposable, KPost<LoginData, LoginResponse>
+data object MyBigLoginObject: KComposable, KPost<MyLoginData, MyLoginResponse>
 {
 	@Contextual
-	override val render: KCompose = LoginPage {
+	override val render: KCompose = MyLoginPage {
 
  	}
-	override val process: (LoginData) -> LoginResponse = {
-		LoginResponse("got it")
+	override val process: (MyLoginData) -> MyLoginResponse = {
+		MyLoginResponse("got it")
 	}
 }

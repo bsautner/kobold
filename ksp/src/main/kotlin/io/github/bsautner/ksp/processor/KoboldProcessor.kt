@@ -7,58 +7,80 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.validate
 import io.github.bsautner.kobold.KComposable
+import io.github.bsautner.kobold.KCompose
+import io.github.bsautner.kobold.KGet
+import io.github.bsautner.kobold.KPost
+import io.github.bsautner.kobold.KStatic
 import io.github.bsautner.kobold.Kobold
-import io.ktor.resources.*
-import kotlin.math.log
+import io.github.bsautner.kobold.KoboldStatic
+import io.github.bsautner.ksp.classtools.ClassHelper
+import io.github.bsautner.ksp.routing.AutoRouter
+import io.github.bsautner.ksp.routing.RouteGenerator
+import io.github.bsautner.ksp.routing.Routes
 
 class KoboldProcessor(env: SymbolProcessorEnvironment, private val onProcess: (KSClassDeclaration) -> Unit):  SymbolProcessor {
     private val composeGenerator = ComposeGenerator(env)
+    private val classHelper = ClassHelper()
     private val autoRouter: AutoRouter = AutoRouter(env)
+    private val logger = env.logger
+   override fun process(resolver: Resolver): List<KSAnnotated> {
+            logger.warn("*******Starting Kobold*************")
 
-    override fun process(resolver: Resolver): List<KSAnnotated> {
-        val resourcesName = Resource::class.qualifiedName!!
-        processKtorResources(resolver, resourcesName, onProcess)
-        processKoboldAnnotations(resolver, onProcess)
-        return emptyList()
-    }
+            val annotations = listOf(Kobold::class.qualifiedName!!, KoboldStatic::class.qualifiedName!!)
+            val symbols = annotations.flatMap { resolver.getSymbolsWithAnnotation(it) }
+                .filterIsInstance<KSClassDeclaration>()
+                .filter { it.validate() }
 
-    private fun processKoboldAnnotations(resolver: Resolver, onProcess: (KSClassDeclaration) -> Unit) {
-        val annotationFqName = Kobold::class.qualifiedName!!
-        val symbols = resolver.getSymbolsWithAnnotation(annotationFqName)
-            .filter { it is KSClassDeclaration && it.validate() }
-        symbols.toList().forEach {
-            onProcess(it as KSClassDeclaration)
-            processSymbols(sequenceOf(it))
-        }
-    }
-
-    private fun processKtorResources(resolver: Resolver, resourcesName: String, onProcess: (KSClassDeclaration) -> Unit) {
-        val resourcesToProcess = resolver.getSymbolsWithAnnotation(resourcesName)
-            .filter { it is KSClassDeclaration && it.validate() }
-        if (resourcesToProcess.toList().isNotEmpty()) {
-            resourcesToProcess.toList().forEach {
-                onProcess(it as KSClassDeclaration)
+            symbols.forEach {
+                onProcess(it)
+                logger.warn("Processing Kobold Annotated Code: ${it.qualifiedName?.asString()}")
+                processSymbol(it)
             }
-            autoRouter.create(resourcesToProcess)
+            return emptyList()
         }
-    }
 
-    private fun processSymbols(sequence: Sequence<KSAnnotated>) {
+    /**
+     * Iterate over each symbol annotated with @Kobold
+     */
+    private fun processSymbol(declaration: KSClassDeclaration) {
+        logger.warn("ksp Processing Symbol: ${declaration.qualifiedName?.asString()}")
+        val metaData = classHelper.getClassMetaData(declaration)
+        val className = metaData.qualifiedName
+        val routeGenerator = RouteGenerator()
 
-                val classDeclaration = sequence.first() as KSClassDeclaration
-                classDeclaration.superTypes.forEach {
-                    val superType = it.resolve()
-                    if (superType.declaration is KSClassDeclaration) {
-                        val superTypeClassDecl = superType.declaration as KSClassDeclaration
-                        superTypeClassDecl.qualifiedName?.let { name ->
-                            when (name.asString()) {
-                                KComposable::class.qualifiedName -> {
-                                         composeGenerator.create(sequence)
-                                }
-                            }
-                        }
+        metaData.interfaces.forEach { i ->
+            val name = i.qualifiedName
+            logger.warn("ksp checking ${i.qualifiedName}")
+            when (name) {
+                KPost::class.qualifiedName -> {
+                    routeGenerator.createPostRoute(metaData)
                 }
+
+                KGet::class.qualifiedName -> {
+                    routeGenerator.createGetRoute(metaData)
+                }
+
+                KStatic::class.qualifiedName -> {
+                    routeGenerator.createStaticGetRoute(metaData)
+                }
+
+                KComposable::class.qualifiedName -> {
+                    composeGenerator.create(metaData)
+                }
+
+
             }
+            logger.info("---$className Implements: $name")
         }
+        declaration.getSealedSubclasses().forEach { sc ->
+            val name = sc.qualifiedName?.asString()
+            logger.info("----- Sealed Sub Class $name")
+            processSymbol(sc)
+        }
+
+        if (Routes.map.isNotEmpty()) {
+            autoRouter.create()
+        }
+    }
 
 }

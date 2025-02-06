@@ -3,12 +3,12 @@ package io.github.bsautner.kobold
 import kotlin.reflect.KClass
 
 
-interface KGet<T: KResponse> {
+interface KGet<T: KResponse>  {
     val render: () -> T
 }
 
 
-interface KPost<T : KPostBody, R : KResponse> {
+interface KPost<T : KRequest, R : KResponse>  {
     val process: (T) -> R
 }
 
@@ -21,10 +21,10 @@ interface KWeb<T> {
     val render: (T) -> Unit
 }
 
-inline fun <reified T : KPostBody, reified R: KResponse > KPost<T, R>.getPostBodyClass() : KClass<T> {
+inline fun <reified T : KRequest, reified R: KResponse > KPost<T, R>.getPostBodyClass() : KClass<T> {
     return T::class
 }
-inline fun <reified T: KPostBody, reified R: KResponse> KPost<T, R>.getPostResponseBodyClass() : KClass<R> {
+inline fun <reified T: KRequest, reified R: KResponse> KPost<T, R>.getPostResponseBodyClass() : KClass<R> {
     return R::class
 }
 

@@ -3,13 +3,9 @@ package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
 import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.KSAnnotated
-import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import io.github.bsautner.ksp.processor.BaseProcessor
 import io.github.bsautner.ksp.processor.toFile
-import io.github.bsautner.ksp.processor.util.isEmpty
-import io.github.bsautner.ksp.processor.util.notExist
-import io.github.bsautner.ksp.processor.util.touchFile
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.TestInstance
@@ -18,26 +14,19 @@ import java.io.File
 import java.util.UUID
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class ProcessorUnderTest(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
-	override fun create(sequence: Sequence<KSAnnotated>) {
-		TODO("Not yet implemented")
-	}
 
-	override fun addImports(
+	fun addImports(
 		builder: FileSpec.Builder,
 		sequence: Sequence<KSAnnotated>
 	) {
 		TODO("Not yet implemented")
 	}
 
-	override fun generate(sequence: Sequence<KSAnnotated>): CodeBlock {
-		TODO("Not yet implemented")
-	}
+
 }
 
 @TestInstance(Lifecycle.PER_METHOD)

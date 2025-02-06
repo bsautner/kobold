@@ -9,12 +9,9 @@ data class TestResponse(val firstName: String = "foo", val lastName: String = "b
 
 
 @Serializable
-data class TestPost(val firstName: String = "foo", val lastName: String = "bar") : KPostBody()
+data class TestPost(val firstName: String = "foo", val lastName: String = "bar") : KRequest
 
 
-@KoboldStatic("build/dist/wasmJs/productionExecutable")
-@Resource("/")
-class StaticExample()  : KStatic
 
 /**
  * 		staticFiles("/", File("build/dist/wasmJs/productionExecutable")) {

@@ -5,25 +5,34 @@ import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
 import io.github.bsautner.kobold.KPost
-import io.github.bsautner.kobold.KResponse
-import io.github.bsautner.ksp.processor.RoutingGenerator.getRouteClassDeclaration
+import io.github.bsautner.ksp.routing.RoutingGenerator.getRouteClassDeclaration
+import io.github.bsautner.ksp.classtools.ClassMetaData
+import io.github.bsautner.ksp.classtools.id
+import io.github.bsautner.ksp.util.Const
+import io.github.bsautner.ksp.util.ImportManager
 
 class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
 
-    override fun create(sequence: Sequence<KSAnnotated>) {
+    fun create(metaData: ClassMetaData) {
 
-        val classDeclaration = sequence.first() as KSClassDeclaration
+        val classDeclaration = metaData.declaration
         val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
         val packageName = classDeclaration.packageName.asString()
         log("Creating Composable: $packageName.$outputClassName")
         val fileBuilder = FileSpec.builder(packageName, outputClassName)
         fileBuilder.tag(TargetPlatform::class, TargetPlatform.commonMain)
-        addImports(fileBuilder, sequence)
+
+
+        createComposables(classDeclaration, outputClassName, fileBuilder)
+
+    }
+
+    fun createComposables(classDeclaration: KSClassDeclaration, outputClassName: String, fileBuilder: FileSpec.Builder) {
         val functionBuilder = FunSpec.builder(outputClassName)
             .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
-            .addCode(generate(sequence))
-
+            .addCode(generate(classDeclaration))
+        addBaseComposeImports(classDeclaration.id())
         fileBuilder
             .addFileComment(Const.comment)
             .addFunction(functionBuilder.build())
@@ -32,48 +41,58 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
     }
 
 
+    private fun addBaseComposeImports(id: String) {
+1
+        ImportManager.apply {
+            this.addImport(id, "androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
+            this.addImport(id, "androidx.compose.foundation", "border", "clickable")
+            this.addImport(id, "androidx.compose.foundation.text", "BasicText", "BasicTextField")
+            this.addImport(id, "androidx.compose.material", "Button", "Text")
+            this.addImport(id, "androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
+            this.addImport(id, "androidx.compose.ui", "Modifier", "Alignment")
+            this.addImport(id, "androidx.compose.ui.graphics", "Color")
+            this.addImport(id, "androidx.compose.ui.text", "TextStyle")
+            this.addImport(id, "androidx.compose.ui.unit", "dp")
+            this.addImport(id, "kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
+            this.addImport(id, "io.ktor.client.statement", "bodyAsText")
+            this.addImport(id, "io.github.bsautner.kobold", "introspectSerializableClass")
+            this.addImport(id, "io.github.bsautner.kobold.client", "ApiClient")
+        }
 
-    override fun addImports(builder: FileSpec.Builder,sequence: Sequence<KSAnnotated>) {
-
-        super.addImports(builder, sequence)
-
-        builder.addImport("androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
-            .addImport("androidx.compose.foundation", "border", "clickable")
-            .addImport("androidx.compose.foundation.text", "BasicText", "BasicTextField")
-            .addImport("androidx.compose.material", "Button", "Text")
-            .addImport("androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
-            .addImport("androidx.compose.ui", "Modifier", "Alignment")
-            .addImport("androidx.compose.ui.graphics", "Color")
-            .addImport("androidx.compose.ui.text", "TextStyle")
-            .addImport("androidx.compose.ui.unit", "dp")
-            .addImport("kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
-            .addImport("io.ktor.client.statement", "bodyAsText")
-            .addImport("io.github.bsautner.kobold", "introspectSerializableClass")
-            .addImport("io.github.bsautner.kobold.client", "ApiClient")
 
 
     }
 
-    override fun generate(sequence: Sequence<KSAnnotated>): CodeBlock {
+     fun generate(classDeclaration: KSClassDeclaration): CodeBlock {
         val code = CodeBlock.builder()
 
         code.addStatement("val defaults = remember { mutableStateOf(mutableMapOf<String, String?>()) }")
         code.addStatement("var isInitialized by remember { mutableStateOf(false) }")
-        val classDeclaration = sequence.first() as KSClassDeclaration
 
-        val typeParams = classHelper.getTypeParameters(classDeclaration)
+        val metaData = classHelper.getClassMetaData(classDeclaration)
+        val interfaces = metaData.interfaces.map { it.qualifiedName }
+     //   if (interfaces.contains(KPost::class.qualifiedName)) {
+            log("KPost Detected, Creating Form")
+            generateComposableForm(metaData, code)
 
+     //   }
 
+        return code.build()
+    }
 
-        typeParams.entries.firstOrNull()?.value?.firstOrNull()?.let { typeParams ->
-
-
+    private fun generateComposableForm(
+        metaData: ClassMetaData,
+        code: CodeBlock.Builder
+    ) {
+        val typeParams = metaData.typeParameters
+        typeParams.firstOrNull()?.let { typeParams ->
+            code.addStatement("// This reflects the class you used for KPost<T, R> where T is the post body of this form")
             typeParams.defaultValues.forEach {
 
                 code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
             }
 
-            val route = getRouteClassDeclaration(classDeclaration) ?: ""
+            val route = getRouteClassDeclaration(metaData.declaration) ?: ""
             // LaunchedEffect block for initialization
             code.beginControlFlow("LaunchedEffect(Unit)")
 
@@ -83,11 +102,11 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
             // Loading State
             code.add(
                 """
-            if (!isInitialized) {
-                Text("Loading...")
-                return
-            }
-            """.trimIndent()
+                if (!isInitialized) {
+                    Text("Loading...")
+                    return
+                }
+                """.trimIndent()
             )
 
             // State for validation tracking
@@ -95,21 +114,21 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
             code.add(
                 """
-            val requiredFieldsValid = remember { mutableStateOf(mutableMapOf<String, Boolean>()) }
-            val fields = introspectSerializableClass<${typeParams.simpleName}>()
-            
-            LaunchedEffect(fields) {
-                val validationState = fields.associate { field ->
-                    field.name to (field.hasDefault || defaults.value[field.name]?.isNotBlank() == true)
+                val requiredFieldsValid = remember { mutableStateOf(mutableMapOf<String, Boolean>()) }
+                val fields = introspectSerializableClass<${typeParams.simpleName}>()
+                
+                LaunchedEffect(fields) {
+                    val validationState = fields.associate { field ->
+                        field.name to (field.hasDefault || defaults.value[field.name]?.isNotBlank() == true)
+                    }
+                    requiredFieldsValid.value = validationState.toMutableMap()
                 }
-                requiredFieldsValid.value = validationState.toMutableMap()
-            }
-            
-            Column {
-                Spacer(Modifier.height(16.dp))
-                BasicText("${typeParams.simpleName}")
-                Spacer(Modifier.height(16.dp))
-            """.trimIndent()
+                
+                Column {
+                    Spacer(Modifier.height(16.dp))
+                    BasicText("${typeParams.simpleName}")
+                    Spacer(Modifier.height(16.dp))
+                """.trimIndent()
             )
             code.add("\n")
             // Generate form fields
@@ -119,13 +138,13 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
             code.add("\n")
             code.add(
                 """
-                val isFormValid = requiredFieldsValid.value.all { it.value }
-                
-                Button(
-                    onClick = {
-                        CoroutineScope(Dispatchers.Default).launch {
-                            val postBody = ${typeParams.simpleName}(
-            """.trimIndent()
+                    val isFormValid = requiredFieldsValid.value.all { it.value }
+                    
+                    Button(
+                        onClick = {
+                            CoroutineScope(Dispatchers.Default).launch {
+                                val postBody = ${typeParams.simpleName}(
+                """.trimIndent()
             )
 
             typeParams.defaultValues.forEach {
@@ -134,34 +153,29 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
             code.add(
                 """
-                            )
-                            try {
-                                val response = ApiClient.postData("$route", postBody)
-                                println("Response: ${"$"}{response.bodyAsText()}")
-                            } catch (e: Exception) {
-                                println("Error: ${"$"}{e.message}")
+                                )
+                                try {
+                                    val response = ApiClient.postData("$route", postBody)
+                                    println("Response: ${"$"}{response.bodyAsText()}")
+                                } catch (e: Exception) {
+                                    println("Error: ${"$"}{e.message}")
+                                }
                             }
-                        }
-                    },
-                    enabled = isFormValid
-                ) {
-                    Text("OK 10")
+                        },
+                        enabled = isFormValid
+                    ) {
+                        Text("OK 10")
+                    }
                 }
-            }
-            """.trimIndent()
+                """.trimIndent()
 
             )
 
 
         }
-
-
-
-
-        return code.build()
     }
 
-    private fun generateFormFields(classMetaData: ClassHelper.ClassMetaData): CodeBlock {
+    private fun generateFormFields(classMetaData: ClassMetaData): CodeBlock {
         val code = CodeBlock.builder()
         code.beginControlFlow("fields.forEach { field ->")
 

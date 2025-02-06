@@ -8,7 +8,7 @@ import com.google.devtools.ksp.symbol.KSName
 import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSValueArgument
 import io.github.bsautner.kobold.KoboldStatic
-import io.github.bsautner.ksp.processor.ClassHelper
+import io.github.bsautner.ksp.classtools.ClassHelper
 import io.ktor.resources.*
 import io.mockk.every
 import io.mockk.mockk
