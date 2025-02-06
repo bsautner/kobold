@@ -2,10 +2,8 @@ name: Deploy Writerside to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'Writerside/**'
+    branches: [ "main" ]
+   
 
 jobs:
   deploy:
