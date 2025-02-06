@@ -1,0 +1,47 @@
+name: Deploy Writerside to GitHub Pages
+
+# Trigger on pushes to the main branch (you can adjust this as needed)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Writerside/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1. Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # (Optional) Step 2. Build your site if needed.
+      # Uncomment and modify the following steps if you need to build your site first.
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '16'
+      #
+      # - name: Install dependencies
+      #   run: |
+      #     cd Writerside
+      #     npm install
+      #
+      # - name: Build the site
+      #   run: |
+      #     cd Writerside
+      #     npm run build
+      #
+      # If you run a build, ensure that the build output directory is used in the next step.
+
+      # Step 3. Deploy the Writerside folder to GitHub Pages.
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # publish_dir should point to the directory that contains your site’s files.
+          publish_dir: ./Writerside
+          # Optionally, set the target branch for GitHub Pages (default is "gh-pages")
+          publish_branch: gh-pages
