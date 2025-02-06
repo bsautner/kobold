@@ -1,4 +1,5 @@
 [![Code Security](https://github.com/bsautner/kobold/actions/workflows/codeql.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/codeql.yml) [![CI with Gradle](https://github.com/bsautner/kobold/actions/workflows/gradle.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle.yml)
+[![Publish Docs](https://github.com/bsautner/kobold/actions/workflows/writerside.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/writerside.yml)
 
 # Kobold 
 
