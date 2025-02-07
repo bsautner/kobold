@@ -1,9 +1,10 @@
-[![Code Security](https://github.com/bsautner/kobold/actions/workflows/codeql.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/codeql.yml) [![CI with Gradle](https://github.com/bsautner/kobold/actions/workflows/gradle.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle.yml)
-[![Publish Docs](https://github.com/bsautner/kobold/actions/workflows/writerside.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/writerside.yml)
+[![CI](https://github.com/bsautner/kobold/actions/workflows/gradle.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle.yml)
 
 This library is in the very early pre-alpha stage of development!
 
 # Kobold 
+
+[API Dokka docs](https://bsautner.github.io/kobold/api-docs/)
 
 A code generator for Kotlin Multiplatform, Jetpack Compose and Ktor
 
