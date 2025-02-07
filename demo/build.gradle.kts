@@ -63,7 +63,7 @@ kotlin {
         val jvmMain by getting {
             kotlin.srcDir("src/jvmMain/kotlin")
             resources.srcDir("src/jvmMain/resources")
-            kotlin.srcDir("${project.layout.buildDirectory}/generated/ksp/jvm/kotlin")
+            kotlin.srcDir("${project.layout.buildDirectory}/generated/ksp/jvmMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib"))
 
@@ -76,7 +76,7 @@ kotlin {
 
         val commonMain by getting {
             kotlin.srcDir("src/commonMain/kotlin")
-            kotlin.srcDir("${project.layout.buildDirectory}/generated/ksp/common/kotlin")
+            kotlin.srcDir("${project.layout.buildDirectory}/generated/ksp/commonMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 api(project(":api"))

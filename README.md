@@ -1,5 +1,7 @@
 [![Code Security](https://github.com/bsautner/kobold/actions/workflows/codeql.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/codeql.yml) [![CI with Gradle](https://github.com/bsautner/kobold/actions/workflows/gradle.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle.yml)
 
+This library is in the very early pre-alpha stage of development!
+
 # Kobold 
 
 A code generator for Kotlin Multiplatform, Jetpack Compose and Ktor
