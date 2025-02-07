@@ -4,8 +4,6 @@
 
 _Kobold: A mythical household spirit, often depicted as an unseen, diligent helper who performs chores and tasks in secret._
 
-<img src="Writerside/images/kobold.webp">
-
 ### Purpose
 Kobold is meant to generate Kotlin Multiplatform and Ktor Server code for everything that can be so you can be productive focusing on what's important.
 
@@ -14,7 +12,7 @@ Kobold is meant to generate Kotlin Multiplatform and Ktor Server code for everyt
 * [API Docs](https://bsautner.github.io/kobold/api-docs/)
 * [Maven Central](https://central.sonatype.com/namespace/io.github.bsautner)
 
- 
+ <img src="Writerside/images/kobold.webp">
 
 
 
