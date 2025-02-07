@@ -46,6 +46,16 @@ jobs:
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
           echo "algolia_artifact=$ALGOLIA_ARTIFACT" >> $GITHUB_OUTPUT
 
+      - name: Copy Dokka HTML to Writerside
+        run: |
+          mkdir -p Writerside/api-docs
+          if [ -d "api/build/dokka/html" ]; then
+            cp -r api/build/dokka/html/* Writerside/api-docs/
+          else
+            echo "Dokka output directory not found!"
+            exit 1
+          fi
+
       - name: Build docs using Writerside Docker builder
         uses: JetBrains/writerside-github-action@v4
         with:
@@ -61,6 +71,7 @@ jobs:
             artifacts/report.json
             artifacts/${{ steps.define-ids.outputs.algolia_artifact }}
           retention-days: 7
+
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -75,6 +86,7 @@ jobs:
         uses: JetBrains/writerside-checker-action@v1
         with:
           instance: ${{ env.INSTANCE }}
+
   deploy:
     environment:
       name: github-pages
