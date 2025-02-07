@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Writerside/topics/Routing.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold/samples/BasicRouting.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Writerside/k.tree" beforeDir="false" afterPath="$PROJECT_DIR$/Writerside/k.tree" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/TestObject.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,9 +126,15 @@
     "Gradle.kobold [dokkaGenerate].executor": "Run",
     "Gradle.kobold [dokkaGfm].executor": "Run",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/ben/Code/ktor/kobold/Writerside",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Writerside" />
+    </key>
+  </component>
   <component name="RunManager" selected="Gradle.kobold [dokkaGenerate]">
     <configuration name="kobold [dokkaGenerate]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>

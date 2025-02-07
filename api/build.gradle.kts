@@ -13,9 +13,7 @@ plugins {
 
 group = "io.github.bsautner"
 version = "0.0.1-SNAPSHOT"
-dokka {
-    outputFormat = "markdown"
-}
+
 // Configure the Kotlin Multiplatform targets
 kotlin {
     // Use a common JVM toolchain configuration for all targets
