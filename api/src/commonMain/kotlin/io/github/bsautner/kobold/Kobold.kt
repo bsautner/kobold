@@ -21,9 +21,10 @@ interface KResponse
 interface KRequest
 
 
-
-
-
+/**
+ * Classes implementing this interface will result in Kobol creating Composables.
+ * You can create data classes that @see KResponse
+ */
 open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
 
 	@Composable

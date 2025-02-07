@@ -2,6 +2,7 @@ plugins {
     `kotlin-dsl`
     id("com.github.ben-manes.versions") version "0.52.0"
     id("nl.littlerobots.version-catalog-update" ) version "0.8.5"
+
 }
 
 kotlin {

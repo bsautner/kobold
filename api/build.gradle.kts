@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.gradle.api.publish.maven.MavenPublication
+import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     `maven-publish`
@@ -7,11 +8,14 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.dokka)
 }
 
 group = "io.github.bsautner"
 version = "0.0.1-SNAPSHOT"
-
+dokka {
+    outputFormat = "markdown"
+}
 // Configure the Kotlin Multiplatform targets
 kotlin {
     // Use a common JVM toolchain configuration for all targets
@@ -60,6 +64,10 @@ java {
     }
 }
 
+tasks.dokkaGfm {
+    outputDirectory.set(layout.buildDirectory.dir("documentation/markdown"))
+}
+
 // Configure publishing for all targets using the built-in multiplatform publishing
 publishing {
     publications.withType<MavenPublication>().configureEach {
@@ -94,4 +102,19 @@ publishing {
             }
         }
     }
+}
+
+tasks.dokkaGfmPartial {
+    outputDirectory.set(layout.buildDirectory.dir("docs/partial"))
+}
+
+tasks.withType<DokkaTask>().configureEach {
+    moduleName.set(project.name)
+    moduleVersion.set(project.version.toString())
+    outputDirectory.set(layout.buildDirectory.dir("dokka/$name"))
+    failOnWarning.set(false)
+    suppressObviousFunctions.set(true)
+    suppressInheritedMembers.set(false)
+    offlineMode.set(false)
+
 }

@@ -4,34 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11065e0d-a5a0-4da4-9ebb-131d50bd9cf1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ksp/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ClassHelperProcessorTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ComposeGeneratorRealTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/RealProcessorTest.kt" afterDir="false" />
+    <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Writerside/topics/Routing.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold/samples/BasicRouting.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold/ComposeExample.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Writerside/k.tree" beforeDir="false" afterPath="$PROJECT_DIR$/Writerside/k.tree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/TestObject.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid119389.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid168539.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid78278.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid81423.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid84645.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid97087.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/classtools/ClassHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/classtools/ClassHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/AutoRouter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/AutoRouter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/RouteGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/RouteGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/util/ImportManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/util/ImportManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ComposeGeneratorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ComposeGeneratorTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ImportManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ImportManagerTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ProcessorTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/io/github/bsautner/kobold/ksp/processor/ClassHelperProcessorTest.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,13 +32,7 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <task path="$PROJECT_DIR$/demo">
-          <activation />
-        </task>
         <task path="$PROJECT_DIR$/api">
-          <activation />
-        </task>
-        <task path="$PROJECT_DIR$/ksp">
           <activation />
         </task>
         <projects_view>
@@ -74,7 +51,13 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="kobold" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="dokka" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -90,20 +73,9 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="ksp" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="ksp" type="2d1252cf:ModuleNode" />
+                <item name="api" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="ksp" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="publishing" type="c8890929:TasksNode$1" />
+                <item name="dokka" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -115,8 +87,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Object" />
-        <option value="Kotlin Enum" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -157,202 +127,19 @@
       </map>
     </option>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2s2qXwrUOJETiBW45Dfg2hq0kW5" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.Application [jvm].executor": "Run",
-    "Gradle.BaseProcessorTest.Test Multiple Writes.executor": "Run",
-    "Gradle.BaseProcessorTest.benlog test collecting and deleting files.executor": "Run",
-    "Gradle.BaseProcessorTest.create files test.executor": "Run",
-    "Gradle.BaseProcessorTest.executor": "Run",
-    "Gradle.BaseProcessorTest.test collecting and deleting files.executor": "Run",
-    "Gradle.BaseProcessorTest.test purge.executor": "Run",
-    "Gradle.BaseProcessorTest.test toFile ext function.executor": "Run",
-    "Gradle.Build kobold.executor": "Run",
-    "Gradle.ClassHelperProcessorTest.executor": "Debug",
-    "Gradle.ClassHelperProcessorTest.test type parameters.executor": "Debug",
-    "Gradle.ClassHelperTest.executor": "Run",
-    "Gradle.ClassHelperTest.test extracting meta data about a class.executor": "Run",
-    "Gradle.ClassHelperTest.test interfaces.executor": "Debug",
-    "Gradle.ComposeGeneratorRealTest.test static routing.executor": "Run",
-    "Gradle.ComposeGeneratorTest.test getting type parameters.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.ImportManagerTest.basic import manager test.executor": "Run",
-    "Gradle.ImportManagerTest.test imports.executor": "Run",
-    "Gradle.Load Gradle Dependencies.executor": "Run",
-    "Gradle.ProcessorTest.executor": "Run",
-    "Gradle.ProcessorTest.test extracting meta data about a class.executor": "Run",
-    "Gradle.ProcessorTest.test getting type parameters.executor": "Run",
-    "Gradle.ProcessorTest.test static routing.executor": "Debug",
-    "Gradle.Tests in 'kobold.ksp.test'.executor": "Run",
-    "Gradle.kobold [build].executor": "Run",
-    "Gradle.kobold [generateMetadataFileForJvmPublication].executor": "Run",
-    "Gradle.kobold [publishToMavenLocal].executor": "Run",
-    "Gradle.kobold:demo [wasmJsRun].executor": "Run",
-    "Gradle.kobold:ksp [build].executor": "Run",
-    "Gradle.kobold:ksp [publishKobol-kspPublicationToMavenLocal].executor": "Run",
-    "Gradle.kobold:ksp [publishToMavenLocal].executor": "Run",
-    "Gradle.kobold:ksp [publish].executor": "Run",
-    "JUnit.ProcessorTest.test extracting meta data about a class.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Writerside.Web Archive (k).executor": "Run",
+    "Gradle.kobold [dokkaGenerate].executor": "Run",
+    "Gradle.kobold [dokkaGfm].executor": "Run",
     "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/ben/Code/captracks/captracks_platform",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.4632184",
-    "settings.editor.selected.configurable": "GrepConsole",
-    "vue.rearranger.settings.migration": "true",
-    "writerside.last.selected.productkobold": "k"
-  },
-  "keyToStringList": {
-    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": []
+    "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner" />
-      <recent name="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold" />
-      <recent name="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold" />
-      <recent name="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor" />
-      <recent name="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/util" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold" />
-    </key>
-    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="io.github.bsautner.kobold.ksp.processor" />
-    </key>
-    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
-      <recent name="io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor" />
-      <recent name="io.github.bsautner.kobold" />
-      <recent name="io.github.bsautner.ksp.processor" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Gradle.ComposeGeneratorRealTest.test static routing">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="kobold" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="kobold" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-    <configuration name="ComposeGeneratorRealTest.test static routing" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":ksp:test" />
-            <option value="--tests" />
-            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ComposeGeneratorRealTest.test static routing&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="ProcessorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":ksp:test" />
-            <option value="--tests" />
-            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ProcessorTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="ProcessorTest.test static routing" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":ksp:test" />
-            <option value="--tests" />
-            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ProcessorTest.test static routing&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="Tests in 'kobold.ksp.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":ksp:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="kobold [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.kobold [dokkaGenerate]">
+    <configuration name="kobold [dokkaGenerate]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -363,7 +150,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="build" />
+            <option value="dokkaGenerate" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -374,181 +161,40 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="kobold" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="kobold" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Web Archive (k)" type="StardustRunConfiguration" factoryName="save-as-zip">
-      <option name="folderPath" value="$PROJECT_DIR$" />
-      <option name="instanceId" value="k" />
-      <option name="instanceName" value="KoboldHelp" />
+    <configuration name="kobold [dokkaGfm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dokkaGfm" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.ComposeGeneratorRealTest.test static routing" />
-      <item itemvalue="Gradle.ProcessorTest" />
-      <item itemvalue="Gradle.ProcessorTest.test static routing" />
-      <item itemvalue="Gradle.kobold [build]" />
-      <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
-      <item itemvalue="Writerside.Web Archive (k)" />
+      <item itemvalue="Gradle.kobold [dokkaGenerate]" />
+      <item itemvalue="Gradle.kobold [dokkaGfm]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ComposeGeneratorRealTest.test static routing" />
-        <item itemvalue="Gradle.ProcessorTest.test static routing" />
-        <item itemvalue="Gradle.ProcessorTest" />
-        <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
-        <item itemvalue="Gradle.kobold [build]" />
+        <item itemvalue="Gradle.kobold [dokkaGenerate]" />
+        <item itemvalue="Gradle.kobold [dokkaGfm]" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="11065e0d-a5a0-4da4-9ebb-131d50bd9cf1" name="Changes" comment="" />
-      <created>1737664061431</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1737664061431</updated>
-      <workItem from="1737664062736" duration="3846000" />
-      <workItem from="1737668131438" duration="2256000" />
-      <workItem from="1737723002083" duration="13000" />
-      <workItem from="1737723412805" duration="432000" />
-      <workItem from="1737730732010" duration="353000" />
-      <workItem from="1737731109464" duration="2452000" />
-      <workItem from="1737736023008" duration="5000" />
-      <workItem from="1737736319852" duration="516000" />
-      <workItem from="1737737402891" duration="1165000" />
-      <workItem from="1737985848082" duration="2258000" />
-      <workItem from="1737988156887" duration="1420000" />
-      <workItem from="1738074448528" duration="12919000" />
-      <workItem from="1738155833616" duration="308000" />
-      <workItem from="1738169001196" duration="16792000" />
-      <workItem from="1738255130278" duration="1237000" />
-      <workItem from="1738256533885" duration="643000" />
-      <workItem from="1738257809311" duration="207000" />
-      <workItem from="1738258020316" duration="306000" />
-      <workItem from="1738258529589" duration="585000" />
-      <workItem from="1738259233537" duration="401000" />
-      <workItem from="1738259639157" duration="6335000" />
-      <workItem from="1738325605345" duration="26000" />
-      <workItem from="1738325635206" duration="4000" />
-      <workItem from="1738325646130" duration="403000" />
-      <workItem from="1738326100451" duration="618000" />
-      <workItem from="1738327311694" duration="2234000" />
-      <workItem from="1738329905564" duration="2118000" />
-      <workItem from="1738335120825" duration="2986000" />
-      <workItem from="1738338191073" duration="99000" />
-      <workItem from="1738338324155" duration="801000" />
-      <workItem from="1738339377736" duration="1169000" />
-      <workItem from="1738341874401" duration="872000" />
-      <workItem from="1738343859432" duration="535000" />
-      <workItem from="1738347681039" duration="11000" />
-      <workItem from="1738348285877" duration="23000" />
-      <workItem from="1738348314603" duration="528000" />
-      <workItem from="1738349145173" duration="1696000" />
-      <workItem from="1738351374513" duration="599000" />
-      <workItem from="1738353227159" duration="1136000" />
-      <workItem from="1738355064536" duration="338000" />
-      <workItem from="1738355601890" duration="190000" />
-      <workItem from="1738355936306" duration="167000" />
-      <workItem from="1738356107496" duration="1725000" />
-      <workItem from="1738358975148" duration="740000" />
-      <workItem from="1738359861969" duration="1110000" />
-      <workItem from="1738586193751" duration="7333000" />
-      <workItem from="1738593557641" duration="243000" />
-      <workItem from="1738593854616" duration="132000" />
-      <workItem from="1738593993351" duration="50000" />
-      <workItem from="1738594047238" duration="207000" />
-      <workItem from="1738594258026" duration="116000" />
-      <workItem from="1738594377465" duration="13000" />
-      <workItem from="1738594590030" duration="96000" />
-      <workItem from="1738594690424" duration="5798000" />
-      <workItem from="1738602853712" duration="3457000" />
-      <workItem from="1738606722487" duration="3725000" />
-      <workItem from="1738612247129" duration="599000" />
-      <workItem from="1738613502304" duration="2260000" />
-      <workItem from="1738617713940" duration="1408000" />
-      <workItem from="1738619433919" duration="1925000" />
-      <workItem from="1738671388837" duration="1254000" />
-      <workItem from="1738676040416" duration="17253000" />
-      <workItem from="1738758614291" duration="2661000" />
-      <workItem from="1738761503849" duration="1490000" />
-      <workItem from="1738763278815" duration="6732000" />
-      <workItem from="1738770015909" duration="284000" />
-      <workItem from="1738770306570" duration="6795000" />
-      <workItem from="1738777419563" duration="2619000" />
-      <workItem from="1738780044222" duration="13520000" />
-      <workItem from="1738859077747" duration="13640000" />
-      <workItem from="1738873157292" duration="7312000" />
-      <workItem from="1738927822822" duration="12665000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/BaseProcessorTest.kt</url>
-          <line>63</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/BaseProcessorTest.kt</url>
-          <line>51</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt</url>
-          <line>86</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/RouteGenerator.kt</url>
-          <line>60</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/RouteGenerator.kt</url>
-          <line>22</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt</url>
-          <line>75</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt</url>
-          <line>83</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

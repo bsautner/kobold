@@ -7,6 +7,7 @@
                  start-page="starter-topic.md">
 
     <toc-element topic="starter-topic.md"/>
+    <toc-element topic="Routing.md"/>
     <toc-element topic="Getting-Started.md">
         <toc-element topic="Project-Setup.md"/>
     </toc-element>
