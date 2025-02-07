@@ -5,7 +5,89 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold.client/-api-client/client.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold.client/-api-client/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold.client/-api-client/post-data.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold.client/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-constructor-param-info/-constructor-param-info.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-constructor-param-info/has-default.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-constructor-param-info/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-constructor-param-info/name.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-constructor-param-info/type.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-composable/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-composable/render.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-compose/-k-compose.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-compose/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-compose/invoke.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-compose/render.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-get/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-get/render.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-json-response/-k-json-response.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-json-response/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-post/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-post/process.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-request/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-response/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-web/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-k-web/render.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-kobold-static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-kobold-static/path.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/-kobold/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/get-post-body-class.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/get-post-response-body-class.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/io.github.bsautner.kobold/introspect-serializable-class.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/api/package-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/images/anchor-copy-button.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/images/copy-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/images/copy-successful-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/images/footer-go-to-link.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/images/go-to-top-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/images/logo-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/navigation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/clipboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/navigation-loader.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/pages.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/platform-content-handler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/prism.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/sourceset_dependencies.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/scripts/symbol-parameters-wrapper_deferred.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/styles/font-jb-sans-auto.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/styles/logo-styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/styles/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/styles/prism.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/styles/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/abstract-class-kotlin.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/abstract-class.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/annotation-kotlin.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/annotation.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/arrow-down.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/burger.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/checkbox-off.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/checkbox-on.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/class-kotlin.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/class.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/cross.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/enum-kotlin.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/enum.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/exception-class.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/field-value.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/field-variable.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/filter.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/function.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/homepage.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/interface-kotlin.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/interface.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/object.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/placeholder.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/theme-toggle.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/assets/typealias-kotlin.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/ui-kit.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/html/ui-kit/ui-kit.min.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,21 +200,36 @@
       </map>
     </option>
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2sjHVaFbDARgIHa30zMPxNDUpm2" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.kobold [dokkaGenerate].executor": "Run",
     "Gradle.kobold [dokkaGfm].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/ben/Code/ktor/kobold/Writerside",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Writerside" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.kobold [dokkaGenerate]">
@@ -191,7 +288,27 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="" />
+      <created>1738962088537</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738962088537</updated>
+      <workItem from="1738962090356" duration="50000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

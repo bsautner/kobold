@@ -1,1 +1,0 @@
-sourceset_dependencies='{":api/commonMain":[],":api/jsMain":[":api/commonMain"],":api/jvmMain":[":api/commonMain"],":api/wasmJsMain":[":api/commonMain"]}'
