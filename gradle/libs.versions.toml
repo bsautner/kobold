@@ -11,11 +11,11 @@ compose-multiplatform = "1.7.3"
 
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJSON = "1.7.2"
-kotlinxCoroutines = "1.8.1"
+kotlinxCoroutines = "1.10.1"
 kotlin = "2.1.10"
 ktor = "3.0.3"
 ksp = "2.1.10-1.0.29"
-serialization = "2.0.21"
+serialization = "2.1.10"
 poet_version = "2.0.0"
 
 

@@ -1,6 +1,6 @@
 plugins {
     `kotlin-dsl`
-    id("com.github.ben-manes.versions") version "0.41.0"
+    id("com.github.ben-manes.versions") version "0.52.0"
     id("nl.littlerobots.version-catalog-update" ) version "0.8.5"
 }
 
@@ -30,7 +30,7 @@ configurations.all {
         force("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
         force("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
         force("androidx.arch.core:core-common:2.2.0")
-        force("androidx.annotation:annotation:1.7.0")
+        force("androidx.annotation:annotation:1.9.1")
     }
 }
 
