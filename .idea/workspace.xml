@@ -5,9 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11065e0d-a5a0-4da4-9ebb-131d50bd9cf1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ksp/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ClassHelperProcessorTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ComposeGeneratorRealTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/RealProcessorTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/demo/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold/ComposeExample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/commonMain/kotlin/io/github/bsautner/kobold/ComposeExample.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-js-store/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid119389.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid168539.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid78278.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid81423.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid84645.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/hs_err_pid97087.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/classtools/ClassHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/classtools/ClassHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/BaseProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessorProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/AutoRouter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/AutoRouter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/RouteGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/routing/RouteGenerator.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/util/ImportManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/util/ImportManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ComposeGeneratorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ComposeGeneratorTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ImportManagerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ImportManagerTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ProcessorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/ProcessorTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/io/github/bsautner/kobold/ksp/processor/ClassHelperProcessorTest.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,14 +184,16 @@
     "Gradle.ClassHelperTest.executor": "Run",
     "Gradle.ClassHelperTest.test extracting meta data about a class.executor": "Run",
     "Gradle.ClassHelperTest.test interfaces.executor": "Debug",
+    "Gradle.ComposeGeneratorRealTest.test static routing.executor": "Run",
     "Gradle.ComposeGeneratorTest.test getting type parameters.executor": "Run",
     "Gradle.Download Sources.executor": "Run",
     "Gradle.ImportManagerTest.basic import manager test.executor": "Run",
     "Gradle.ImportManagerTest.test imports.executor": "Run",
     "Gradle.Load Gradle Dependencies.executor": "Run",
+    "Gradle.ProcessorTest.executor": "Run",
     "Gradle.ProcessorTest.test extracting meta data about a class.executor": "Run",
     "Gradle.ProcessorTest.test getting type parameters.executor": "Run",
-    "Gradle.ProcessorTest.test static routing.executor": "Run",
+    "Gradle.ProcessorTest.test static routing.executor": "Debug",
     "Gradle.Tests in 'kobold.ksp.test'.executor": "Run",
     "Gradle.kobold [build].executor": "Run",
     "Gradle.kobold [generateMetadataFileForJvmPublication].executor": "Run",
@@ -215,12 +241,12 @@
       <recent name="io.github.bsautner.kobold.ksp.processor" />
     </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor" />
       <recent name="io.github.bsautner.kobold" />
       <recent name="io.github.bsautner.ksp.processor" />
-      <recent name="io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'kobold.ksp.test'">
+  <component name="RunManager" selected="Gradle.ComposeGeneratorRealTest.test static routing">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="kobold" />
       <method v="2">
@@ -232,7 +258,7 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
-    <configuration name="ClassHelperProcessorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ComposeGeneratorRealTest.test static routing" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -245,7 +271,7 @@
           <list>
             <option value=":ksp:test" />
             <option value="--tests" />
-            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.io.github.bsautner.kobold.ksp.processor.ClassHelperProcessorTest&quot;" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ComposeGeneratorRealTest.test static routing&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -256,7 +282,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ClassHelperProcessorTest.test type parameters" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ProcessorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -269,7 +295,7 @@
           <list>
             <option value=":ksp:test" />
             <option value="--tests" />
-            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.io.github.bsautner.kobold.ksp.processor.ClassHelperProcessorTest.test type parameters&quot;" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ProcessorTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -280,7 +306,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="ImportManagerTest.basic import manager test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ProcessorTest.test static routing" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -293,7 +319,7 @@
           <list>
             <option value=":ksp:test" />
             <option value="--tests" />
-            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ImportManagerTest.basic import manager test&quot;" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ProcessorTest.test static routing&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -366,20 +392,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.ClassHelperProcessorTest" />
-      <item itemvalue="Gradle.ClassHelperProcessorTest.test type parameters" />
-      <item itemvalue="Gradle.ImportManagerTest.basic import manager test" />
+      <item itemvalue="Gradle.ComposeGeneratorRealTest.test static routing" />
+      <item itemvalue="Gradle.ProcessorTest" />
+      <item itemvalue="Gradle.ProcessorTest.test static routing" />
       <item itemvalue="Gradle.kobold [build]" />
       <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
       <item itemvalue="Writerside.Web Archive (k)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ComposeGeneratorRealTest.test static routing" />
+        <item itemvalue="Gradle.ProcessorTest.test static routing" />
+        <item itemvalue="Gradle.ProcessorTest" />
         <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
         <item itemvalue="Gradle.kobold [build]" />
-        <item itemvalue="Gradle.ImportManagerTest.basic import manager test" />
-        <item itemvalue="Gradle.ClassHelperProcessorTest.test type parameters" />
-        <item itemvalue="Gradle.ClassHelperProcessorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -470,6 +496,7 @@
       <workItem from="1738780044222" duration="13520000" />
       <workItem from="1738859077747" duration="13640000" />
       <workItem from="1738873157292" duration="7312000" />
+      <workItem from="1738927822822" duration="12665000" />
     </task>
     <servers />
   </component>
@@ -494,7 +521,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt</url>
-          <line>84</line>
+          <line>86</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
@@ -509,8 +536,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt</url>
-          <line>73</line>
+          <line>75</line>
           <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/KoboldProcessor.kt</url>
+          <line>83</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

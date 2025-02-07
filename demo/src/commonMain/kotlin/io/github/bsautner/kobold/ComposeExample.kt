@@ -16,7 +16,7 @@ data class LoginResponse2(val message: String) : KResponse
 
 @Kobold
 @Resource("/test")
-data object ComposeExample2: KComposable, KPost<LoginRequest2, LoginResponse2> {
+data object ComposeExample: KComposable, KPost<LoginRequest2, LoginResponse2> {
 
     @Contextual
     override val render: KCompose = MyUserInterface {

@@ -1,20 +1,19 @@
 package io.github.bsautner.ksp.processor
 
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
-import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.ksp.routing.RoutingGenerator.getRouteClassDeclaration
 import io.github.bsautner.ksp.classtools.ClassMetaData
-import io.github.bsautner.ksp.classtools.id
 import io.github.bsautner.ksp.util.Const
 import io.github.bsautner.ksp.util.ImportManager
+import java.util.Date
 
 class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
 
-    fun create(metaData: ClassMetaData) {
+    fun create(metaData: ClassMetaData, callback : (String) -> Unit) {
 
         val classDeclaration = metaData.declaration
         val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
@@ -24,39 +23,57 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
         fileBuilder.tag(TargetPlatform::class, TargetPlatform.commonMain)
 
 
-        createComposables(classDeclaration, outputClassName, fileBuilder)
+        createComposables(classDeclaration, outputClassName, fileBuilder, callback)
 
     }
 
-    fun createComposables(classDeclaration: KSClassDeclaration, outputClassName: String, fileBuilder: FileSpec.Builder) {
+    fun createComposables(classDeclaration: KSClassDeclaration, outputClassName: String, fileBuilder: FileSpec.Builder, callback: (String) -> Unit) {
+        addBaseComposeImports(classDeclaration)
+
         val functionBuilder = FunSpec.builder(outputClassName)
             .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
             .addCode(generate(classDeclaration))
-        addBaseComposeImports(classDeclaration.id())
+        addBaseComposeImports(classDeclaration)
         fileBuilder
             .addFileComment(Const.comment)
             .addFunction(functionBuilder.build())
         log("Created Composable: ${fileBuilder.packageName}.${fileBuilder.name}" )
-        writeToFile(fileBuilder.build())
+        ImportManager.addImportBlock(classDeclaration, fileBuilder)
+        writeToFile(fileBuilder.build(), callback)
     }
 
 
-    private fun addBaseComposeImports(id: String) {
+    private fun addBaseComposeImports(declaration: KSClassDeclaration) {
+
+        val meta = classHelper.getClassMetaData(declaration)
+
 1
         ImportManager.apply {
-            this.addImport(id, "androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
-            this.addImport(id, "androidx.compose.foundation", "border", "clickable")
-            this.addImport(id, "androidx.compose.foundation.text", "BasicText", "BasicTextField")
-            this.addImport(id, "androidx.compose.material", "Button", "Text")
-            this.addImport(id, "androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
-            this.addImport(id, "androidx.compose.ui", "Modifier", "Alignment")
-            this.addImport(id, "androidx.compose.ui.graphics", "Color")
-            this.addImport(id, "androidx.compose.ui.text", "TextStyle")
-            this.addImport(id, "androidx.compose.ui.unit", "dp")
-            this.addImport(id, "kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
-            this.addImport(id, "io.ktor.client.statement", "bodyAsText")
-            this.addImport(id, "io.github.bsautner.kobold", "introspectSerializableClass")
-            this.addImport(id, "io.github.bsautner.kobold.client", "ApiClient")
+
+            meta.imports.forEach { pack ->
+                pack.value.forEach { cls ->
+                    this.addImport(declaration, pack.key,  cls)
+                }
+
+            }
+            meta.interfaces.forEach {
+                this.addImport(declaration, it.declaration.packageName.asString(), it.declaration.simpleName.asString())
+            }
+
+
+            this.addImport(declaration, "androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
+            this.addImport(declaration, "androidx.compose.foundation", "border", "clickable")
+            this.addImport(declaration, "androidx.compose.foundation.text", "BasicText", "BasicTextField")
+            this.addImport(declaration, "androidx.compose.material", "Button", "Text")
+            this.addImport(declaration, "androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
+            this.addImport(declaration, "androidx.compose.ui", "Modifier", "Alignment")
+            this.addImport(declaration, "androidx.compose.ui.graphics", "Color")
+            this.addImport(declaration, "androidx.compose.ui.text", "TextStyle")
+            this.addImport(declaration, "androidx.compose.ui.unit", "dp")
+            this.addImport(declaration, "kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
+            this.addImport(declaration, "io.ktor.client.statement", "bodyAsText")
+            this.addImport(declaration, "io.github.bsautner.kobold", "introspectSerializableClass")
+            this.addImport(declaration, "io.github.bsautner.kobold.client", "ApiClient")
         }
 
 
@@ -71,11 +88,11 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
         val metaData = classHelper.getClassMetaData(classDeclaration)
         val interfaces = metaData.interfaces.map { it.qualifiedName }
-     //   if (interfaces.contains(KPost::class.qualifiedName)) {
+        if (interfaces.contains(KPost::class.qualifiedName)) {
             log("KPost Detected, Creating Form")
             generateComposableForm(metaData, code)
 
-     //   }
+        }
 
         return code.build()
     }
@@ -126,7 +143,7 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                 
                 Column {
                     Spacer(Modifier.height(16.dp))
-                    BasicText("${typeParams.simpleName}")
+                    BasicText("${Date()}")
                     Spacer(Modifier.height(16.dp))
                 """.trimIndent()
             )
@@ -164,7 +181,7 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                         },
                         enabled = isFormValid
                     ) {
-                        Text("OK 10")
+                        Text("OK")
                     }
                 }
                 """.trimIndent()

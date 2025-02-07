@@ -6,6 +6,8 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
 class KoboldProcessorProvider : SymbolProcessorProvider {
 	override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
+
+
 		return KoboldProcessor(environment) {}
 	}
 

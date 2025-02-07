@@ -140,6 +140,18 @@ class ClassHelper {
 
 }
 
+fun areCodeStringsIdentical(code1: String, code2: String): Boolean {
+    fun removeTopComments(code: String): String {
+        return code
+            .lineSequence()
+            .dropWhile { it.trimStart().startsWith("//") || it.trimStart().startsWith("/*") }
+            .joinToString("\n")
+            .trim()
+    }
+
+    return removeTopComments(code1) == removeTopComments(code2)
+}
+
 fun KSClassDeclaration.toImportStatement(): Pair<String, String> {
     val qualifiedName = this.qualifiedName?.asString()
         ?: throw IllegalArgumentException("Class declaration must have a qualified name")
@@ -147,12 +159,6 @@ fun KSClassDeclaration.toImportStatement(): Pair<String, String> {
     val packageName = qualifiedName.substringBeforeLast(".")
     val className = qualifiedName.substringAfterLast(".")
     return Pair(packageName, className)
-
-}
-
-fun KSClassDeclaration.id() : String {
-     val import = this.toImportStatement()
-    return "${import.first}.${import.second}".hashCode().toString()
 
 }
 

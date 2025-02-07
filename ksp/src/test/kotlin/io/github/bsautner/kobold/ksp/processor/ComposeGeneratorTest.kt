@@ -5,6 +5,7 @@ package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.configureKsp
+import com.tschuchort.compiletesting.kspProcessorOptions
 import io.github.bsautner.utils.TestProcessorProvider
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.sourceKindForIncOrDec
@@ -16,6 +17,32 @@ import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class ComposeGeneratorTest {
+
+
+	@Test
+	fun `test static routing`() {
+
+		val provider = TestProcessorProvider { declaration ->
+			println("Callback ${declaration.simpleName.asString()}")
+		}
+		val testCode = readResourceFile("/io.github.bsautner.kobold/StaticExample.kt")
+		val sourceFile = SourceFile.kotlin("StaticExample.kt", testCode)
+
+		val compilation = KotlinCompilation().apply {
+			configureKsp(useKsp2 = true) {
+				symbolProcessorProviders += provider
+
+			}
+			sources = listOf(sourceFile)
+			inheritClassPath = true
+			kspProcessorOptions = mutableMapOf("output-dir" to "/tmp/kobold")
+		}
+
+		val result = compilation.compile()
+		assertEquals(KotlinCompilation.ExitCode.OK, result.exitCode)
+
+	}
+
 
 	@Test
 	fun `test read code`() {

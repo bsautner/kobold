@@ -4,7 +4,9 @@ import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.squareup.kotlinpoet.FileSpec
 import io.github.bsautner.ksp.classtools.ClassHelper
+import io.github.bsautner.ksp.classtools.areCodeStringsIdentical
 import java.io.File
+import java.util.Date
 
 //TODO mark all files dirty, process with not dirty mark and delete dirty files.
 
@@ -16,49 +18,44 @@ abstract class BaseProcessor(env: SymbolProcessorEnvironment) : KoboldClassBuild
 	val classHelper = ClassHelper()
 
 	fun log(text: Any) {
-		 logger.warn("ben: $text")
+		 logger.info("${Date()} $text")
 	}
 
-	fun writeToFile(fileSpec: FileSpec) {
+	fun writeToFile(fileSpec: FileSpec, callback : (String) -> Unit) {
 		log(fileSpec.tags)
-		log("Writing to file: ${fileSpec.tag(TargetPlatform::class)}")
+		log("IO-OP: Writing to Platform: ${fileSpec.tag(TargetPlatform::class)}")
 		fileSpec.tag(TargetPlatform::class)?.let {
+
 			val outputDir = File("$outputDirOption/${it.name}/kotlin")
 
 			val target = "${outputDir.absolutePath}/${fileSpec.packageName.replace('.', '/')}/${fileSpec.name}.kt"
 
 			val targetFile = File(target)
-			log("Checking Target. Exists = ${targetFile.exists()}  $target")
+			log("IO-OP: Checking Target. Exists = ${targetFile.exists()}  $target")
 			if (targetFile.exists()) {
 				val content = targetFile.readText()
 				val newContent = buildString {
 					fileSpec.writeTo(this)
 				}
-				if (content.trim() == newContent.trim()) {
-					log("Skipping identical content")
-					//TODO mark as not dirty
+				if (!areCodeStringsIdentical(content, newContent)) {
+					log("IO-OP: Skipping identical content $target")
+					callback.invoke(targetFile.absolutePath)
 				} else {
-					createFile(fileSpec, outputDir)
+					createFile(fileSpec, outputDir, callback)
 				}
 			} else {
-				createFile(fileSpec, outputDir)
+				   createFile(fileSpec, outputDir, callback)
 			}
 		}
 	}
 
-	fun createFile(fileSpec: FileSpec, outputDir : File) : File {
+	fun createFile(fileSpec: FileSpec, outputDir : File, callback: (String) -> Unit) : File {
 		val result = fileSpec.writeTo(outputDir)
-		log("Created File : ${result.path}")
+		log("IO-OP: Created File : ${result.path}")
+		callback.invoke(result.absolutePath)
 		return result
 	}
 
-
-//		list.forEach {
-//				builder.addImport(it.packageName, it.simpleName)
-//				addImports(builder, it.typeParameters)
-//				addImports(builder, it.interfaces)
-//			}
-//		}
 }
 	fun FileSpec.toFile(rootDir: File) : File {
 		return File(rootDir, this.relativePath)

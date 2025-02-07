@@ -1,11 +1,10 @@
 package io.github.bsautner.ksp.util
 
-import com.squareup.kotlinpoet.CodeBlock
+import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.FileSpec
-import org.slf4j.event.KeyValuePair
 
 object ImportManager {
-	val imports = mutableMapOf<String, MutableMap<String, MutableList<String>>>()
+	val imports = mutableMapOf<KSClassDeclaration, MutableMap<String, MutableList<String>>>()
 	val routerImports = mutableMapOf<String, MutableList<String>>()
 
 	fun addRouterImport(importPackage: String, vararg className: String) {
@@ -16,12 +15,11 @@ object ImportManager {
 
 	}
 
-	fun addImport(id: String, importPackage: String, vararg className: String) {
-
-	    val packageImports = imports.getOrPut(id) { mutableMapOf() }
-	    val classList = packageImports.getOrPut(importPackage) { mutableListOf() }
-	    classList.addAll(className)
-	}
+	fun addImport(id: KSClassDeclaration, importPackage: String, vararg className: String) {
+	        val packageImports = imports.getOrPut(id) { mutableMapOf() }
+	        val classList = packageImports.getOrPut(importPackage) { mutableListOf() }
+	        classList.addAll(className)
+	    }
 
 
 	fun addRouterImportBlock(fileSpec: FileSpec.Builder) : FileSpec.Builder {
@@ -36,7 +34,7 @@ object ImportManager {
  		return fileSpec
 	}
 
-	fun addImportBlock(id: String, fileSpec: FileSpec.Builder) : FileSpec.Builder {
+	fun addImportBlock(id: KSClassDeclaration, fileSpec: FileSpec.Builder) : FileSpec.Builder {
 		imports[id]?.let {
 			it.forEach { item ->
 

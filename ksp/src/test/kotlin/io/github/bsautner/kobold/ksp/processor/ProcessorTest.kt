@@ -5,6 +5,8 @@ package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.configureKsp
+import com.tschuchort.compiletesting.kspArgs
+import com.tschuchort.compiletesting.kspProcessorOptions
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.ksp.classtools.ClassHelper
 import io.github.bsautner.utils.TestProcessorProvider
@@ -65,9 +67,11 @@ class ProcessorTest {
 		val compilation = KotlinCompilation().apply {
 			configureKsp(useKsp2 = true) {
 				symbolProcessorProviders += provider
+
 			}
 			sources = listOf(sourceFile)
 			inheritClassPath = true
+			kspProcessorOptions = mutableMapOf("output-dir" to "/tmp/kobold")
 		}
 
 		val result = compilation.compile()

@@ -2,13 +2,10 @@ package io.github.bsautner.ksp.routing
 
 import com.squareup.kotlinpoet.CodeBlock
 import io.github.bsautner.kobold.KoboldStatic
-import io.github.bsautner.ksp.classtools.ClassHelper
 import io.github.bsautner.ksp.classtools.ClassMetaData
-import io.github.bsautner.ksp.classtools.id
 import io.github.bsautner.ksp.routing.AutoRouter.Companion.PATH
 import io.github.bsautner.ksp.util.ImportManager
-import io.ktor.resources.Resource
-import kotlin.collections.get
+import io.ktor.resources.*
 
 class RouteGenerator()  {
 
@@ -17,15 +14,8 @@ class RouteGenerator()  {
 		map.put(metaData.packageName, metaData.simpleName)
 		metaData.imports.forEach {
 			it.value.forEach { name ->
-				if (name == "Login") {
-					println("here.")
-					val path = metaData.declaration.containingFile?.filePath
-					println(path)
-				}
 				map.put(it.key, name)
-				//map.put(it.key, "$name $note")
 			}
-
 		}
 		metaData.typeParameters.forEach {
 			addImports(it, "$note | REC ${metaData.simpleName}")
