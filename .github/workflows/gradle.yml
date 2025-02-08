@@ -70,7 +70,7 @@ jobs:
         uses: jaywcjlove/github-action-folder-tree@main
         with:
           exclude: "node_modules|dist|.git|.husky"
-          path: Writerside/api-docs
+          path: .
           depth: 5
           
       - name: Build Writerside documentation
@@ -79,72 +79,24 @@ jobs:
           instance: ${{ env.INSTANCE }}
           docker-version: ${{ env.DOCKER_VERSION }}
 
-      - name: Save artifact with build results
-        uses: actions/upload-artifact@v4
-        with:
-          name: docs
-          path: |
-            artifacts/${{ needs.build.outputs.artifact }}
-            artifacts/report.json
-            artifacts/${{ needs.build.outputs.algolia_artifact }}
-          retention-days: 1
- 
-  deploy:
-    needs: [build]
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download documentation artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: artifacts
-      
-      - name: Print Folder Tree 2
-        uses: jaywcjlove/github-action-folder-tree@main
-        with:
-         exclude: "node_modules|dist|.git|.husky"
-         path: .
-         depth: 5
-
-      - name: Verify artifact exists before extracting
-        run: |
-          echo "Listing artifacts"
-          ls -A artifacts/
-          if [ -z "$(ls -A artifacts/)" ]; then
-            echo "Error: No artifacts found in artifacts/ directory"
-            exit 1
-          fi
-
-      - name: Unzip artifact
-        run: |
-          ARTIFACT_NAME="${{ needs.build.outputs.artifact }}"
-          echo $ARTIFACT_NAME
-          echo "artiface name should be above"
-          if [ -f "artifacts/$ARTIFACT_NAME" ]; then
-            unzip -O UTF-8 -qq "artifacts/$ARTIFACT_NAME" -d dir
-          else
-            echo "Error: Artifact file not found: artifacts/$ARTIFACT_NAME"
-            exit 1
-          fi
-          
-      - name: Print Folder Tree 3
-        uses: jaywcjlove/github-action-folder-tree@main
-        with:
-          exclude: "node_modules|dist|.git|.husky"
-          path: .
-          depth: 5
-
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 
       - name: Package and upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dir
+          path: Writerside
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Print Folder Tree
+        uses: jaywcjlove/github-action-folder-tree@main
+        with:
+          exclude: "node_modules|dist|.git|.husky"
+          path: .
+          depth: 5
+ 
+
+      
