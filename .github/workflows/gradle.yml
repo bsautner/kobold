@@ -55,11 +55,11 @@ jobs:
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
           echo "algolia_artifact=$ALGOLIA_ARTIFACT" >> $GITHUB_OUTPUT
 
-      - name: Copy Dokka HTML to Writerside
+      - name: Copy Dokka HTML to api-docs
         run: |
-          mkdir -p Writerside/api-docs
+          mkdir -p api-docs
           if [ -d "api/build/dokka/html" ]; then
-            cp -rv api/build/dokka/html/* Writerside/api-docs/
+            cp -r api/build/dokka/html/* api-docs/
           else
             echo "Dokka output directory not found!"
             exit 1
