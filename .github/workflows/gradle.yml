@@ -45,6 +45,13 @@ jobs:
           echo "ALGOLIA_ARTIFACT=$ALGOLIA_ARTIFACT" >> $GITHUB_ENV
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
           echo "algolia_artifact=$ALGOLIA_ARTIFACT" >> $GITHUB_OUTPUT
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          
       - name: Compile Dokka
         run: ./gradlew dokkaGenerate
 
