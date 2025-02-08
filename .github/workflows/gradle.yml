@@ -123,6 +123,8 @@ jobs:
 
       - name: Verify artifact exists before extracting
         run: |
+          echo "Listing artifacts"
+          ls -A artifacts/
           if [ -z "$(ls -A artifacts/)" ]; then
             echo "Error: No artifacts found in artifacts/ directory"
             exit 1
@@ -131,6 +133,8 @@ jobs:
       - name: Unzip artifact
         run: |
           ARTIFACT_NAME="${{ needs.build.outputs.artifact }}"
+          echo $ARTIFACT_NAME
+          echo "artiface name should be above"
           if [ -f "artifacts/$ARTIFACT_NAME" ]; then
             unzip -O UTF-8 -qq "artifacts/$ARTIFACT_NAME" -d dir
           else
