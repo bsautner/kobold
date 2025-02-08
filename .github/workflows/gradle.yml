@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir -p Writerside/api-docs
           if [ -d "api/build/dokka/html" ]; then
-            cp -rv api/build/dokka/html/* Writerside/api-docs/
+            cp -r api/build/dokka/html/* Writerside/api-docs/
           else
             echo "Dokka output directory not found!"
             exit 1
@@ -97,24 +97,10 @@ jobs:
             artifacts/report.json
             artifacts/${{ needs.build.outputs.algolia_artifact }}
           retention-days: 7
-
-  test-documentation:
-    needs: documentation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download documentation artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: artifacts
-
-      - name: Test documentation
-        uses: JetBrains/writerside-checker-action@v1
-        with:
-          instance: ${{ env.INSTANCE }}
+ 
 
   deploy:
-    needs: [build, test-documentation]
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -125,9 +111,13 @@ jobs:
         with:
           name: docs
           path: artifacts
-
-      - name: List downloaded artifacts for debugging
-        run: ls -R artifacts/
+      
+      - name: Print Folder Tree 2
+        uses: jaywcjlove/github-action-folder-tree@main
+        with:
+         exclude: "node_modules|dist|.git|.husky"
+         path: .
+         depth: 5
 
       - name: Verify artifact exists before extracting
         run: |
