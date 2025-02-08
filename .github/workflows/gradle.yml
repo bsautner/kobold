@@ -106,7 +106,7 @@ jobs:
           instance: ${{ env.INSTANCE }}
 
   deploy:
-    needs: test-documentation
+    needs: [build, test-documentation]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
