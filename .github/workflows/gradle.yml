@@ -57,15 +57,15 @@ jobs:
 
       - name: Copy Dokka HTML to api-docs
         run: |
-          mkdir -p api-docs
+          mkdir -p Writerside/api-docs
           if [ -d "api/build/dokka/html" ]; then
-            cp -rv api/build/dokka/html/* api-docs/
+            cp -rv api/build/dokka/html/* Writerside/api-docs/
           else
             echo "Dokka output directory not found!"
             exit 1
           fi
           ls -la .
-          ls ./api-docs
+          ls Writerside/api-docs
 
   documentation:
     needs: build
