@@ -72,23 +72,7 @@ jobs:
           exclude: "node_modules|dist|.git|.husky"
           path: Writerside/api-docs
           depth: 5
-
-  documentation:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Print Folder Tree 4
-        uses: jaywcjlove/github-action-folder-tree@main
-        with:
-          exclude: "node_modules|dist|.git|.husky"
-          path: .
-          depth: 5
-
+          
       - name: Build Writerside documentation
         uses: JetBrains/writerside-github-action@v4
         with:
@@ -105,9 +89,8 @@ jobs:
             artifacts/${{ needs.build.outputs.algolia_artifact }}
           retention-days: 1
  
-
   deploy:
-    needs: [build, documentation]
+    needs: [build]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
