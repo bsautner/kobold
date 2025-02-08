@@ -15,7 +15,6 @@ env:
 
 jobs:
   build:
-    # Expose outputs from the build job if needed in other jobs.
     outputs:
       artifact: ${{ steps.define-ids.outputs.artifact }}
       algolia_artifact: ${{ steps.define-ids.outputs.algolia_artifact }}
@@ -40,8 +39,7 @@ jobs:
         id: define-ids
         run: |
           ./gradlew build dokkaGenerate
-
-          # Remove any prefix from INSTANCE if present.
+          # Process INSTANCE for naming
           INSTANCE=${INSTANCE#*/}
           INSTANCE_ID_UPPER=$(echo "$INSTANCE" | tr '[:lower:]' '[:upper:]')
           ARTIFACT="webHelp${INSTANCE_ID_UPPER}2-all.zip"
@@ -73,12 +71,12 @@ jobs:
           instance: ${{ env.INSTANCE }}
           docker-version: ${{ env.DOCKER_VERSION }}
 
-      # Upload the entire Writerside folder so that the copied docs (under api-docs) are included.
+      # Upload the contents of the Writerside folder (not the folder itself)
       - name: Upload Writerside docs
         uses: actions/upload-artifact@v4
         with:
           name: writerside
-          path: Writerside
+          path: Writerside/.   # Notice the dot (.) to include the folder's contents
 
       - name: Save additional build artifacts
         uses: actions/upload-artifact@v4
@@ -132,19 +130,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Download the writerside artifact into a folder named "pages"
       - name: Download Writerside docs artifact
         uses: actions/download-artifact@v4
         with:
           name: writerside
-          path: writerside
-
+          path: pages
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Package and upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: writerside
+          path: pages   # This folder now contains your site's root content
 
       - name: Deploy to GitHub Pages
         id: deployment
