@@ -22,6 +22,8 @@ dependencies {
     // Add a dependency on the Kotlin Gradle plugin, so that convention plugins can apply it.
     implementation(libs.kotlinGradlePlugin)
     // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
+// https://mvnrepository.com/artifact/org.jetbrains.dokka/analysis-markdown
+    runtimeOnly("org.jetbrains.dokka:analysis-markdown:2.0.0")
 
 }
 

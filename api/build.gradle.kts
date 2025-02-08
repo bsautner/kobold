@@ -48,6 +48,7 @@ kotlin {
             kotlin.srcDir("src/jvmMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib"))
+
             }
         }
     }
@@ -62,9 +63,9 @@ java {
     }
 }
 
-tasks.dokkaGfm {
-    outputDirectory.set(layout.buildDirectory.dir("documentation/markdown"))
-}
+//tasks.dokkaGfm {
+//    outputDirectory.set(layout.buildDirectory.dir("documentation/markdown"))
+//}
 
 // Configure publishing for all targets using the built-in multiplatform publishing
 publishing {
@@ -100,10 +101,6 @@ publishing {
             }
         }
     }
-}
-
-tasks.dokkaGfmPartial {
-    outputDirectory.set(layout.buildDirectory.dir("docs/partial"))
 }
 
 tasks.withType<DokkaTask>().configureEach {
