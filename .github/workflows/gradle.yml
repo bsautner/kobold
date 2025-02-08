@@ -96,11 +96,11 @@ jobs:
             artifacts/${{ needs.build.outputs.artifact }}
             artifacts/report.json
             artifacts/${{ needs.build.outputs.algolia_artifact }}
-          retention-days: 7
+          retention-days: 1
  
 
   deploy:
-    needs: build
+    needs: [build, documentation]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
