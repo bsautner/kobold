@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir -p Writerside/api-docs
           if [ -d "api/build/dokka/html" ]; then
-            cp -r api/build/dokka/html/* Writerside/api-docs/
+            cp -rv api/build/dokka/html/* Writerside/api-docs/
           else
             echo "Dokka output directory not found!"
             exit 1
