@@ -110,6 +110,25 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            // Use the snapshots URL if the version ends with -SNAPSHOT,
+            // otherwise use the staging URL for releases.
+            url = uri(
+                if (version.toString().endsWith("SNAPSHOT"))
+                    "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                else
+                    "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            )
+            credentials {
+                username = (project.findProperty("ossrhUsername") as String?)
+                    ?: System.getenv("SONATYPE_USERNAME")
+                password = (project.findProperty("ossrhPassword") as String?)
+                    ?: System.getenv("SONATYPE_PASSWORD")
+            }
+        }
+    }
 }
 
 signing {
