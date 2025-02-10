@@ -122,10 +122,8 @@ publishing {
                     "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             )
             credentials {
-                username = (project.findProperty("ossrhUsername") as String?)
-                    ?: System.getenv("MAVEN_CENTRAL_USERNAME")
-                password = (project.findProperty("ossrhPassword") as String?)
-                    ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
+                username =  System.getenv("MAVEN_CENTRAL_USERNAME")
+                password =  System.getenv("MAVEN_CENTRAL_PASSWORD")
             }
         }
     }
@@ -134,7 +132,9 @@ publishing {
 signing {
     val signingKey: String? by project
     val signingKeyBreaks = signingKey?.replace("\\n", "\n")
-
+    val username =  System.getenv("MAVEN_CENTRAL_USERNAME")
+    val password =  System.getenv("MAVEN_CENTRAL_PASSWORD")
+    println("***********$username PPPP ${password}")
     signing {
         val signingPassword: String? by project
         if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
