@@ -123,9 +123,9 @@ publishing {
             )
             credentials {
                 username = (project.findProperty("ossrhUsername") as String?)
-                    ?: System.getenv("SONATYPE_USERNAME")
+                    ?: System.getenv("MAVEN_CENTRAL_USERNAME")
                 password = (project.findProperty("ossrhPassword") as String?)
-                    ?: System.getenv("SONATYPE_PASSWORD")
+                    ?: System.getenv("MAVEN_CENTRAL_PASSWORD")
             }
         }
     }
