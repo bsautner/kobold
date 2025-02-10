@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.dokka)
-
+    alias(libs.plugins.deployer)
 }
 
 group = "io.github.bsautner"
@@ -26,9 +26,9 @@ val apiJavadocJar by tasks.registering(Jar::class) {
     from("$buildDir/dokka/html") //I'm not sure if this is correct for dokka
 }
 
-// Configure the Kotlin Multiplatform targets
+
 kotlin {
-    // Use a common JVM toolchain configuration for all targets
+
     jvmToolchain(21)
 
     jvm()
@@ -75,28 +75,12 @@ java {
     }
 }
 
-
 publishing {
-//    repositories {
-//        maven {
-//            name = "sonatype"
-//            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-//            credentials {
-//                username = "gsGnRGHd"
-//                password = "zdQfcavTVgT22HlvETWo97l+MTGB2H9Dd3geBdgY0lcx"
-//
-//            }
-//        }
-//    }
-
     publications {
         create<MavenPublication>("kobold") {
             artifactId = "kobold"
             groupId = project.group.toString()
             version = "0.0.1" // project.version.toString()
-
-
-
             artifact(apiSourcesJar)
             artifact(apiJavadocJar)
             pom {
@@ -133,8 +117,6 @@ signing {
     val signingKeyBreaks = signingKey?.replace("\\n", "\n")
 
     signing {
-        println("Signing key is ${if (signingKey.isNullOrEmpty()) "NOT set" else "set (length: ${signingKey!!.length})"}")
-
         val signingPassword: String? by project
         if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
             useInMemoryPgpKeys(signingKeyBreaks, signingPassword)
@@ -144,6 +126,7 @@ signing {
         }
     }
 }
+
 tasks.withType<DokkaTask>().configureEach {
     moduleName.set(project.name)
     moduleVersion.set(project.version.toString())
