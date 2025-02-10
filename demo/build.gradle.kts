@@ -103,7 +103,7 @@ kotlin {
                 implementation(kotlin("stdlib-wasm-js"))
                 implementation(libs.bundles.ktorClient)
 
-                implementation("org.jetbrains.compose.runtime:runtime-wasm-js:1.7.3")
+                implementation("org.jetbrains.compose.runtime:runtime-wasm-js:1.8.0+dev2049")
                 implementation("org.jetbrains.kotlinx:kotlinx-browser-wasm-js:0.3")
             }
         }
