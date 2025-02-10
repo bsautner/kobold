@@ -30,7 +30,7 @@ dependencies {
 
 configurations.all {
     resolutionStrategy {
-        force("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
+        force("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
         force("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
         force("androidx.arch.core:core-common:2.2.0")
         force("androidx.annotation:annotation:1.9.1")
