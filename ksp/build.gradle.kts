@@ -50,7 +50,7 @@ publishing {
             from(components["java"])
             artifactId = "kobold-ksp"
             groupId = "io.github.bsautner"
-            version = "0.0.1-SNAPSHOT"
+            version = "0.0.1"
 
             // Attach sources and javadoc jars
             artifact(sourcesJar)

@@ -4,15 +4,27 @@ import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     `maven-publish`
+    signing
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.serialization)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.dokka)
+
 }
 
 group = "io.github.bsautner"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
+
+val apiSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+//    from(sourceSets["main"].allSource)  this needs to use sources from this :api module jvmMain or commonMain
+}
+
+val apiJavadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+    from("$buildDir/dokka/html") //I'm not sure if this is correct for dokka
+}
 
 // Configure the Kotlin Multiplatform targets
 kotlin {
@@ -63,46 +75,75 @@ java {
     }
 }
 
-//tasks.dokkaGfm {
-//    outputDirectory.set(layout.buildDirectory.dir("documentation/markdown"))
-//}
 
-// Configure publishing for all targets using the built-in multiplatform publishing
 publishing {
-    publications.withType<MavenPublication>().configureEach {
-        // Customize the artifactId if desired (e.g. append the publication name)
-        artifactId = "kobold-${name}"
-        groupId = project.group.toString()
-        version = project.version.toString()
+//    repositories {
+//        maven {
+//            name = "sonatype"
+//            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+//            credentials {
+//                username = "gsGnRGHd"
+//                password = "zdQfcavTVgT22HlvETWo97l+MTGB2H9Dd3geBdgY0lcx"
+//
+//            }
+//        }
+//    }
 
-        pom {
-            // You can set a different name/description per publication if needed:
-            name.set("Kobold (${name})")
-            description.set("Kobold Code Generator for the ${name} target.")
-            url.set("https://github.com/bsautner/kobold")
+    publications {
+        create<MavenPublication>("kobold") {
+            artifactId = "kobold"
+            groupId = project.group.toString()
+            version = "0.0.1" // project.version.toString()
 
-            licenses {
-                license {
-                    name.set("Apache License 2.0")
-                    url.set("https://www.apache.org/licenses/LICENSE-2.0")
-                }
-            }
-            scm {
-                connection.set("scm:git:git://github.com/bsautner/kobold.git")
-                developerConnection.set("scm:git:ssh://github.com/bsautner/kobold.git")
+
+
+            artifact(apiSourcesJar)
+            artifact(apiJavadocJar)
+            pom {
+                // You can set a different name/description per publication if needed:
+                name.set("Kobold (${name})")
+                description.set("Kobold Code Generator for the ${name} target.")
                 url.set("https://github.com/bsautner/kobold")
-            }
-            developers {
-                developer {
-                    id.set("bsautner")
-                    name.set("Benjamin Sautner")
-                    email.set("bsautner@gmail.com")
+
+                licenses {
+                    license {
+                        name.set("Apache License 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/bsautner/kobold.git")
+                    developerConnection.set("scm:git:ssh://github.com/bsautner/kobold.git")
+                    url.set("https://github.com/bsautner/kobold")
+                }
+                developers {
+                    developer {
+                        id.set("bsautner")
+                        name.set("Benjamin Sautner")
+                        email.set("bsautner@gmail.com")
+                    }
                 }
             }
         }
     }
 }
 
+signing {
+    val signingKey: String? by project
+    val signingKeyBreaks = signingKey?.replace("\\n", "\n")
+
+    signing {
+        println("Signing key is ${if (signingKey.isNullOrEmpty()) "NOT set" else "set (length: ${signingKey!!.length})"}")
+
+        val signingPassword: String? by project
+        if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
+            useInMemoryPgpKeys(signingKeyBreaks, signingPassword)
+            sign(publishing.publications["kobold"])
+        } else {
+            logger.warn("Signing key or password not provided; artifacts will not be signed.")
+        }
+    }
+}
 tasks.withType<DokkaTask>().configureEach {
     moduleName.set(project.name)
     moduleVersion.set(project.version.toString())

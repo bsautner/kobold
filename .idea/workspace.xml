@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Writerside/topics/Kobold-API.md" beforeDir="false" afterPath="$PROJECT_DIR$/Writerside/topics/Kobold-API.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,6 +254,11 @@
       <updated>1738962088537</updated>
       <workItem from="1738962090356" duration="6431000" />
       <workItem from="1739016266734" duration="6096000" />
+      <workItem from="1739106429787" duration="2989000" />
+      <workItem from="1739197110289" duration="2730000" />
+      <workItem from="1739199869629" duration="15000" />
+      <workItem from="1739200025025" duration="1692000" />
+      <workItem from="1739201824325" duration="2739000" />
     </task>
     <servers />
   </component>

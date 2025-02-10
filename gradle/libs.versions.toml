@@ -19,7 +19,7 @@ serialization = "2.1.10"
 poet_version = "2.0.0"
 logback_version = "1.5.16"
 slf4j_version = "2.0.16"
-
+jreleaser =  "1.16.0"
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
@@ -73,3 +73,4 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform" }
 
 buildsrc = {id = "buildsrc.convention.kotlin-jvm" }
+jreleaser = { id = "org.jreleaser", version.ref = "jreleaser"}
