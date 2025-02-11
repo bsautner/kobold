@@ -29,6 +29,6 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: |
-          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
           echo "${$GPG_PRIVATE_KEY.size}"
- 
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+        
