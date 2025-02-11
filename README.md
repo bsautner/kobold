@@ -1,4 +1,6 @@
 [![CI with Gradle](https://github.com/bsautner/kobold/actions/workflows/gradle.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle.yml)
+![Maven Central Version](https://img.shields.io/maven-central/v/io.github.bsautner.kobold/kobold-api)
+
 
 **This library is in the very early pre-alpha stage of development!**
 
