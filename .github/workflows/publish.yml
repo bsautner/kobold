@@ -24,5 +24,26 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}     
         run: ./gradlew clean build
 
+      - name: Bundle Artifacts into Zip
+        run: |
+          mkdir -p deployment
+          # Copy the files from the API module build output.
+          cp -v api/build/libs/* deployment/
+          # Change into the deployment folder and zip everything.
+          cd deployment
+          zip -r ../central-bundle.zip .
+          cd ..
+          ls -l central-bundle.zip
+
+      - name: Upload Bundle to Maven Central
+        env:
+          SONATYPE_TOKEN: ${{ secrets.SONATYPE_TOKEN }}
+        run: |
+          curl --request POST \
+            --verbose \
+            --header "Authorization: Bearer $SONATYPE_TOKEN" \
+            --form bundle=@central-bundle.zip \
+            https://central.sonatype.com/api/v1/publisher/upload
+
 
         
