@@ -44,7 +44,12 @@ java {
 }
 
 publishing {
-
+    repositories {
+        maven {
+            name = "localRepo"
+            url = uri("$buildDir/repo")
+        }
+    }
     publications {
         create<MavenPublication>("kobold-ksp") {
             from(components["java"])
