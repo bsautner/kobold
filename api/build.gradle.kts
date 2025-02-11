@@ -73,8 +73,20 @@ java {
     }
 }
 
-
+tasks.register<Zip>("zipPublishedArtifacts") {
+    // Include everything published to the local repo directory.
+    from("$buildDir/repo")
+    archiveFileName.set("publishedArtifacts.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("zips"))
+}
 publishing {
+    repositories {
+        maven {
+            name = "localRepo"
+            url = uri("$buildDir/repo")
+        }
+    }
+
     publications.withType<MavenPublication>().configureEach {
 
             artifactId = "kobold-api"
