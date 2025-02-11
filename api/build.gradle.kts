@@ -114,14 +114,11 @@ publishing {
 
 signing {
     val signingKey = System.getenv("GPG_PRIVATE_KEY")
-    val signingKeyBreaks = signingKey?.replace("\\n", "\n")
-
-
+    //val signingKeyBreaks = signingKey?.replace("\\n", "\n")
     signing {
         val signingPassword = System.getenv("GPG_PASSPHRASE")
-
-        if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
-            useInMemoryPgpKeys(signingKeyBreaks, signingPassword)
+        if (!signingKey.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
+            useInMemoryPgpKeys(signingKey, signingPassword)
             sign(publishing.publications["kobold-api"])
             logger.warn("*** Signed! ${signingKey.length} ${signingPassword.length}")
         } else {
