@@ -4,7 +4,10 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 
-@OptIn(ExperimentalSerializationApi::class)
+/**
+ * This is added to compose generation so at runtime we can interrogate data classes for defaults
+ */
+@OptIn(ExperimentalSerializationApi::class) @Suppress("unused")
 inline fun <reified T> introspectSerializableClass(): List<ConstructorParamInfo> {
     // Obtain the generated serializer for T
     val serial = serializer<T>()

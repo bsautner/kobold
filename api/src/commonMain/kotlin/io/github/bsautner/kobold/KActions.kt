@@ -2,7 +2,10 @@ package io.github.bsautner.kobold
 
 import kotlin.reflect.KClass
 
-
+/**
+ * Implement this interface in your data classes to use them as a response body of posts and gets in Ktor
+ *
+ */
 interface KGet<T: KResponse>  {
     val render: () -> T
 }
