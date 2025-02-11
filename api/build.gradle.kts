@@ -98,8 +98,11 @@ publishing {
             groupId = "io.github.bsautner.kobold"
             val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
             version = tagVersion ?: "0.0.1-SNAPSHOT"
-        //    artifact(apiSourcesJar)
-       //     artifact(apiJavadocJar)
+        // Only attach sources/javadoc for the JVM publication (or for a specific publication name)
+            if (name.contains("jvm", ignoreCase = true)) {
+                artifact(apiSourcesJar)
+                artifact(apiJavadocJar)
+            }
             pom {
                 // You can set a different name/description per publication if needed:
                 name.set("Kobold (${name})")
