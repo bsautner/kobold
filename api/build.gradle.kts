@@ -19,12 +19,12 @@ version = tagVersion ?: "0.0.1-SNAPSHOT"
 
 
 
-val apiSourcesJar by tasks.registering(Jar::class) {
+val jvmSourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
-    from(sourceSets["jvmMain"].allSource)
+    from(kotlin.sourceSets.getByName("jvmMain").kotlin)
 }
 
-val apiJavadocJar by tasks.registering(Jar::class) {
+val jvmJavadocJar by tasks.registering(Jar::class) {
     archiveClassifier.set("javadoc")
     from("$buildDir/dokka/html") //I'm not sure if this is correct for dokka
 }
@@ -99,10 +99,12 @@ publishing {
             val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
             version = tagVersion ?: "0.0.1-SNAPSHOT"
         // Only attach sources/javadoc for the JVM publication (or for a specific publication name)
-            if (name.contains("jvm", ignoreCase = true)) {
-                artifact(apiSourcesJar)
-                artifact(apiJavadocJar)
-            }
+//            if (name.contains("jvm", ignoreCase = true)) {
+//                artifact(jvmSourcesJar)
+                  artifact(jvmJavadocJar)
+//            }
+
+
             pom {
                 // You can set a different name/description per publication if needed:
                 name.set("Kobold (${name})")
