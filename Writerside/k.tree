@@ -7,7 +7,6 @@
                  start-page="starter-topic.md">
 
     <toc-element topic="starter-topic.md"/>
-    <toc-element toc-title="Kobol APi"/>
     <toc-element topic="Kobold-API.md"/>
     <toc-element topic="Routing.md"/>
     <toc-element topic="Getting-Started.md">
