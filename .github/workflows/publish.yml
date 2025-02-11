@@ -1,8 +1,9 @@
 name: Sign and Publish
 
 on:
-  push:
-    branches: [ "main" ]
+  release:
+    types: [created]
+
 
 jobs:
   build:
@@ -23,9 +24,10 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}     
         run: |
-          ./gradlew clean build publish :api:zipPublishedArtifacts
-      
-          
+          ./gradlew clean build publish -Pversion=${{ github.event.release.tag_name }}
+          ./gradlew :api:zipPublishedArtifacts
+  
+  
 
       - name: Upload Bundle to Maven Central
         env:

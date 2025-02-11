@@ -12,7 +12,12 @@ plugins {
 }
 
 group = "io.github.bsautner.kobold"
-version = "0.0.1"
+
+val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
+version = tagVersion ?: "0.0.1-SNAPSHOT"
+
+
+
 
 val apiSourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
@@ -91,7 +96,8 @@ publishing {
 
             artifactId = "kobold-api"
             groupId = "io.github.bsautner.kobold"
-            version = "0.0.1" // project.version.toString()
+            val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
+            version = tagVersion ?: "0.0.1-SNAPSHOT"
         //    artifact(apiSourcesJar)
        //     artifact(apiJavadocJar)
             pom {
