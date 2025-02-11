@@ -24,7 +24,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}     
         run: |
           ./gradlew clean build :api:zipPublishedArtifacts
-          ls 
+          tree ./api
           zip -r ./api/build/repo/io ./api/build/api-bundle.zip
           ls -l ./api/build/api-bundle.zip
           
