@@ -70,12 +70,7 @@ jobs:
           fi
           ls -la .
           ls Writerside/api-docs
-      - name: Print Folder Tree
-        uses: jaywcjlove/github-action-folder-tree@main
-        with:
-          exclude: "node_modules|dist|.git|.husky"
-          path: .
-          depth: 5
+    
           
       - name: Build Writerside documentation
         uses: JetBrains/writerside-github-action@v4
@@ -84,7 +79,7 @@ jobs:
           docker-version: ${{ env.DOCKER_VERSION }}
 
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Package and upload Pages artifact
         uses: actions/upload-pages-artifact@v3
