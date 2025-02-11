@@ -16,11 +16,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout code
-      - env: 
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }} 
-      
-      
         uses: actions/checkout@v4
       
       - name: Set up JDK 21
@@ -29,8 +24,12 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: gradle
+      
 
       - name: Build Project
+        env: 
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}     
         run: ./gradlew clean build
 
 
