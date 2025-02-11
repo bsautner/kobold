@@ -1,5 +1,6 @@
 group = "io.github.bsautner.kobold"
-version = "1.0-SNAPSHOT"
+val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
+version = tagVersion ?: "0.0.1-SNAPSHOT"
 
 plugins {
     `maven-publish`
@@ -18,7 +19,6 @@ repositories {
     google()
 }
 
-
 kotlin {
     jvmToolchain(21)
 }
@@ -32,9 +32,9 @@ val javadocJar by tasks.registering(Jar::class) {
 
 val sourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
-    // If your source is in `src/main/kotlin`, include that
     from(sourceSets["main"].allSource)
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
@@ -43,7 +43,6 @@ java {
     }
 }
 
-
 publishing {
 
     publications {
@@ -51,7 +50,8 @@ publishing {
             from(components["java"])
             artifactId = "kobold-ksp"
             groupId = "io.github.bsautner.kobold"
-            version = "0.0.1"
+            val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
+            version = tagVersion ?: "0.0.1-SNAPSHOT"
 
             // Attach sources and javadoc jars
             artifact(sourcesJar)
@@ -103,10 +103,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.1.10")
 }
 
-
 signing {
     val signingKey = System.getenv("GPG_PRIVATE_KEY")
-    //val signingKeyBreaks = signingKey?.replace("\\n", "\n")
     signing {
         val signingPassword = System.getenv("GPG_PASSPHRASE")
         if (!signingKey.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
@@ -124,4 +122,11 @@ tasks.withType<Test> {
 }
 tasks.withType<Test>().configureEach {
     reports.html.required = false
+}
+
+
+tasks.register<Zip>("zipPublishedArtifacts") {
+    from("$buildDir/repo")
+    archiveFileName.set("ksp.zip")
+    destinationDirectory.set(File("$buildDir/zips"))
 }

@@ -26,7 +26,7 @@ jobs:
         run: |
           ./gradlew clean build publish -Pversion=${{ github.event.release.tag_name }}
           ./gradlew :api:zipPublishedArtifacts
-  
+          ./gradlew :ksp:zipPublishedArtifacts
   
 
       - name: Upload Bundle to Maven Central
@@ -38,6 +38,11 @@ jobs:
             --verbose \
             --header "Authorization: Bearer $SONATYPE_TOKEN" \
             --form bundle=@api.zip \
+            https://central.sonatype.com/api/v1/publisher/upload
+           curl --request POST \
+            --verbose \
+            --header "Authorization: Bearer $SONATYPE_TOKEN" \
+            --form bundle=@ksp.zip \
             https://central.sonatype.com/api/v1/publisher/upload
 
 

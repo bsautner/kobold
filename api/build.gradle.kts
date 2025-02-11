@@ -16,16 +16,9 @@ group = "io.github.bsautner.kobold"
 val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
 version = tagVersion ?: "0.0.1-SNAPSHOT"
 
-
-
-
-
 kotlin {
-
     jvmToolchain(21)
-
     jvm()
-
     js {
         browser()
     }
@@ -59,20 +52,12 @@ kotlin {
     }
 }
 
-// Java toolchain configuration for non-Kotlin parts (if needed)
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
-}
-
-tasks.register<Zip>("zipPublishedArtifacts") {
-    // Include everything published to the local repo directory.
-    from("$buildDir/repo")
-    archiveFileName.set("api.zip")
-    destinationDirectory.set(File("$buildDir/zips"))
 }
 
 publishing {
@@ -91,7 +76,6 @@ publishing {
             version = tagVersion ?: "0.0.1-SNAPSHOT"
 
             pom {
-                // You can set a different name/description per publication if needed:
                 name.set("Kobold (${name})")
                 description.set("Kobold Code Generator for the ${name} target.")
                 url.set("https://github.com/bsautner/kobold")
@@ -117,8 +101,6 @@ publishing {
             }
         }
     }
-
-
 
 signing {
     val signingKey = System.getenv("GPG_PRIVATE_KEY")
@@ -147,3 +129,8 @@ tasks.withType<DokkaTask>().configureEach {
 
 }
 
+tasks.register<Zip>("zipPublishedArtifacts") {
+    from("$buildDir/repo")
+    archiveFileName.set("api.zip")
+    destinationDirectory.set(File("$buildDir/zips"))
+}
