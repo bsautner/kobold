@@ -21,7 +21,7 @@ version = tagVersion ?: "0.0.1-SNAPSHOT"
 
 val apiSourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
-//    from(sourceSets["main"].allSource)  this needs to use sources from this :api module jvmMain or commonMain
+    from(sourceSets["jvmMain"].allSource)
 }
 
 val apiJavadocJar by tasks.registering(Jar::class) {
