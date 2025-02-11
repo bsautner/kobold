@@ -24,5 +24,17 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}     
         run: ./gradlew clean build
 
+      - name: Bundle Artifacts into Zip
+        run: |
+          tree .
+          mkdir -p deployment
+          # Copy the files from the API module build output.
+          cp -v api/build/libs/* deployment/
+          # Change into the deployment folder and zip everything.
+          cd deployment
+          zip -r ../central-bundle.zip .
+          cd ..
+          ls -l central-bundle.zip
+
 
         
