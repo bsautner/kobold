@@ -75,18 +75,6 @@ java {
 
 
 publishing {
-    repositories {
-        maven {
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = project.findProperty("username") as String
-                password = project.findProperty("password") as String
-
-            }
-
-        }
-    }
-
     publications {
         create<MavenPublication>("kobold-api") {
             artifactId = "kobold-api"
