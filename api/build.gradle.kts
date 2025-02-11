@@ -113,15 +113,17 @@ publishing {
 }
 
 signing {
-    val signingKey: String? by project
+    val signingKey = System.getenv("GPG_PRIVATE_KEY")
     val signingKeyBreaks = signingKey?.replace("\\n", "\n")
 
 
     signing {
-        val signingPassword: String? by project
+        val signingPassword = System.getenv("GPG_PASSPHRASE")
+
         if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
             useInMemoryPgpKeys(signingKeyBreaks, signingPassword)
             sign(publishing.publications["kobold-api"])
+            logger.warn("*** Signed! ${signingKey.length} ${signingPassword.length}")
         } else {
             logger.warn("Signing key or password not provided; artifacts will not be signed.")
         }
