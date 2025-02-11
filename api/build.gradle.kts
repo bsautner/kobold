@@ -80,8 +80,8 @@ publishing {
             artifactId = "kobold-api"
             groupId = "io.github.bsautner.kobold"
             version = "0.0.1" // project.version.toString()
-            artifact(apiSourcesJar)
-            artifact(apiJavadocJar)
+        //    artifact(apiSourcesJar)
+       //     artifact(apiJavadocJar)
             pom {
                 // You can set a different name/description per publication if needed:
                 name.set("Kobold (${name})")
