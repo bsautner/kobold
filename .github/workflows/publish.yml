@@ -33,17 +33,17 @@ jobs:
         env:
           SONATYPE_TOKEN: ${{ secrets.SONATYPE_TOKEN }}
         run: |
-          cd ./api/build/zips
+          
           curl --request POST \
             --verbose \
             --header "Authorization: Bearer $SONATYPE_TOKEN" \
-            --form bundle=@api.zip \
+            --form bundle=@./api/build/zips/api.zip \
             https://central.sonatype.com/api/v1/publisher/upload
           
            curl --request POST \
             --verbose \
             --header "Authorization: Bearer $SONATYPE_TOKEN" \
-            --form bundle=@ksp.zip \
+            --form bundle=@./ksp/build/zips/ksp.zip \
             https://central.sonatype.com/api/v1/publisher/upload
 
 
