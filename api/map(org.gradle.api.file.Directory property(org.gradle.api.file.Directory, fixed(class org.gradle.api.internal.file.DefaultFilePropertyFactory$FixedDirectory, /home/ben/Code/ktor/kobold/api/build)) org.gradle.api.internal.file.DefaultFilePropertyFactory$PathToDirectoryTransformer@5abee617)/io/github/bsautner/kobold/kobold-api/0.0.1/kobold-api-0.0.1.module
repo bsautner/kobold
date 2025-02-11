@@ -1,0 +1,273 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../kobold-api/0.0.1/kobold-api-0.0.1.module",
+    "group": "io.github.bsautner.kobold",
+    "module": "kobold-api",
+    "version": "0.0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.13-milestone-3"
+    }
+  },
+  "variants": [
+    {
+      "name": "jsApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-dom-api-compat",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "api-js-0.0.1.klib",
+          "url": "kobold-api-0.0.1.klib",
+          "size": 20933,
+          "sha512": "1fcaf14f06f291a6220a56dc142d58208a5e96fa4d819221a00fc39d412b962f728f7dbecdaaca8206e2aa7a9e5cc5d4d55630db672750407e2b055e633366cf",
+          "sha256": "8fdd06ff08191eeb1f88a2612c38a0133c37a82df7fe9deba7e32488e0b62cca",
+          "sha1": "5b79f6caa29a8bc40ea0ff10e43c4b5ce1d1d338",
+          "md5": "4a15206d3ceed4c9b05105c9eaaad65e"
+        }
+      ]
+    },
+    {
+      "name": "jsRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-dom-api-compat",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-js"
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common"
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-core",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-content-negotiation",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-logging",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-serialization-kotlinx-json",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "org.jetbrains.compose.runtime",
+          "module": "runtime",
+          "version": {
+            "requires": "1.7.3"
+          }
+        }
+      ],
+      "dependencyConstraints": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-js",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "2.1.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "api-js-0.0.1.klib",
+          "url": "kobold-api-0.0.1.klib",
+          "size": 20933,
+          "sha512": "1fcaf14f06f291a6220a56dc142d58208a5e96fa4d819221a00fc39d412b962f728f7dbecdaaca8206e2aa7a9e5cc5d4d55630db672750407e2b055e633366cf",
+          "sha256": "8fdd06ff08191eeb1f88a2612c38a0133c37a82df7fe9deba7e32488e0b62cca",
+          "sha1": "5b79f6caa29a8bc40ea0ff10e43c4b5ce1d1d338",
+          "md5": "4a15206d3ceed4c9b05105c9eaaad65e"
+        }
+      ]
+    },
+    {
+      "name": "jsSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "files": [
+        {
+          "name": "api-js-0.0.1-sources.jar",
+          "url": "kobold-api-0.0.1-sources.jar",
+          "size": 5305,
+          "sha512": "d2f92edf3cd2a41f132be345a58ac4a65d25e4395cb12ce1dc758ed41356c19c9fe40f771d1cc3018089815db1f1ef7ebc732df0497e09f721f596907438a065",
+          "sha256": "3e6427e5bb34c903985642e34cb27f41d94a30b9c972c1137b55cd58b59111b9",
+          "sha1": "52fac52c103b333de3ece4e760bb6b5eb6c21434",
+          "md5": "f4e7891c17073ec151ede0b13c32b034"
+        }
+      ]
+    },
+    {
+      "name": "jsResourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.libraryelements": "kotlin-multiplatformresourcesjs",
+        "org.gradle.usage": "kotlin-multiplatformresourcesjs",
+        "org.jetbrains.kotlin.js.compiler": "ir",
+        "org.jetbrains.kotlin.platform.type": "js"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-dom-api-compat",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-js"
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common"
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-core",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-content-negotiation",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-logging",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-serialization-kotlinx-json",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "org.jetbrains.compose.runtime",
+          "module": "runtime",
+          "version": {
+            "requires": "1.7.3"
+          }
+        }
+      ],
+      "dependencyConstraints": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-js",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "2.1.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "api-0.0.1.kotlin_resources.zip",
+          "url": "kobold-api-0.0.1-kotlin_resources.kotlin_resources.zip",
+          "size": 346,
+          "sha512": "59bd05eb1709f9116be8e0eb13784078d5731a8d02cc3bdba96eebce6a6cb56e929522c5006e7b49efc0d42ce90a44cc45ae12c059357412c7e1a7f9c67f40cb",
+          "sha256": "f07eea08cf0810271d9e5d49f08818bcf13d69c1aa9386cdad85a55bb674a69e",
+          "sha1": "e41142bd347e1fc21f2f58879c55dbd0b402b211",
+          "md5": "eabefd017357f2f13c4fff9389b23bfe"
+        }
+      ]
+    }
+  ]
+}

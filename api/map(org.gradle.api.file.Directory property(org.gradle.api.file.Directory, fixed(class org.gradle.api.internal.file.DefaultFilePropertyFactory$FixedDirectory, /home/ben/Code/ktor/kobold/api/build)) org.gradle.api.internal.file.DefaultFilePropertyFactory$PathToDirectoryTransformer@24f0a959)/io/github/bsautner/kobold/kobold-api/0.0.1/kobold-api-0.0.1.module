@@ -1,0 +1,158 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../kobold-api/0.0.1/kobold-api-0.0.1.module",
+    "group": "io.github.bsautner.kobold",
+    "module": "kobold-api",
+    "version": "0.0.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.13-milestone-3"
+    }
+  },
+  "variants": [
+    {
+      "name": "jvmApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "api-jvm-0.0.1.jar",
+          "url": "kobold-api-0.0.1.jar",
+          "size": 20428,
+          "sha512": "8f533c63d566eef025c6864c9e44f5e994075e9ae10e77d72554626b6fcb78ca92db5e9df4599d57493369973755a4d4e948a80fb574c79c27f92174f9cd59db",
+          "sha256": "654c96ffa46453b82f2cfa7f84f49337382d841a84aa90b1d1ccd61289357d0b",
+          "sha1": "258ef260ea0a58f51f1a1db86822c6f8dce5476b",
+          "md5": "768c8ba6c4d7964775da57abd51da51d"
+        }
+      ]
+    },
+    {
+      "name": "jvmRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib"
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common"
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-core",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-content-negotiation",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-client-logging",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-serialization-kotlinx-json",
+          "version": {
+            "requires": "3.0.3"
+          }
+        },
+        {
+          "group": "org.jetbrains.compose.runtime",
+          "module": "runtime",
+          "version": {
+            "requires": "1.7.3"
+          }
+        }
+      ],
+      "dependencyConstraints": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "2.1.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "api-jvm-0.0.1.jar",
+          "url": "kobold-api-0.0.1.jar",
+          "size": 20428,
+          "sha512": "8f533c63d566eef025c6864c9e44f5e994075e9ae10e77d72554626b6fcb78ca92db5e9df4599d57493369973755a4d4e948a80fb574c79c27f92174f9cd59db",
+          "sha256": "654c96ffa46453b82f2cfa7f84f49337382d841a84aa90b1d1ccd61289357d0b",
+          "sha1": "258ef260ea0a58f51f1a1db86822c6f8dce5476b",
+          "md5": "768c8ba6c4d7964775da57abd51da51d"
+        }
+      ]
+    },
+    {
+      "name": "jvmSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "api-jvm-0.0.1-sources.jar",
+          "url": "kobold-api-0.0.1-sources.jar",
+          "size": 5305,
+          "sha512": "d2f92edf3cd2a41f132be345a58ac4a65d25e4395cb12ce1dc758ed41356c19c9fe40f771d1cc3018089815db1f1ef7ebc732df0497e09f721f596907438a065",
+          "sha256": "3e6427e5bb34c903985642e34cb27f41d94a30b9c972c1137b55cd58b59111b9",
+          "sha1": "52fac52c103b333de3ece4e760bb6b5eb6c21434",
+          "md5": "f4e7891c17073ec151ede0b13c32b034"
+        }
+      ]
+    }
+  ]
+}

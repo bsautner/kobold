@@ -76,8 +76,8 @@ java {
 tasks.register<Zip>("zipPublishedArtifacts") {
     // Include everything published to the local repo directory.
     from("$buildDir/repo")
-    archiveFileName.set("publishedArtifacts.zip")
-    destinationDirectory.set(layout.buildDirectory.dir("zips"))
+    archiveFileName.set("api.zip")
+    destinationDirectory.set(File("$buildDir/zips"))
 }
 publishing {
     repositories {
