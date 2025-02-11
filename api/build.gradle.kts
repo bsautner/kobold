@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.gradle.api.publish.maven.MavenPublication
 import org.jetbrains.dokka.gradle.DokkaTask
-
 plugins {
     `maven-publish`
     signing
@@ -10,10 +9,9 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.deployer)
 }
 
-group = "io.github.bsautner"
+group = "io.github.bsautner.kobold"
 version = "0.0.1"
 
 val apiSourcesJar by tasks.registering(Jar::class) {
@@ -75,11 +73,24 @@ java {
     }
 }
 
+
 publishing {
+    repositories {
+        maven {
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("username") as String
+                password = project.findProperty("password") as String
+
+            }
+
+        }
+    }
+
     publications {
-        create<MavenPublication>("kobold") {
-            artifactId = "kobold"
-            groupId = project.group.toString()
+        create<MavenPublication>("kobold-api") {
+            artifactId = "kobold-api"
+            groupId = "io.github.bsautner.kobold"
             version = "0.0.1" // project.version.toString()
             artifact(apiSourcesJar)
             artifact(apiJavadocJar)
@@ -111,35 +122,18 @@ publishing {
         }
     }
 
-    repositories {
-        maven {
-            // Use the snapshots URL if the version ends with -SNAPSHOT,
-            // otherwise use the staging URL for releases.
-            url = uri(
-                if (version.toString().endsWith("SNAPSHOT"))
-                    "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                else
-                    "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            )
-            credentials {
-                username =  System.getenv("MAVEN_CENTRAL_USERNAME")
-                password =  System.getenv("MAVEN_CENTRAL_PASSWORD")
-            }
-        }
-    }
 }
 
 signing {
     val signingKey: String? by project
     val signingKeyBreaks = signingKey?.replace("\\n", "\n")
-    val username =  System.getenv("MAVEN_CENTRAL_USERNAME")
-    val password =  System.getenv("MAVEN_CENTRAL_PASSWORD")
-    println("***********$username PPPP ${password}")
+
+
     signing {
         val signingPassword: String? by project
         if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
             useInMemoryPgpKeys(signingKeyBreaks, signingPassword)
-            sign(publishing.publications["kobold"])
+            sign(publishing.publications["kobold-api"])
         } else {
             logger.warn("Signing key or password not provided; artifacts will not be signed.")
         }

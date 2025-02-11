@@ -1,9 +1,10 @@
-group = "io.github.bsautner"
+group = "io.github.bsautner.kobold"
 version = "1.0-SNAPSHOT"
 
 plugins {
     `maven-publish`
     `java-library`
+    signing
     kotlin("kapt")
     alias(libs.plugins.buildsrc)
     alias(libs.plugins.ksp)
@@ -49,7 +50,7 @@ publishing {
         create<MavenPublication>("kobold-ksp") {
             from(components["java"])
             artifactId = "kobold-ksp"
-            groupId = "io.github.bsautner"
+            groupId = "io.github.bsautner.kobold"
             version = "0.0.1"
 
             // Attach sources and javadoc jars
@@ -100,6 +101,23 @@ dependencies {
 
     testImplementation("io.mockk:mockk:1.13.16")
     testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.1.10")
+}
+
+
+signing {
+    val signingKey: String? by project
+    val signingKeyBreaks = signingKey?.replace("\\n", "\n")
+
+
+    signing {
+        val signingPassword: String? by project
+        if (!signingKeyBreaks.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
+            useInMemoryPgpKeys(signingKeyBreaks, signingPassword)
+            sign(publishing.publications["kobold-ksp"])
+        } else {
+            logger.warn("Signing key or password not provided; artifacts will not be signed.")
+        }
+    }
 }
 
 tasks.withType<Test> {
