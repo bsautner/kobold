@@ -19,16 +19,6 @@ version = tagVersion ?: "0.0.1-SNAPSHOT"
 
 
 
-val jvmSourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("sources")
-    from(kotlin.sourceSets.getByName("jvmMain").kotlin)
-}
-
-val jvmJavadocJar by tasks.registering(Jar::class) {
-    archiveClassifier.set("javadoc")
-    from("$buildDir/dokka/html") //I'm not sure if this is correct for dokka
-}
-
 
 kotlin {
 
@@ -84,6 +74,7 @@ tasks.register<Zip>("zipPublishedArtifacts") {
     archiveFileName.set("api.zip")
     destinationDirectory.set(File("$buildDir/zips"))
 }
+
 publishing {
     repositories {
         maven {
@@ -98,12 +89,6 @@ publishing {
             groupId = "io.github.bsautner.kobold"
             val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
             version = tagVersion ?: "0.0.1-SNAPSHOT"
-        // Only attach sources/javadoc for the JVM publication (or for a specific publication name)
-//            if (name.contains("jvm", ignoreCase = true)) {
-//                artifact(jvmSourcesJar)
-                  artifact(jvmJavadocJar)
-//            }
-
 
             pom {
                 // You can set a different name/description per publication if needed:
@@ -137,7 +122,7 @@ publishing {
 
 signing {
     val signingKey = System.getenv("GPG_PRIVATE_KEY")
-    //val signingKeyBreaks = signingKey?.replace("\\n", "\n")
+
     signing {
         val signingPassword = System.getenv("GPG_PASSPHRASE")
         if (!signingKey.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
@@ -161,3 +146,4 @@ tasks.withType<DokkaTask>().configureEach {
     offlineMode.set(false)
 
 }
+
