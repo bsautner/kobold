@@ -26,7 +26,6 @@ jobs:
 
       - name: Bundle Artifacts into Zip
         run: |
-          tree .
           mkdir -p deployment
           # Copy the files from the API module build output.
           cp -v api/build/libs/* deployment/
