@@ -2,7 +2,7 @@ name: Publish Docs
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main2" ]
 
 permissions:
   contents: read
@@ -58,20 +58,7 @@ jobs:
           echo "ALGOLIA_ARTIFACT=$ALGOLIA_ARTIFACT" >> $GITHUB_ENV
           echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
           echo "algolia_artifact=$ALGOLIA_ARTIFACT" >> $GITHUB_OUTPUT
-
-      - name: Copy Dokka HTML to api-docs
-        run: |
-          mkdir -p Writerside/api-docs
-          if [ -d "api/build/dokka/html" ]; then
-            cp -r api/build/dokka/html/* Writerside/api-docs/
-          else
-            echo "Dokka output directory not found!"
-            exit 1
-          fi
-          echo "****Listing Docs*****"
-          ls -la .
-        
-    
+   
           
       - name: Build Writerside documentation
         uses: JetBrains/writerside-github-action@v4
