@@ -75,8 +75,8 @@ java {
 
 
 publishing {
-    publications {
-        create<MavenPublication>("kobold-api") {
+    publications.withType<MavenPublication>().configureEach {
+
             artifactId = "kobold-api"
             groupId = "io.github.bsautner.kobold"
             version = "0.0.1" // project.version.toString()
@@ -110,7 +110,7 @@ publishing {
         }
     }
 
-}
+
 
 signing {
     val signingKey = System.getenv("GPG_PRIVATE_KEY")
@@ -119,7 +119,8 @@ signing {
         val signingPassword = System.getenv("GPG_PASSPHRASE")
         if (!signingKey.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
             useInMemoryPgpKeys(signingKey, signingPassword)
-            sign(publishing.publications["kobold-api"])
+            publishing.publications.withType<MavenPublication>().forEach { sign(it) }
+            logger.warn("*** Signed all publications")
             logger.warn("*** Signed! ${signingKey.length} ${signingPassword.length}")
         } else {
             logger.warn("Signing key or password not provided; artifacts will not be signed.")
