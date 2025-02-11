@@ -6,7 +6,7 @@
 androidx-lifecycle = "2.8.4"
 androidx-annotation = "1.9.1"
 androidx-arch-core-common = "2.2.0"
-compose-multiplatform = "1.8.0+dev2049"
+compose-multiplatform = "1.8.0-alpha02"
 dokka = "2.0.0"
 
 kotlinxDatetime = "0.6.1"
