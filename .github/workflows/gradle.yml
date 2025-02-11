@@ -1,4 +1,4 @@
-name: CI and Documentation Deployment
+name: Publish Docs
 
 on:
   push:
@@ -63,13 +63,14 @@ jobs:
         run: |
           mkdir -p Writerside/api-docs
           if [ -d "api/build/dokka/html" ]; then
-            cp -rv api/build/dokka/html/* Writerside/api-docs/
+            cp -r api/build/dokka/html/* Writerside/api-docs/
           else
             echo "Dokka output directory not found!"
             exit 1
           fi
+          echo "****Listing Docs*****"
           ls -la .
-          ls Writerside/api-docs
+        
     
           
       - name: Build Writerside documentation
