@@ -1,0 +1,41 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:io.github.bsautner.kobold.client////PointingToDeclaration/api/io.github.bsautner.kobold.client/index.html
+$dokka.location:io.github.bsautner.kobold.client/ApiClient///PointingToDeclaration/api/io.github.bsautner.kobold.client/-api-client/index.html
+$dokka.location:io.github.bsautner.kobold.client/ApiClient/client/#/PointingToDeclaration/api/io.github.bsautner.kobold.client/-api-client/client.html
+$dokka.location:io.github.bsautner.kobold.client/ApiClient/postData/#kotlin.String#TypeParam(bounds=[io.github.bsautner.kobold.KRequest])/PointingToDeclaration/api/io.github.bsautner.kobold.client/-api-client/post-data.html
+$dokka.location:io.github.bsautner.kobold////PointingToDeclaration/api/io.github.bsautner.kobold/index.html
+$dokka.location:io.github.bsautner.kobold//func/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/api/io.github.bsautner.kobold/func.html
+$dokka.location:io.github.bsautner.kobold//getPostBodyClass/io.github.bsautner.kobold.KPost[TypeParam(bounds=[io.github.bsautner.kobold.KRequest]),TypeParam(bounds=[io.github.bsautner.kobold.KResponse])]#/PointingToDeclaration/api/io.github.bsautner.kobold/get-post-body-class.html
+$dokka.location:io.github.bsautner.kobold//getPostResponseBodyClass/io.github.bsautner.kobold.KPost[TypeParam(bounds=[io.github.bsautner.kobold.KRequest]),TypeParam(bounds=[io.github.bsautner.kobold.KResponse])]#/PointingToDeclaration/api/io.github.bsautner.kobold/get-post-response-body-class.html
+$dokka.location:io.github.bsautner.kobold//introspectSerializableClass/#/PointingToDeclaration/api/io.github.bsautner.kobold/introspect-serializable-class.html
+$dokka.location:io.github.bsautner.kobold//main/#/PointingToDeclaration/api/io.github.bsautner.kobold/main.html
+$dokka.location:io.github.bsautner.kobold/ConstructorParamInfo///PointingToDeclaration/api/io.github.bsautner.kobold/-constructor-param-info/index.html
+$dokka.location:io.github.bsautner.kobold/ConstructorParamInfo/ConstructorParamInfo/#kotlin.String#kotlin.String#kotlin.Boolean/PointingToDeclaration/api/io.github.bsautner.kobold/-constructor-param-info/-constructor-param-info.html
+$dokka.location:io.github.bsautner.kobold/ConstructorParamInfo/hasDefault/#/PointingToDeclaration/api/io.github.bsautner.kobold/-constructor-param-info/has-default.html
+$dokka.location:io.github.bsautner.kobold/ConstructorParamInfo/name/#/PointingToDeclaration/api/io.github.bsautner.kobold/-constructor-param-info/name.html
+$dokka.location:io.github.bsautner.kobold/ConstructorParamInfo/type/#/PointingToDeclaration/api/io.github.bsautner.kobold/-constructor-param-info/type.html
+$dokka.location:io.github.bsautner.kobold/Dummy///PointingToDeclaration/api/io.github.bsautner.kobold/-dummy/index.html
+$dokka.location:io.github.bsautner.kobold/Dummy/Dummy/#/PointingToDeclaration/api/io.github.bsautner.kobold/-dummy/-dummy.html
+$dokka.location:io.github.bsautner.kobold/KComposable///PointingToDeclaration/api/io.github.bsautner.kobold/-k-composable/index.html
+$dokka.location:io.github.bsautner.kobold/KComposable/render/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-composable/render.html
+$dokka.location:io.github.bsautner.kobold/KCompose///PointingToDeclaration/api/io.github.bsautner.kobold/-k-compose/index.html
+$dokka.location:io.github.bsautner.kobold/KCompose/KCompose/#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/api/io.github.bsautner.kobold/-k-compose/-k-compose.html
+$dokka.location:io.github.bsautner.kobold/KCompose/invoke/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-compose/invoke.html
+$dokka.location:io.github.bsautner.kobold/KCompose/render/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-compose/render.html
+$dokka.location:io.github.bsautner.kobold/KGet///PointingToDeclaration/api/io.github.bsautner.kobold/-k-get/index.html
+$dokka.location:io.github.bsautner.kobold/KGet/render/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-get/render.html
+$dokka.location:io.github.bsautner.kobold/KJsonResponse///PointingToDeclaration/api/io.github.bsautner.kobold/-k-json-response/index.html
+$dokka.location:io.github.bsautner.kobold/KJsonResponse/KJsonResponse/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-json-response/-k-json-response.html
+$dokka.location:io.github.bsautner.kobold/KPost///PointingToDeclaration/api/io.github.bsautner.kobold/-k-post/index.html
+$dokka.location:io.github.bsautner.kobold/KPost/process/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-post/process.html
+$dokka.location:io.github.bsautner.kobold/KRequest///PointingToDeclaration/api/io.github.bsautner.kobold/-k-request/index.html
+$dokka.location:io.github.bsautner.kobold/KResponse///PointingToDeclaration/api/io.github.bsautner.kobold/-k-response/index.html
+$dokka.location:io.github.bsautner.kobold/KStatic///PointingToDeclaration/api/io.github.bsautner.kobold/-k-static/index.html
+$dokka.location:io.github.bsautner.kobold/KWeb///PointingToDeclaration/api/io.github.bsautner.kobold/-k-web/index.html
+$dokka.location:io.github.bsautner.kobold/KWeb/render/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-web/render.html
+$dokka.location:io.github.bsautner.kobold/Kobold///PointingToDeclaration/api/io.github.bsautner.kobold/-kobold/index.html
+$dokka.location:io.github.bsautner.kobold/KoboldStatic///PointingToDeclaration/api/io.github.bsautner.kobold/-kobold-static/index.html
+$dokka.location:io.github.bsautner.kobold/KoboldStatic/path/#/PointingToDeclaration/api/io.github.bsautner.kobold/-kobold-static/path.html
+io.github.bsautner.kobold
+io.github.bsautner.kobold.client
