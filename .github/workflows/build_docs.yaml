@@ -89,7 +89,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: [build, test]
+    needs: [build, test, dokka]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
