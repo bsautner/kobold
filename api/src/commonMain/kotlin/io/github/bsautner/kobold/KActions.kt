@@ -10,7 +10,10 @@ interface KGet<T: KResponse>  {
     val render: () -> T
 }
 
-
+/**
+ * Implement this interface in your data classes to use them as a request body of posts and puts in Ktor
+ *
+ */
 interface KPost<T : KRequest, R : KResponse>  {
     val process: (T) -> R
 }

@@ -31,7 +31,7 @@ interface KRequest
  *
  * @sample
  *
- *@Composable
+ * @Composable
  * fun App() {
  *     MaterialTheme {
  *         var showContent by remember { mutableStateOf(false) }
