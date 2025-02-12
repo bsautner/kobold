@@ -75,23 +75,12 @@ jobs:
         uses: JetBrains/writerside-checker-action@v1
         with:
           instance: ${{ env.INSTANCE }}
-  dokka:
-    needs: [test, build]
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: artifacts
-      - name: Generate Dokka
-        run: ./gradlew :api:dokkaGenerate
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: [build, test, dokka]
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
