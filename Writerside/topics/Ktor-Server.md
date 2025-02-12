@@ -33,3 +33,15 @@ By extending `KPost<T, R>` you direct Kobold to create a `POST` route for `/logi
 
 The resulting route will look like this:
 
+```Kotlin
+fun Application.autoRouter() {
+  routing {
+    post<LoginPage> {
+      val response : MyLoginResponse = it.process(call.receive())
+      call.respond(response,  typeInfo = TypeInfo(MyLoginResponse::class))
+    }
+  }
+}
+```
+
+Routing can get very complex as your app grows and Kobold will keep it clean for you. Learn more about using Sealed Subclasses to maintain hierarchy.
