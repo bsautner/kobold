@@ -1,7 +1,10 @@
 name: Deploy Dokka API Docs
 
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
+
 
 permissions:
   contents: write
@@ -41,7 +44,7 @@ jobs:
         run: |
           mkdir -p gh-pages/api-docs
           rm -rf gh-pages/api-docs/*
-          cp -R api/build/dokka/html/* gh-pages/api-docs/
+          cp -R api/build/dokka/html/* gh-pages/api-docs
 
       # 6. Commit and push changes (only if there are differences)
       - name: Commit and push changes
