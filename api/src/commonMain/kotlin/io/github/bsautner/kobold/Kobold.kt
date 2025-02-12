@@ -24,25 +24,27 @@ interface KRequest
 /**
  * Classes implementing this interface will result in Kobol creating Composables.
  * You can create data classes that @see KResponse
+ *
+ * @param render lambda to invoke as a composable
+ *
+ * @property invoke call this from inside a Composable to include the rendered output.
+ *
+ * @sample
+ *
+ *@Composable
+ * fun App() {
+ *     MaterialTheme {
+ *         var showContent by remember { mutableStateOf(false) }
+ *         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+ *             ComposeExample.render()
+ *         }
+ *     }
+ * }
+ *
  */
 open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
-
 	@Composable
 	operator fun invoke() {
 		render()
 	}
-
-}
-
-class Dummy<T>
-
-fun <T : U, U> List<U>.func() = Dummy<T>()
-
-fun main() {
-
-	val x: List<Double> = listOf<Double>(1.0, 2.0)
-
-	val y: Dummy<String> = x.func()
-
-	println(y::class.c)
 }
