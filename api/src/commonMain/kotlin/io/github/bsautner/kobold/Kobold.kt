@@ -33,3 +33,16 @@ open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
 	}
 
 }
+
+class Dummy<T>
+
+fun <T : U, U> List<U>.func() = Dummy<T>()
+
+fun main() {
+
+	val x: List<Double> = listOf<Double>(1.0, 2.0)
+
+	val y: Dummy<String> = x.func()
+
+	println(y::class.c)
+}
