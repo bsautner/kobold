@@ -21,7 +21,7 @@ jobs:
 
       # 3. Run your Gradle Dokka generation task
       - name: Build Dokka API docs
-        run: ./gradlew :api:dockaGenerate
+        run: ./gradlew :api:dokkaGenerate
 
       # 4. Check out the existing gh-pages branch into a subdirectory called "gh-pages"
       - name: Checkout gh-pages branch
