@@ -80,10 +80,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Compile Dokka
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: artifacts
         run: |
             echo "Compiling Dokka"
             ./gradlew :api:dokkaGenerate
