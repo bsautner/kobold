@@ -98,17 +98,21 @@ jobs:
           mkdir -p dir
           unzip -O UTF-8 -qq "artifacts/${{ needs.build.outputs.artifact }}" -d dir
           echo "***** Unzipped Writerside docs *****"
-          ls dir
+          ls -R dir
 
-      # 2. Check out the repository to build the Dokka docs
-      - name: Checkout repository for Dokka
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21 for Dokka
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
+      - name: Adjust directory structure if needed
+        run: |
+          # Check if there is a single subdirectory inside 'dir'
+          subfolder=$(find dir -mindepth 1 -maxdepth 1 -type d | head -n 1)
+          if [ -n "$subfolder" ]; then
+          echo "Moving contents from $subfolder to dir"
+          shopt -s dotglob  # include hidden files
+          mv "$subfolder"/* dir/
+          rm -rf "$subfolder"
+          fi
+          echo "Final directory structure:"
+          ls -R dir
+          
 
       - name: Build Dokka API docs
         run: ./gradlew :api:dokkaGenerate
