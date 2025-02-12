@@ -3,6 +3,11 @@ name: Deploy Dokka API Docs
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
 jobs:
   deploy-dokka:
     runs-on: ubuntu-latest
