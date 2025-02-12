@@ -17,13 +17,13 @@ import io.ktor.server.routing.routing
 import io.ktor.util.reflect.TypeInfo
 
 fun main() {
-    println("http://localhost:8080")
+
     embeddedServer(Netty, port = 8080) {
         install(ContentNegotiation) {
             json()
         }
         install(Resources)
-        //autoRoute()
+        autoRoute()
     }.start(wait = true)
 }
 
