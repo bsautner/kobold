@@ -1,5 +1,7 @@
 # Ktor Server
 
+Kobold uses [Kotlin Symbol Processing (KSP)](https://kotlinlang.org/docs/ksp-overview.html) to build upon [Ktor Type Safe Routing](https://ktor.io/docs/server-resources.html).
+
 Kobold will maintain your ktor server routing based on class structures so all you need in your ktor server setup is:
 
 ```kotlin
