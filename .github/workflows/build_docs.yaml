@@ -78,13 +78,15 @@ jobs:
   dokka:
     needs: [test, build]
     runs-on: ubuntu-latest
-    steps:
-      - name: Compile Dokka
-        run: |
-            echo "Compiling Dokka"
-            ./gradlew :api:dokkaGenerate
-            ls
 
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: artifacts
+      - name: Generate Dokka
+        run: ./gradlew :api:dokkaGenerate
   deploy:
     environment:
       name: github-pages
