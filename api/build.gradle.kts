@@ -17,6 +17,10 @@ group = "io.github.bsautner.kobold"
 val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
 version = tagVersion ?: "0.0.1-SNAPSHOT"
 
+val apiJavadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+    from(tasks.named("dokkaGenerateModuleHtml"))
+}
 kotlin {
     jvmToolchain(21)
     jvm()
@@ -75,7 +79,9 @@ publishing {
             groupId = "io.github.bsautner.kobold"
             val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
             version = tagVersion ?: "0.0.1-SNAPSHOT"
-
+            if (name == "jvm") {
+                artifact(apiJavadocJar)
+            }
             pom {
                 name.set("Kobold (${name})")
                 description.set("Kobold Code Generator for the $name target.")
@@ -133,3 +139,6 @@ tasks.register<Zip>("zipPublishedArtifacts") {
     archiveFileName.set("api.zip")
     destinationDirectory.set(File("$buildPath/zips"))
 }
+
+
+
