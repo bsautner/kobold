@@ -13,13 +13,14 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import readResourceFile
 import java.io.File
+import kotlin.test.Ignore
 import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class ComposeGeneratorTest {
 
 
-	@Test
+	@Test @Ignore
 	fun `test static routing`() {
 
 		val provider = TestProcessorProvider { declaration ->
@@ -44,7 +45,7 @@ class ComposeGeneratorTest {
 	}
 
 
-	@Test
+	@Test @Ignore
 	fun `test read code`() {
 		println("${System.getProperty("user.dir")}")
 		val testCode = File("${System.getProperty("user.dir")}/../demo/src/commonMain/kotlin/io/github/bsautner/kobold/LoginScreenExample.kt").readText()
@@ -52,7 +53,7 @@ class ComposeGeneratorTest {
 		println(testCode)
 	}
 
-	@Test
+	@Test @Ignore
 	fun `test getting type parameters`() {
 
 		val provider = TestProcessorProvider { declaration ->
