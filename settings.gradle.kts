@@ -22,6 +22,5 @@ dependencyResolutionManagement {
 
 include(":api")
 include(":ksp")
-include(":demo")
 rootProject.name = "kobold"
 
