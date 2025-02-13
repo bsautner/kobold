@@ -10,7 +10,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/jvmMain/kotlin/io/github/bsautner/kobold/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,45 +42,27 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="ksp" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="publishing" type="c8890929:TasksNode$1" />
+                <item name="ksp" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="api" type="2d1252cf:ModuleNode" />
+                <item name="ksp" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="api" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="api" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="dokka" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="api" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="kobold" type="f1a62948:ProjectNode" />
-                <item name="api" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="publishing" type="c8890929:TasksNode$1" />
+                <item name="ksp" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="runtimeClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
               </path>
             </expand>
             <select />
@@ -178,30 +161,32 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Kobold [jvm].executor": "Debug",
-    "Gradle.kobold [dokkaGeneratePublicationHtml].executor": "Run",
-    "Gradle.kobold [dokkaGenerate].executor": "Run",
-    "Gradle.kobold [dokkaGfm].executor": "Run",
-    "Gradle.kobold [publishToMavenLocal].executor": "Run",
-    "Gradle.kobold [zipPublishedArtifacts].executor": "Run",
-    "Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/ben/Code/Kobold/kobold-docs",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "copyright.profiles",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Kobold [jvm].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.kobold [dokkaGeneratePublicationHtml].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [dokkaGenerate].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [dokkaGfm].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [javadoc].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [publishToMavenLocal].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [zipPublishedArtifacts].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold:api [dokkaGenerateModuleHtml].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/test/ktor-sample&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.profiles&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": []
+  &quot;keyToStringList&quot;: {
+    &quot;stardust.markdown.MarkdownSplitEditorSuppressor:keyList&quot;: []
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.github/workflows" />
@@ -211,7 +196,7 @@
       <recent name="$PROJECT_DIR$/docs" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.kobold [publishToMavenLocal]">
+  <component name="RunManager" selected="Gradle.kobold:api [dokkaGenerateModuleHtml]">
     <configuration name="Kobold [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -256,6 +241,28 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="kobold [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="javadoc" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="kobold [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -278,29 +285,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kobold [zipPublishedArtifacts]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="zipPublishedArtifacts" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="kobold:api [publishJvmPublicationToMavenRepository]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="kobold:api [dokkaGenerateModuleHtml]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/api" />
@@ -311,7 +296,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="publishJvmPublicationToMavenRepository" />
+            <option value="dokkaGenerateModuleHtml" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -323,19 +308,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Gradle.kobold [javadoc]" />
+      <item itemvalue="Gradle.kobold:api [dokkaGenerateModuleHtml]" />
       <item itemvalue="Gradle.kobold [publishToMavenLocal]" />
       <item itemvalue="Gradle.Kobold [jvm]" />
-      <item itemvalue="Gradle.kobold [zipPublishedArtifacts]" />
-      <item itemvalue="Gradle.kobold:api [publishJvmPublicationToMavenRepository]" />
       <item itemvalue="Gradle.kobold [dokkaGenerate]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.kobold:api [dokkaGenerateModuleHtml]" />
+        <item itemvalue="Gradle.kobold [javadoc]" />
         <item itemvalue="Gradle.kobold [publishToMavenLocal]" />
         <item itemvalue="Gradle.Kobold [jvm]" />
         <item itemvalue="Gradle.kobold [dokkaGenerate]" />
-        <item itemvalue="Gradle.kobold [zipPublishedArtifacts]" />
-        <item itemvalue="Gradle.kobold:api [publishJvmPublicationToMavenRepository]" />
       </list>
     </recent_temporary>
   </component>
@@ -371,6 +356,10 @@
       <workItem from="1739363136070" duration="20588000" />
       <workItem from="1739448478238" duration="3024000" />
       <workItem from="1739454244564" duration="3205000" />
+      <workItem from="1739461740231" duration="1812000" />
+      <workItem from="1739466447155" duration="1264000" />
+      <workItem from="1739467716925" duration="533000" />
+      <workItem from="1739468265254" duration="834000" />
     </task>
     <servers />
   </component>

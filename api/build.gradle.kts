@@ -37,8 +37,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(libs.bundles.ktorClient)
-                implementation(compose.runtime)
+                api(libs.bundles.ktorClient)
+                api(compose.runtime)
             }
         }
         val jsMain by getting {
