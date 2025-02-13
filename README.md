@@ -16,7 +16,7 @@ Kobold is meant to generate Kotlin Multiplatform and Ktor Server code for everyt
 * [API Docs](https://bsautner.github.io/kobold/api-docs)
 * [Maven Central](https://central.sonatype.com/namespace/io.github.bsautner)
 
- <img src="Writerside/images/kobold.webp" alt="kobold">
+ <img src="https://bsautner.github.io/kobold-docs/images/kobold.webp" alt="kobold">
 
 
 
