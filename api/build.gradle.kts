@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.dokka)
 }
+val buildPath: String = layout.buildDirectory.get().asFile.absolutePath
 
 group = "io.github.bsautner.kobold"
 
@@ -30,7 +31,6 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-            kotlin.srcDir("src/commonMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
                 implementation(libs.bundles.ktorClient)
@@ -64,20 +64,21 @@ publishing {
     repositories {
         maven {
             name = "localRepo"
-            url = uri("$buildDir/repo")
+            url = uri("$buildPath/repo")
         }
     }
 
     publications.withType<MavenPublication>().configureEach {
 
-            artifactId = "kobold-api"
+            artifactId = "kobold-api-${name.lowercase()}"
+            println("Configuring Artifact: $artifactId")
             groupId = "io.github.bsautner.kobold"
             val tagVersion: String? = System.getenv("GITHUB_REF")?.substringAfterLast("/")
             version = tagVersion ?: "0.0.1-SNAPSHOT"
 
             pom {
                 name.set("Kobold (${name})")
-                description.set("Kobold Code Generator for the ${name} target.")
+                description.set("Kobold Code Generator for the $name target.")
                 url.set("https://github.com/bsautner/kobold")
 
                 licenses {
@@ -110,8 +111,6 @@ signing {
         if (!signingKey.isNullOrEmpty() && !signingPassword.isNullOrEmpty()) {
             useInMemoryPgpKeys(signingKey, signingPassword)
             publishing.publications.withType<MavenPublication>().forEach { sign(it) }
-            logger.warn("*** Signed all publications")
-            logger.warn("*** Signed! ${signingKey.length} ${signingPassword.length}")
         } else {
             logger.warn("Signing key or password not provided; artifacts will not be signed.")
         }
@@ -130,7 +129,7 @@ tasks.withType<DokkaTask>().configureEach {
 }
 
 tasks.register<Zip>("zipPublishedArtifacts") {
-    from("$buildDir/repo")
+    from("$buildPath/repo")
     archiveFileName.set("api.zip")
-    destinationDirectory.set(File("$buildDir/zips"))
+    destinationDirectory.set(File("$buildPath/zips"))
 }
