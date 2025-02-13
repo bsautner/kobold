@@ -10,8 +10,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/api/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ksp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/ksp/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +357,7 @@
       <workItem from="1739461740231" duration="1812000" />
       <workItem from="1739466447155" duration="1264000" />
       <workItem from="1739467716925" duration="533000" />
-      <workItem from="1739468265254" duration="834000" />
+      <workItem from="1739468265254" duration="2021000" />
     </task>
     <servers />
   </component>

@@ -88,12 +88,12 @@ class RouteGenerator()  {
 
 	fun createStaticGetRoute(metaData: ClassMetaData) {
 		val block = CodeBlock.Companion.builder()
-
+		ImportManager.addRouterImport("java.io", "File")
 		metaData.declaration.annotations.firstOrNull { it.shortName.asString() == Resource::class.simpleName }?.let {
 			it.arguments.firstOrNull { check -> check.name?.asString() == PATH}?.let { resource ->
 				metaData.declaration.annotations.firstOrNull { it.shortName.asString() == KoboldStatic::class.simpleName }?.let {
 					it.arguments.firstOrNull { check -> check.name?.asString() == PATH }?.let { path ->
-						block. beginControlFlow("staticResources(%S, %S)", resource.value, path.value)
+						block.beginControlFlow("staticFiles(%S, File(%S))",  resource.value, path.value)
 							.addStatement("default(%S)", "index.html")
 							. endControlFlow()
 					}
