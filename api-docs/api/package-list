@@ -4,6 +4,16 @@ $dokka.location:io.github.bsautner.kobold.client////PointingToDeclaration/api/i
 $dokka.location:io.github.bsautner.kobold.client/ApiClient///PointingToDeclaration/api/io.github.bsautner.kobold.client/-api-client/index.html
 $dokka.location:io.github.bsautner.kobold.client/ApiClient/client/#/PointingToDeclaration/api/io.github.bsautner.kobold.client/-api-client/client.html
 $dokka.location:io.github.bsautner.kobold.client/ApiClient/postData/#kotlin.String#TypeParam(bounds=[io.github.bsautner.kobold.KRequest])/PointingToDeclaration/api/io.github.bsautner.kobold.client/-api-client/post-data.html
+$dokka.location:io.github.bsautner.kobold.compose////PointingToDeclaration/api/io.github.bsautner.kobold.compose/index.html
+$dokka.location:io.github.bsautner.kobold.compose/ComposableLambda///PointingToDeclaration/api/io.github.bsautner.kobold.compose/-composable-lambda/index.html
+$dokka.location:io.github.bsautner.kobold.util////PointingToDeclaration/api/io.github.bsautner.kobold.util/index.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap///PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/index.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap/Multimap/#/PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/-multimap.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap/get/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/get.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap/getAll/#/PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/get-all.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap/put/#TypeParam(bounds=[kotlin.Any?])#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/put.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap/remove/#TypeParam(bounds=[kotlin.Any?])#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/remove.html
+$dokka.location:io.github.bsautner.kobold.util/Multimap/removeAll/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/api/io.github.bsautner.kobold.util/-multimap/remove-all.html
 $dokka.location:io.github.bsautner.kobold////PointingToDeclaration/api/io.github.bsautner.kobold/index.html
 $dokka.location:io.github.bsautner.kobold//getPostBodyClass/io.github.bsautner.kobold.KPost[TypeParam(bounds=[io.github.bsautner.kobold.KRequest]),TypeParam(bounds=[io.github.bsautner.kobold.KResponse])]#/PointingToDeclaration/api/io.github.bsautner.kobold/get-post-body-class.html
 $dokka.location:io.github.bsautner.kobold//getPostResponseBodyClass/io.github.bsautner.kobold.KPost[TypeParam(bounds=[io.github.bsautner.kobold.KRequest]),TypeParam(bounds=[io.github.bsautner.kobold.KResponse])]#/PointingToDeclaration/api/io.github.bsautner.kobold/get-post-response-body-class.html
@@ -23,6 +33,11 @@ $dokka.location:io.github.bsautner.kobold/KGet///PointingToDeclaration/api/io.g
 $dokka.location:io.github.bsautner.kobold/KGet/render/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-get/render.html
 $dokka.location:io.github.bsautner.kobold/KJsonResponse///PointingToDeclaration/api/io.github.bsautner.kobold/-k-json-response/index.html
 $dokka.location:io.github.bsautner.kobold/KJsonResponse/KJsonResponse/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-json-response/-k-json-response.html
+$dokka.location:io.github.bsautner.kobold/KMenu///PointingToDeclaration/api/io.github.bsautner.kobold/-k-menu/index.html
+$dokka.location:io.github.bsautner.kobold/KMenu/KMenu/#kotlin.Function0[kotlin.Unit]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/api/io.github.bsautner.kobold/-k-menu/-k-menu.html
+$dokka.location:io.github.bsautner.kobold/KMenu/invoke/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-menu/invoke.html
+$dokka.location:io.github.bsautner.kobold/KMenu/onClick/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-menu/on-click.html
+$dokka.location:io.github.bsautner.kobold/KMenu/render/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-menu/render.html
 $dokka.location:io.github.bsautner.kobold/KPost///PointingToDeclaration/api/io.github.bsautner.kobold/-k-post/index.html
 $dokka.location:io.github.bsautner.kobold/KPost/process/#/PointingToDeclaration/api/io.github.bsautner.kobold/-k-post/process.html
 $dokka.location:io.github.bsautner.kobold/KRequest///PointingToDeclaration/api/io.github.bsautner.kobold/-k-request/index.html
@@ -35,3 +50,5 @@ $dokka.location:io.github.bsautner.kobold/KoboldStatic///PointingToDeclaration/
 $dokka.location:io.github.bsautner.kobold/KoboldStatic/path/#/PointingToDeclaration/api/io.github.bsautner.kobold/-kobold-static/path.html
 io.github.bsautner.kobold
 io.github.bsautner.kobold.client
+io.github.bsautner.kobold.compose
+io.github.bsautner.kobold.util
