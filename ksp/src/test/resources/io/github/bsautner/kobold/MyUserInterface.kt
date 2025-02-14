@@ -1,9 +1,11 @@
 package io.github.bsautner.kobold
 
 import androidx.compose.runtime.Composable
+import io.github.bsautner.kobold.compose.ComposableLambda
 import io.ktor.resources.*
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 
 class MyUserInterface(render: @Composable () -> Unit) : KCompose(render)

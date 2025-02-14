@@ -33,7 +33,7 @@ class ClassHelperProcessorTest {
 				interfaces.any { it.qualifiedName.toString() == KPost::class.qualifiedName.toString() }
 			}
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/AuthModel.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/AuthModel.kt")
 		val sourceFile = SourceFile.Companion.kotlin("AuthModel.kt", testCode)
 
 		val compilation = KotlinCompilation().apply {
@@ -60,7 +60,7 @@ class ClassHelperProcessorTest {
 
 			}
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/AuthModel.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/AuthModel.kt")
 		val sourceFile = SourceFile.Companion.kotlin("AuthModel.kt", testCode)
 
 		val compilation = KotlinCompilation().apply {

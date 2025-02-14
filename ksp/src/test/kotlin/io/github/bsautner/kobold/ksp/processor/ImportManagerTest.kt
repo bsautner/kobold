@@ -29,7 +29,7 @@ class ImportManagerTest {
 			println("BEN: Test Callback: ${declaration.simpleName}")
 
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/AuthModel.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/AuthModel.kt")
 		val sourceFile = SourceFile.kotlin("AuthModel.kt", testCode)
 
 		val compilation = KotlinCompilation().apply {

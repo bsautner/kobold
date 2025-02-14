@@ -5,7 +5,6 @@ package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.configureKsp
-import com.tschuchort.compiletesting.kspArgs
 import com.tschuchort.compiletesting.kspProcessorOptions
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.ksp.classtools.ClassHelper
@@ -38,7 +37,7 @@ class ProcessorTest {
 				assertTrue { it.qualifiedName == "io.github.bsautner.kobold.LoginResponse" }
 			}
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/AuthModel.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/AuthModel.kt")
 		val sourceFile = SourceFile.kotlin("AuthModel.kt", testCode)
 
 		val compilation = KotlinCompilation().apply {
@@ -61,7 +60,7 @@ class ProcessorTest {
 		val provider = TestProcessorProvider { declaration ->
 			println("Callback ${declaration.simpleName.asString()}")
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/StaticExample.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/StaticExample.kt")
 		val sourceFile = SourceFile.kotlin("StaticExample.kt", testCode)
 
 		val compilation = KotlinCompilation().apply {
@@ -98,7 +97,7 @@ class ProcessorTest {
 //			}
 
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/AuthModel.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/AuthModel.kt")
 		val sourceFile = SourceFile.kotlin("AuthModel.kt", testCode)
 		val compilation = KotlinCompilation().apply {
 			configureKsp(useKsp2 = true) {

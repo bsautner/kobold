@@ -40,24 +40,25 @@ class ClassHelper {
         val typeParams = getTypeParameters(classDeclaration)
         val interfaces = getImplementedInterfaces(classDeclaration)
         val imports = getImports(classDeclaration)
-        return ClassMetaData(classDeclaration, packageName, className, simpleName, defaultValues, typeParams, interfaces, imports)
+        val baseClasses = getBaseClasses(classDeclaration)
+        return ClassMetaData(classDeclaration, packageName, className, simpleName, defaultValues, typeParams, interfaces, imports, baseClasses)
     }
 
      private fun getImports(declaration: KSClassDeclaration): Map<String, List<String>> {
                 val result = mutableMapOf<String, List<String>>()
 
-                declaration.toImportStatement().let {
+                declaration.toImportStatement()?.let {
                     result[it.first] = listOf(it.second)
                 }
 
                 getTypeParameters(declaration).forEach { meta ->
-                    meta.declaration.toImportStatement().let {
+                    meta.declaration.toImportStatement()?.let {
                        result[it.first] = result.getOrDefault(it.first, emptyList()) + it.second
                     }
                 }
 
                 getImplementedInterfaces(declaration).forEach {
-                    it.declaration.toImportStatement().let {
+                    it.declaration.toImportStatement()?.let {
                         result[it.first] = result.getOrDefault(it.first, emptyList()) + it.second
                     }
                 }
@@ -73,6 +74,22 @@ class ClassHelper {
         interfaces.forEach {
             val declaration = (it.resolve().declaration as KSClassDeclaration)
             if (declaration.classKind == ClassKind.INTERFACE) {
+                result.add(getClassMetaData(declaration))
+            }
+        }
+
+        return result
+
+
+    }
+
+    fun getBaseClasses(declaration: KSClassDeclaration): List<ClassMetaData> {
+
+        val classes = declaration.superTypes.toList()
+        val result = mutableListOf<ClassMetaData>()
+        classes.forEach {
+            val declaration = (it.resolve().declaration as KSClassDeclaration)
+            if (declaration.classKind == ClassKind.CLASS) {
                 result.add(getClassMetaData(declaration))
             }
         }
@@ -171,13 +188,21 @@ fun areCodeStringsIdentical(code1: String, code2: String): Boolean {
     return removeTopComments(code1) == removeTopComments(code2)
 }
 
-fun KSClassDeclaration.toImportStatement(): Pair<String, String> {
+fun KSClassDeclaration.toImportStatement(): Pair<String, String>? {
     val qualifiedName = this.qualifiedName?.asString()
-        ?: throw IllegalArgumentException("Class declaration must have a qualified name")
 
-    val packageName = qualifiedName.substringBeforeLast(".")
-    val className = qualifiedName.substringAfterLast(".")
-    return Pair(packageName, className)
+
+    qualifiedName?.let {
+        val packageName = qualifiedName.substringBeforeLast(".")
+        val className = qualifiedName.substringAfterLast(".")
+        return Pair(packageName, className)
+    }
+    return null
+
+}
+
+fun KSClassDeclaration.directSubClasses() : List<KSClassDeclaration> {
+    return this.getSealedSubclasses().filter { (it.parent as KSClassDeclaration).qualifiedName?.asString() == this.qualifiedName?.asString() }.toList()
 
 }
 

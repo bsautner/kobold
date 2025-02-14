@@ -27,6 +27,7 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.validate
 import io.github.bsautner.kobold.KComposable
 import io.github.bsautner.kobold.KGet
+import io.github.bsautner.kobold.KMenu
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.kobold.KStatic
 import io.github.bsautner.kobold.Kobold
@@ -37,6 +38,7 @@ import io.github.bsautner.ksp.routing.RouteGenerator
 import io.github.bsautner.ksp.routing.Routes
 import io.github.bsautner.ksp.util.touchFile
 import java.io.File
+import kotlin.math.log
 
 class KoboldProcessor(val env: SymbolProcessorEnvironment, private val onProcess: (KSClassDeclaration) -> Unit):  SymbolProcessor {
 
@@ -52,13 +54,18 @@ class KoboldProcessor(val env: SymbolProcessorEnvironment, private val onProcess
 
             val annotations = listOf(Kobold::class.qualifiedName!!, KoboldStatic::class.qualifiedName!!)
             val symbols = annotations.flatMap { resolver.getSymbolsWithAnnotation(it) }
-                .filterIsInstance<KSClassDeclaration>()
-                .filter { it.validate() }
+            //    .filterIsInstance<KSClassDeclaration>()
+            //    .filter { it.validate() }
 
             symbols.forEach {
-                onProcess(it)
-                logger.info("Processing Kobold Annotated Code: ${it.qualifiedName?.asString()}", it)
-                processSymbol(it, ::createFileCallback)
+                logger.info("${it::class.simpleName}")
+                if (it is KSClassDeclaration) {
+                    logger.info("Processing KSClass...")
+                    onProcess(it)
+                    logger.info("Processing Kobold Annotated Code: ${it.qualifiedName?.asString()}", it)
+                    processSymbol(it, ::createFileCallback)
+                }
+
             }
             return emptyList()
         }
@@ -83,9 +90,12 @@ class KoboldProcessor(val env: SymbolProcessorEnvironment, private val onProcess
         val className = metaData.qualifiedName
         val routeGenerator = RouteGenerator()
         val composeGenerator = ComposeGenerator(env)
-        metaData.interfaces.forEach { i ->
-            val name = i.qualifiedName
-            logger.warn("ksp checking ${i.qualifiedName}")
+
+        val details = metaData.interfaces.map { it.qualifiedName } + metaData.baseClasses.map { it.qualifiedName }
+        details.forEach { name ->
+
+
+            logger.warn("ksp checking $name")
             when (name) {
                 KPost::class.qualifiedName -> {
                     routeGenerator.createPostRoute(metaData)
@@ -100,6 +110,10 @@ class KoboldProcessor(val env: SymbolProcessorEnvironment, private val onProcess
                 }
 
                 KComposable::class.qualifiedName -> {
+                    composeGenerator.create(metaData, ::createFileCallback)
+                }
+
+                KMenu::class.qualifiedName -> {
                     composeGenerator.create(metaData, ::createFileCallback)
                 }
 

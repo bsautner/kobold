@@ -39,6 +39,7 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
                 api(libs.bundles.ktorClient)
                 api(compose.runtime)
+
             }
         }
         val jsMain by getting {

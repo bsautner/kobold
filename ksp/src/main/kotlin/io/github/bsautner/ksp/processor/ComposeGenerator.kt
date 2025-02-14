@@ -22,7 +22,9 @@ package io.github.bsautner.ksp.processor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.squareup.kotlinpoet.*
+import io.github.bsautner.kobold.KMenu
 import io.github.bsautner.kobold.KPost
+import io.github.bsautner.kobold.util.Multimap
 import io.github.bsautner.ksp.routing.RoutingGenerator.getRouteClassDeclaration
 import io.github.bsautner.ksp.classtools.ClassMetaData
 import io.github.bsautner.ksp.util.Const
@@ -32,124 +34,222 @@ import java.util.Date
 class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 
 
-    fun create(metaData: ClassMetaData, callback : (String) -> Unit) {
+	fun create(metaData: ClassMetaData, callback: (String) -> Unit) {
 
-        val classDeclaration = metaData.declaration
-        val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
-        val packageName = classDeclaration.packageName.asString()
-        log("Creating Composable: $packageName.$outputClassName")
-        val fileBuilder = FileSpec.builder(packageName, outputClassName)
-        fileBuilder.tag(TargetPlatform::class, TargetPlatform.commonMain)
-
-
-        createComposables(classDeclaration, outputClassName, fileBuilder, callback)
-
-    }
-
-    fun createComposables(classDeclaration: KSClassDeclaration, outputClassName: String, fileBuilder: FileSpec.Builder, callback: (String) -> Unit) {
-        addBaseComposeImports(classDeclaration)
-
-        val functionBuilder = FunSpec.builder(outputClassName)
-            .addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
-            .addCode(generate(classDeclaration))
-        addBaseComposeImports(classDeclaration)
-        fileBuilder
-            .addFileComment(Const.comment)
-            .addFunction(functionBuilder.build())
-        log("Created Composable: ${fileBuilder.packageName}.${fileBuilder.name}" )
-        ImportManager.addImportBlock(classDeclaration, fileBuilder)
-        writeToFile(fileBuilder.build(), callback)
-    }
+		val classDeclaration = metaData.declaration
+		val outputClassName = "${classDeclaration.simpleName.asString()}Composable"
+		val packageName = classDeclaration.packageName.asString()
+		log("Creating Composable: $packageName.$outputClassName")
+		val fileBuilder = FileSpec.builder(packageName, outputClassName)
+		fileBuilder.tag(TargetPlatform::class, TargetPlatform.commonMain)
 
 
-    private fun addBaseComposeImports(declaration: KSClassDeclaration) {
+		createComposables(metaData, classDeclaration, outputClassName, fileBuilder, callback)
 
-        val meta = classHelper.getClassMetaData(declaration)
+	}
 
-1
-        ImportManager.apply {
+	fun createComposables(
+		metaData: ClassMetaData,
+		classDeclaration: KSClassDeclaration,
+		outputClassName: String,
+		fileBuilder: FileSpec.Builder,
+		callback: (String) -> Unit
+	) {
+		addBaseComposeImports(classDeclaration)
 
-            meta.imports.forEach { pack ->
-                pack.value.forEach { cls ->
-                    this.addImport(declaration, pack.key,  cls)
-                }
-
-            }
-            meta.interfaces.forEach {
-                this.addImport(declaration, it.declaration.packageName.asString(), it.declaration.simpleName.asString())
-            }
-
-
-            this.addImport(declaration, "androidx.compose.foundation.layout", "Box", "fillMaxSize", "Column", "Spacer", "height", "padding")
-            this.addImport(declaration, "androidx.compose.foundation", "border", "clickable")
-            this.addImport(declaration, "androidx.compose.foundation.text", "BasicText", "BasicTextField")
-            this.addImport(declaration, "androidx.compose.material", "Button", "Text")
-            this.addImport(declaration, "androidx.compose.runtime", "Composable", "LaunchedEffect", "remember", "mutableStateOf", "getValue", "setValue")
-            this.addImport(declaration, "androidx.compose.ui", "Modifier", "Alignment")
-            this.addImport(declaration, "androidx.compose.ui.graphics", "Color")
-            this.addImport(declaration, "androidx.compose.ui.text", "TextStyle")
-            this.addImport(declaration, "androidx.compose.ui.unit", "dp")
-            this.addImport(declaration, "kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
-            this.addImport(declaration, "io.ktor.client.statement", "bodyAsText")
-            this.addImport(declaration, "io.github.bsautner.kobold", "introspectSerializableClass")
-            this.addImport(declaration, "io.github.bsautner.kobold.client", "ApiClient")
-        }
+		val functionBuilder = FunSpec.builder(outputClassName)
+			.addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
+			.addCode(generateComposable(metaData))
+		addBaseComposeImports(classDeclaration)
+		fileBuilder
+			.addFileComment(Const.comment)
+			.addFunction(functionBuilder.build())
+		log("Created Composable: ${fileBuilder.packageName}.${fileBuilder.name}")
+		ImportManager.addImportBlock(classDeclaration, fileBuilder)
+		val built = fileBuilder.build()
+		writeToFile(built, callback)
+	}
 
 
+	private fun addBaseComposeImports(declaration: KSClassDeclaration) {
 
-    }
+		val meta = classHelper.getClassMetaData(declaration)
 
-     fun generate(classDeclaration: KSClassDeclaration): CodeBlock {
-        val code = CodeBlock.builder()
+		1
+		ImportManager.apply {
 
-        code.addStatement("val defaults = remember { mutableStateOf(mutableMapOf<String, String?>()) }")
-        code.addStatement("var isInitialized by remember { mutableStateOf(false) }")
+			meta.imports.forEach { pack ->
+				pack.value.forEach { cls ->
+					this.addImport(declaration, pack.key, cls)
+				}
 
-        val metaData = classHelper.getClassMetaData(classDeclaration)
-        val interfaces = metaData.interfaces.map { it.qualifiedName }
-        if (interfaces.contains(KPost::class.qualifiedName)) {
-            log("KPost Detected, Creating Form")
-            generateComposableForm(metaData, code)
+			}
+			meta.interfaces.forEach {
+				this.addImport(declaration, it.declaration.packageName.asString(), it.declaration.simpleName.asString())
+			}
 
-        }
 
-        return code.build()
-    }
+			this.addImport(
+				declaration,
+				"androidx.compose.foundation.layout",
+				"Box",
+				"fillMaxSize",
+				"Column",
+				"Spacer",
+				"height",
+				"padding"
+			)
+			this.addImport(declaration, "androidx.compose.foundation", "border", "clickable")
+			this.addImport(declaration, "androidx.compose.foundation.text", "BasicText", "BasicTextField")
+			this.addImport(declaration, "androidx.compose.material", "Button", "Text")
+			this.addImport(
+				declaration,
+				"androidx.compose.runtime",
+				"Composable",
+				"LaunchedEffect",
+				"remember",
+				"mutableStateOf",
+				"getValue",
+				"setValue"
+			)
+			this.addImport(declaration, "androidx.compose.ui", "Modifier", "Alignment")
+			this.addImport(declaration, "androidx.compose.ui.graphics", "Color")
+			this.addImport(declaration, "androidx.compose.ui.text", "TextStyle")
+			this.addImport(declaration, "androidx.compose.ui.unit", "dp")
+			this.addImport(declaration, "kotlinx.coroutines", "CoroutineScope", "Dispatchers", "launch")
+			this.addImport(declaration, "io.ktor.client.statement", "bodyAsText")
+			this.addImport(declaration, "io.github.bsautner.kobold", "introspectSerializableClass")
+			this.addImport(declaration, "io.github.bsautner.kobold.client", "ApiClient")
+		}
 
-    private fun generateComposableForm(
-        metaData: ClassMetaData,
-        code: CodeBlock.Builder
-    ) {
-        val typeParams = metaData.typeParameters
-        typeParams.firstOrNull()?.let { typeParams ->
-            code.addStatement("// This reflects the class you used for KPost<T, R> where T is the post body of this form")
-            typeParams.defaultValues.forEach {
 
-                code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
-            }
+	}
 
-            val route = getRouteClassDeclaration(metaData.declaration) ?: ""
-            // LaunchedEffect block for initialization
-            code.beginControlFlow("LaunchedEffect(Unit)")
+	fun generateComposable(metaData: ClassMetaData): CodeBlock {
+		val code = CodeBlock.builder()
 
-            code.addStatement("isInitialized = true")
-            code.endControlFlow()
+		metaData.baseClasses.firstOrNull { it.qualifiedName == KMenu::class.qualifiedName }?.let {
+			log("KMenu Detected, Creating Menu")
+			generateComposableMenu(metaData, code)
+		}
 
-            // Loading State
-            code.add(
-                """
-                if (!isInitialized) {
-                    Text("Loading...")
-                    return
-                }
-                """.trimIndent()
-            )
+		metaData.interfaces.firstOrNull { it.qualifiedName == KPost::class.qualifiedName }?.let {
 
-            // State for validation tracking
-            code.add("\n")
+			generateComposableForm(metaData, code)
 
-            code.add(
-                """
+		}
+
+		return code.build()
+	}
+
+	private fun generateComposableMenu(
+		metaData: ClassMetaData,
+		code: CodeBlock.Builder
+	) {
+
+		addLoadingBlock(code)
+		val name = metaData.declaration.simpleName.asString()
+		code.addStatement("var ${name}Expanded by remember { mutableStateOf(false) }")
+		val subclassMap = subclassMap(metaData)
+
+		subclassMap.getAll().forEach {
+			it.value.forEach { name ->
+				code.addStatement("var ${name}Expanded by remember { mutableStateOf(false) }")
+
+			}
+		}
+		code.beginControlFlow("Box")
+		createDropdownMenu(code, metaData)
+
+		code.endControlFlow() // Box
+
+		ImportManager.addImport(metaData.declaration, "androidx.compose.foundation.layout", "Box")
+		ImportManager.addImport(metaData.declaration, "androidx.compose.foundation.layout", "padding")
+
+		ImportManager.addImport(metaData.declaration, "androidx.compose.material", "DropdownMenu")
+		ImportManager.addImport(metaData.declaration, "androidx.compose.material", "DropdownMenuItem")
+		ImportManager.addImport(metaData.declaration, "androidx.compose.material.icons", "Icons")
+		ImportManager.addImport(metaData.declaration, "androidx.compose.material.icons.filled", "MoreVert")
+		ImportManager.addImport(metaData.declaration, "androidx.compose.material", "Icon")
+		ImportManager.addImport(metaData.declaration, "androidx.compose.material", "IconButton")
+
+
+	}
+
+	private fun createDropdownMenu(
+		code: CodeBlock.Builder,
+		metaData: ClassMetaData
+	) {
+		val subclassMap = subclassMap(metaData)
+
+		addDropdown(metaData.declaration, metaData.declaration, subclassMap, code)
+	}
+
+	private fun subclassMap(metaData: ClassMetaData): Multimap<String, KSClassDeclaration> {
+		val subclassMap = Multimap<String, KSClassDeclaration>()
+
+		val sealed = metaData.declaration.getSealedSubclasses()
+		sealed.forEach {
+			val parent = it.parent as KSClassDeclaration
+			parent.qualifiedName?.let { name ->
+				subclassMap.put(name.asString(), it)
+				ImportManager.addImport(metaData.declaration, name.asString(), it.simpleName.asString())
+			}
+
+		}
+		return subclassMap
+	}
+
+	private fun addDropdown(
+		declaration: KSClassDeclaration,
+		subclass: KSClassDeclaration,
+		subclassMap: Multimap<String, KSClassDeclaration>,
+		code: CodeBlock.Builder
+	) {
+
+		val hasChildren = subclassMap.get(subclass.qualifiedName!!.asString())?.isNotEmpty() == true
+		val menuItemName = subclass.simpleName.asString()
+		if (hasChildren) {
+			code.beginControlFlow("IconButton(onClick = { ${menuItemName}Expanded = !${menuItemName}Expanded }) ")
+			code.addStatement("Icon(Icons.Default.MoreVert, contentDescription = \"$menuItemName\")")
+			code.endControlFlow()
+			code.beginControlFlow("DropdownMenu(expanded = ${menuItemName}Expanded, onDismissRequest = {${menuItemName}Expanded = false})")
+
+			subclassMap.get(subclass.qualifiedName!!.asString())?.forEach { sc ->
+				addDropdown(declaration, sc, subclassMap, code)
+			}
+			code.endControlFlow()
+		} else {
+			code.addStatement("DropdownMenuItem(content = {$menuItemName.render()}, onClick = {$menuItemName.onClick()})")
+
+
+		}
+
+
+	}
+
+	private fun generateComposableForm(
+		metaData: ClassMetaData,
+		code: CodeBlock.Builder
+	) {
+
+		code.addStatement("val defaults = remember { mutableStateOf(mutableMapOf<String, String?>()) }")
+
+		val typeParams = metaData.typeParameters
+		typeParams.firstOrNull()?.let { typeParams ->
+			code.addStatement("// This reflects the class you used for KPost<T, R> where T is the post body of this form")
+			typeParams.defaultValues.forEach {
+
+				code.addStatement("defaults.value[\"${it.key}\"] = ${it.value?.removeSuffix(")")}")
+			}
+
+			addLoadingBlock(code)
+			val route = getRouteClassDeclaration(metaData.declaration) ?: ""
+			// State for validation tracking
+			code.add("\n")
+
+			code.add(
+				"""
                 val requiredFieldsValid = remember { mutableStateOf(mutableMapOf<String, Boolean>()) }
                 val fields = introspectSerializableClass<${typeParams.simpleName}>()
                 
@@ -165,15 +265,15 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                     BasicText("${Date()}")
                     Spacer(Modifier.height(16.dp))
                 """.trimIndent()
-            )
-            code.add("\n")
-            // Generate form fields
-            code.add(generateFormFields(typeParams))
+			)
+			code.add("\n")
+			// Generate form fields
+			code.add(generateFormFields(typeParams))
 
-            // Submit button
-            code.add("\n")
-            code.add(
-                """
+			// Submit button
+			code.add("\n")
+			code.add(
+				"""
                     val isFormValid = requiredFieldsValid.value.all { it.value }
                     
                     Button(
@@ -181,14 +281,14 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                             CoroutineScope(Dispatchers.Default).launch {
                                 val postBody = ${typeParams.simpleName}(
                 """.trimIndent()
-            )
+			)
 
-            typeParams.defaultValues.forEach {
-                code.addStatement("${it.key} = defaults.value[\"${it.key}\"] ?: \"\",")
-            }
+			typeParams.defaultValues.forEach {
+				code.addStatement("${it.key} = defaults.value[\"${it.key}\"] ?: \"\",")
+			}
 
-            code.add(
-                """
+			code.add(
+				"""
                                 )
                                 try {
                                     val response = ApiClient.postData("$route", postBody)
@@ -205,21 +305,44 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                 }
                 """.trimIndent()
 
-            )
+			)
 
 
-        }
-    }
+		}
+	}
 
-    private fun generateFormFields(classMetaData: ClassMetaData): CodeBlock {
-        val code = CodeBlock.builder()
-        code.beginControlFlow("fields.forEach { field ->")
+	private fun addLoadingBlock(
+		code: CodeBlock.Builder
+	) {
+		code.addStatement("var isInitialized by remember { mutableStateOf(false) }")
+		// LaunchedEffect block for initialization
+		code.beginControlFlow("LaunchedEffect(Unit)")
 
-        code.beginControlFlow("when (field.type)")
-        code.beginControlFlow("\"kotlin.String\" ->")
+		code.addStatement("isInitialized = true")
+		code.endControlFlow()
 
-        code.add(
-            """
+		// Loading State
+		code.add(
+			"""
+                    if (!isInitialized) {
+                        Text("Loading...")
+                        return
+                    }
+                    """.trimIndent()
+		)
+		code.addStatement("\n")
+
+	}
+
+	private fun generateFormFields(classMetaData: ClassMetaData): CodeBlock {
+		val code = CodeBlock.builder()
+		code.beginControlFlow("fields.forEach { field ->")
+
+		code.beginControlFlow("when (field.type)")
+		code.beginControlFlow("\"kotlin.String\" ->")
+
+		code.add(
+			"""
             Column {
                 Text(
                     text = field.name,
@@ -251,13 +374,13 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
                 )
             }
             """.trimIndent()
-        )
+		)
 
-        code.endControlFlow() // Close String case
-        code.endControlFlow() // Close when block
-        code.endControlFlow() // Close fields.forEach
+		code.endControlFlow() // Close String case
+		code.endControlFlow() // Close when block
+		code.endControlFlow() // Close fields.forEach
 
-        return code.build()
-    }
+		return code.build()
+	}
 
 }

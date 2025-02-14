@@ -8,7 +8,6 @@ import com.tschuchort.compiletesting.configureKsp
 import com.tschuchort.compiletesting.kspProcessorOptions
 import io.github.bsautner.utils.TestProcessorProvider
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
-import org.jetbrains.kotlin.sourceKindForIncOrDec
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import readResourceFile
@@ -26,7 +25,7 @@ class ComposeGeneratorTest {
 		val provider = TestProcessorProvider { declaration ->
 			println("Callback ${declaration.simpleName.asString()}")
 		}
-		val testCode = readResourceFile("/io.github.bsautner.kobold/StaticExample.kt")
+		val testCode = readResourceFile("/io/github/bsautner/kobold/StaticExample.kt")
 		val sourceFile = SourceFile.kotlin("StaticExample.kt", testCode)
 
 		val compilation = KotlinCompilation().apply {

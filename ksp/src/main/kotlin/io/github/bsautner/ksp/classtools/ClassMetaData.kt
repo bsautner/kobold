@@ -29,7 +29,8 @@ data class ClassMetaData(
         val defaultValues: Map<String, String?> = emptyMap<String, String>(),
         val typeParameters: List<ClassMetaData> = emptyList<ClassMetaData>(),
         val interfaces: List<ClassMetaData> = emptyList<ClassMetaData>(), 
-        val imports: Map<String, List<String>> = emptyMap<String, List<String>>()
+        val imports: Map<String, List<String>> = emptyMap<String, List<String>>(),
+        val baseClasses: List<ClassMetaData> = emptyList<ClassMetaData>()
     ) {
 
         override fun equals(other: Any?): Boolean {

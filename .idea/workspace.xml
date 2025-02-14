@@ -9,7 +9,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/client/Test.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/TestModelComposeMenu.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +76,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="workflow" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -162,6 +166,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Kobold [jvm].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.Tests in 'kobold.ksp.test'.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kobold [dokkaGeneratePublicationHtml].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kobold [dokkaGenerate].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.kobold [dokkaGfm].executor&quot;: &quot;Run&quot;,
@@ -172,6 +177,7 @@
     &quot;Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/test/ktor-sample&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -193,8 +199,11 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs" />
     </key>
+    <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="io.github.bsautner.kobold.ksp.processor" />
+    </key>
   </component>
-  <component name="RunManager" selected="Gradle.kobold:api [dokkaGenerateModuleHtml]">
+  <component name="RunManager" selected="Gradle.Tests in 'kobold.ksp.test'">
     <configuration name="Kobold [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -217,26 +226,26 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kobold [dokkaGenerate]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Tests in 'kobold.ksp.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="dokkaGenerate" />
+            <option value=":ksp:test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="kobold [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -306,27 +315,27 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
       <item itemvalue="Gradle.kobold [javadoc]" />
       <item itemvalue="Gradle.kobold:api [dokkaGenerateModuleHtml]" />
       <item itemvalue="Gradle.kobold [publishToMavenLocal]" />
       <item itemvalue="Gradle.Kobold [jvm]" />
-      <item itemvalue="Gradle.kobold [dokkaGenerate]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
         <item itemvalue="Gradle.kobold:api [dokkaGenerateModuleHtml]" />
         <item itemvalue="Gradle.kobold [javadoc]" />
         <item itemvalue="Gradle.kobold [publishToMavenLocal]" />
         <item itemvalue="Gradle.Kobold [jvm]" />
-        <item itemvalue="Gradle.kobold [dokkaGenerate]" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
       </set>
     </attachedChunks>
   </component>
@@ -358,6 +367,10 @@
       <workItem from="1739466447155" duration="1264000" />
       <workItem from="1739467716925" duration="533000" />
       <workItem from="1739468265254" duration="2021000" />
+      <workItem from="1739535588290" duration="51000" />
+      <workItem from="1739535675670" duration="2427000" />
+      <workItem from="1739540651633" duration="2617000" />
+      <workItem from="1739545882286" duration="473000" />
     </task>
     <servers />
   </component>

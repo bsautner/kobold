@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
-
 package io.github.bsautner.kobold
 
 import androidx.compose.runtime.Composable
+import io.github.bsautner.kobold.compose.ComposableLambda
 import kotlinx.serialization.Serializable
-import kotlin.jvm.Transient
-import kotlin.reflect.KClass
+import kotlinx.serialization.Transient
+
 
 @Serializable
 open class KJsonResponse : KResponse
@@ -65,4 +63,18 @@ open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
 	operator fun invoke() {
 		render()
 	}
+}
+
+/**
+ * You can use this class to build menus where a sealed class is the top level and sealed subclasses are menu items.
+ * //TODO icons, breaks, modifiers
+ */
+
+open class KMenu(@Transient open val render: ComposableLambda= {}, @Transient open val onClick: () -> Unit = {}) {
+
+	@Composable
+	operator fun invoke() {
+		render()
+	}
+
 }
