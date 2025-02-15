@@ -8,13 +8,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/client/Test.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ksp/src/test/kotlin/io/github/bsautner/kobold/ksp/processor/TestModelComposeMenu.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/commonMain/kotlin/io/github/bsautner/kobold/Kobold.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
-    </list>
+    <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -158,41 +152,41 @@
   </component>
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
-    <option name="flattenPackages" value="true" />
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Kobold [jvm].executor&quot;: &quot;Debug&quot;,
-    &quot;Gradle.Tests in 'kobold.ksp.test'.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold [dokkaGeneratePublicationHtml].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold [dokkaGenerate].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold [dokkaGfm].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold [javadoc].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold [publishToMavenLocal].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold [zipPublishedArtifacts].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold:api [dokkaGenerateModuleHtml].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/test/ktor-sample&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.profiles&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.ComposeGeneratorRealMenuTest.test static routing.executor": "Run",
+    "Gradle.ComposeGeneratorRealTest.test static routing.executor": "Debug",
+    "Gradle.Kobold [jvm].executor": "Debug",
+    "Gradle.Tests in 'kobold.ksp.test'.executor": "Run",
+    "Gradle.kobold [dokkaGeneratePublicationHtml].executor": "Run",
+    "Gradle.kobold [dokkaGenerate].executor": "Run",
+    "Gradle.kobold [dokkaGfm].executor": "Run",
+    "Gradle.kobold [javadoc].executor": "Run",
+    "Gradle.kobold [publishToMavenLocal].executor": "Run",
+    "Gradle.kobold [zipPublishedArtifacts].executor": "Run",
+    "Gradle.kobold:api [dokkaGenerateModuleHtml].executor": "Run",
+    "Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/ben/Code/ktor/kobold/api/build/generated/compose/resourceGenerator/assembledResources/wasmJsMain",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "copyright.profiles",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;stardust.markdown.MarkdownSplitEditorSuppressor:keyList&quot;: []
+  "keyToStringList": {
+    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": []
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/api/build/generated/compose/resourceGenerator/assembledResources/wasmJsMain" />
       <recent name="$PROJECT_DIR$/.github/workflows" />
       <recent name="$PROJECT_DIR$/Writerside" />
     </key>
@@ -202,20 +196,28 @@
     <key name="CreateKotlinClassDialog.RecentsKey">
       <recent name="io.github.bsautner.kobold.ksp.processor" />
     </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="io.github.bsautner.kobold.ksp.processor" />
+    </key>
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="io.github.bsautner.kobold" />
+    </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'kobold.ksp.test'">
-    <configuration name="Kobold [jvm]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ComposeGeneratorRealMenuTest.test static routing">
+    <configuration name="ComposeGeneratorRealMenuTest.test static routing" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/api" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="-DmainClass=io.github.bsautner.kobold.KoboldKt --quiet" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="jvmRun" />
+            <option value=":ksp:test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ComposeGeneratorRealMenuTest.test static routing&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -223,7 +225,31 @@
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ComposeGeneratorRealTest.test static routing" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":ksp:test" />
+            <option value="--tests" />
+            <option value="&quot;io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.ComposeGeneratorRealTest.test static routing&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
     <configuration name="Tests in 'kobold.ksp.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -270,28 +296,6 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="kobold [publishToMavenLocal]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="publishToMavenLocal" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="kobold:api [dokkaGenerateModuleHtml]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -315,19 +319,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Gradle.ComposeGeneratorRealMenuTest.test static routing" />
+      <item itemvalue="Gradle.ComposeGeneratorRealTest.test static routing" />
       <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
       <item itemvalue="Gradle.kobold [javadoc]" />
       <item itemvalue="Gradle.kobold:api [dokkaGenerateModuleHtml]" />
-      <item itemvalue="Gradle.kobold [publishToMavenLocal]" />
-      <item itemvalue="Gradle.Kobold [jvm]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ComposeGeneratorRealMenuTest.test static routing" />
+        <item itemvalue="Gradle.ComposeGeneratorRealTest.test static routing" />
         <item itemvalue="Gradle.Tests in 'kobold.ksp.test'" />
         <item itemvalue="Gradle.kobold:api [dokkaGenerateModuleHtml]" />
         <item itemvalue="Gradle.kobold [javadoc]" />
-        <item itemvalue="Gradle.kobold [publishToMavenLocal]" />
-        <item itemvalue="Gradle.Kobold [jvm]" />
       </list>
     </recent_temporary>
   </component>
@@ -371,10 +375,22 @@
       <workItem from="1739535675670" duration="2427000" />
       <workItem from="1739540651633" duration="2617000" />
       <workItem from="1739545882286" duration="473000" />
+      <workItem from="1739546594473" duration="20912000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/ksp/src/main/kotlin/io/github/bsautner/ksp/processor/ComposeGenerator.kt</url>
+          <line>211</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
