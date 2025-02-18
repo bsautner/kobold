@@ -99,7 +99,7 @@ dependencies {
     api(libs.slf4j)
     api(libs.bundles.poet)
     implementation("androidx.annotation:annotation:1.9.1")
-    implementation("androidx.collection:collection:1.5.0-alpha06")
+    implementation("androidx.collection:collection:1.5.0-beta03")
     testImplementation(kotlin("test"))
     testImplementation("dev.zacsweers.kctfork:ksp:0.7.0")
     testImplementation("dev.zacsweers.kctfork:core:0.7.0")
