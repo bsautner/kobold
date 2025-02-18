@@ -24,6 +24,7 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSTypeReference
 import io.github.bsautner.kobold.Kobold
+import io.github.bsautner.kobold.util.Multimap
 import io.github.bsautner.ksp.routing.Routes
 import io.github.bsautner.ksp.util.ImportManager
 import java.io.File
@@ -42,6 +43,32 @@ class ClassHelper {
         val imports = getImports(classDeclaration)
         val baseClasses = getBaseClasses(classDeclaration)
         return ClassMetaData(classDeclaration, packageName, className, simpleName, defaultValues, typeParams, interfaces, imports, baseClasses)
+    }
+
+
+    fun subclassMap(declaration: KSClassDeclaration): Multimap<KSClassDeclaration, KSClassDeclaration> {
+        val subclassMap = Multimap<KSClassDeclaration, KSClassDeclaration>()
+
+        val sealed = declaration.getSealedSubclasses()
+        sealed.forEach {
+            val parent = it.parent as KSClassDeclaration
+            parent.qualifiedName?.let { name ->
+                subclassMap.put(parent, it)
+
+            }
+
+        }
+        return subclassMap
+    }
+
+    fun hasChildren(topDeclaration: KSClassDeclaration, declaration: KSClassDeclaration): Boolean {
+
+        val map = subclassMap(topDeclaration)
+        if (map.getAll().isEmpty() ) {
+            return false
+        }
+        return map.getAll().containsKey(declaration)
+
     }
 
      private fun getImports(declaration: KSClassDeclaration): Map<String, List<String>> {
@@ -161,8 +188,11 @@ class ClassHelper {
                val resolvedType = typeRef.resolve()
              val typeParams = resolvedType.arguments.mapNotNull { arg ->
                 arg.type?.resolve()?.declaration?.let { declaration ->
-
-                    getClassMetaData(declaration as KSClassDeclaration)
+                    val packageName = classDeclaration.packageName.asString()
+                    val className = classDeclaration.qualifiedName?.asString() ?: classDeclaration.simpleName.asString()
+                    val simpleName = classDeclaration.simpleName.asString()
+                    ClassMetaData(declaration = declaration as KSClassDeclaration, packageName = packageName, simpleName = simpleName, qualifiedName = className)
+                 //   getClassMetaData(declaration as KSClassDeclaration)
 
                 }
             }

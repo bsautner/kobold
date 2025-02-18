@@ -15,6 +15,22 @@ class Multimap<K, V> {
         return map
     }
 
+    fun getNodes(): List<V>   {
+       val list = mutableListOf<V>()
+       map.forEach { (_, value) ->
+           value.forEach { n ->
+               if (! map.containsKey<Any?>(n)) {
+                   list.add(n)
+               }
+           }
+
+
+       }
+        return list
+
+    }
+
+
     fun remove(key: K, value: V): Boolean {
         return map[key]?.remove(value) ?: false
     }

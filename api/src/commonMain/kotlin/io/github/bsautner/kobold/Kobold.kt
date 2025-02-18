@@ -70,7 +70,11 @@ open class KCompose(@Transient val render: @Composable () -> Unit) : KResponse {
  * //TODO icons, breaks, modifiers
  */
 
-open class KMenu(@Transient open val render: ComposableLambda= {}, @Transient open val onClick: () -> Unit = {}) {
+open class  KMenu<T>(
+	open val text : String = "",
+	open val expanded: Boolean = false,
+	@Transient open val render: ComposableLambda= {},
+	@Transient open val onClick: (T) -> Unit = {}) {
 
 	@Composable
 	operator fun invoke() {

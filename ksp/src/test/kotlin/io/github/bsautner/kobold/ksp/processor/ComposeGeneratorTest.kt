@@ -1,12 +1,12 @@
 @file:OptIn(ExperimentalCompilerApi::class)
 
-package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
+package io.github.bsautner.kobold.ksp.processor
 
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.configureKsp
 import com.tschuchort.compiletesting.kspProcessorOptions
-import io.github.bsautner.utils.TestProcessorProvider
+import io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor.TestProcessorProvider
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -57,7 +57,7 @@ class ComposeGeneratorTest {
 
 		val provider = TestProcessorProvider { declaration ->
 			println("Compose Callback ${declaration.simpleName.asString()}")
-}
+		}
 		val testCode = File("${System.getProperty("user.dir")}/../demo/src/commonMain/kotlin/io/github/bsautner/kobold/LoginScreenExample.kt").readText()
 		val sourceFile = SourceFile.Companion.kotlin("MyUserInterface.kt", testCode)
 

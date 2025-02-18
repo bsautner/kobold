@@ -8,7 +8,6 @@ import com.tschuchort.compiletesting.configureKsp
 import io.github.bsautner.kobold.KComposable
 import io.github.bsautner.kobold.KPost
 import io.github.bsautner.ksp.classtools.ClassHelper
-import io.github.bsautner.utils.TestProcessorProvider
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance

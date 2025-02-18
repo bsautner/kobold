@@ -29,6 +29,7 @@ import io.github.bsautner.ksp.routing.RoutingGenerator.getRouteClassDeclaration
 import io.github.bsautner.ksp.classtools.ClassMetaData
 import io.github.bsautner.ksp.util.Const
 import io.github.bsautner.ksp.util.ImportManager
+import kotlinx.coroutines.CoroutineScope
 import java.util.Date
 
 class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
@@ -51,13 +52,24 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 	fun createComposables(
 		metaData: ClassMetaData,
 		classDeclaration: KSClassDeclaration,
-		outputClassName: String,
+		functionName: String,
 		fileBuilder: FileSpec.Builder,
 		callback: (String) -> Unit
 	) {
 		addBaseComposeImports(classDeclaration)
 
-		val functionBuilder = FunSpec.builder(outputClassName)
+		val callbackLambda = LambdaTypeName.get(
+			parameters = listOf(
+				ParameterSpec.builder("callback", String::class).build()
+			),
+			returnType = Unit::class.asTypeName()
+		)
+
+		val paramSpec = ParameterSpec.builder("callback", callbackLambda).build()
+		val scopeSpec = ParameterSpec.builder("scope", CoroutineScope::class).build() //context: CoroutineScope
+		val functionBuilder = FunSpec.builder(functionName)
+			.addParameter(scopeSpec)
+			.addParameter(paramSpec)
 			.addAnnotation(ClassName("androidx.compose.runtime", "Composable"))
 			.addCode(generateComposable(metaData))
 		addBaseComposeImports(classDeclaration)
@@ -148,16 +160,38 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 	) {
 
 		addLoadingBlock(code)
-		val name = metaData.declaration.simpleName.asString()
-		code.addStatement("var ${name}Expanded by remember { mutableStateOf(false) }")
-		val subclassMap = subclassMap(metaData)
 
-		subclassMap.getAll().forEach {
-			it.value.forEach { name ->
-				code.addStatement("var ${name}Expanded by remember { mutableStateOf(false) }")
+		val subclassMap = classHelper.subclassMap(metaData.declaration)
+		subclassMap.getAll().forEach { entry ->
+			entry.value.forEach { value ->
+				ImportManager.addImport(metaData.declaration, entry.key.qualifiedName!!.asString(), value.simpleName.asString())
+			}
 
+		}
+
+		subclassMap.getAll().values.forEach { list ->
+			list.forEach { c ->
+				ImportManager.addImport(metaData.declaration, c.packageName.asString(), c.simpleName.asString())
+			}
+
+		}
+
+		val parentMap = mutableMapOf<String, Boolean>()
+		subclassMap.getAll().values.forEach { values ->
+			values.forEach {
+				val hasChildren =subclassMap.get(it)?.isNotEmpty() == true
+				parentMap[it.qualifiedName!!.asString()] = hasChildren
 			}
 		}
+
+		subclassMap.getAll().forEach {
+
+				code.addStatement("var ${it.key.simpleName.asString().lowercase()}Expanded by remember { mutableStateOf(false) }")
+
+
+		}
+
+
 		code.beginControlFlow("Box")
 		createDropdownMenu(code, metaData)
 
@@ -180,47 +214,33 @@ class ComposeGenerator(env: SymbolProcessorEnvironment) : BaseProcessor(env) {
 		code: CodeBlock.Builder,
 		metaData: ClassMetaData
 	) {
-		val subclassMap = subclassMap(metaData)
+		val subclassMap = classHelper.subclassMap(metaData.declaration)
 
 		addDropdown(metaData.declaration, metaData.declaration, subclassMap, code)
 	}
 
-	private fun subclassMap(metaData: ClassMetaData): Multimap<String, KSClassDeclaration> {
-		val subclassMap = Multimap<String, KSClassDeclaration>()
-
-		val sealed = metaData.declaration.getSealedSubclasses()
-		sealed.forEach {
-			val parent = it.parent as KSClassDeclaration
-			parent.qualifiedName?.let { name ->
-				subclassMap.put(name.asString(), it)
-				ImportManager.addImport(metaData.declaration, name.asString(), it.simpleName.asString())
-			}
-
-		}
-		return subclassMap
-	}
 
 	private fun addDropdown(
 		declaration: KSClassDeclaration,
 		subclass: KSClassDeclaration,
-		subclassMap: Multimap<String, KSClassDeclaration>,
+		subclassMap: Multimap<KSClassDeclaration, KSClassDeclaration>,
 		code: CodeBlock.Builder
 	) {
 
-		val hasChildren = subclassMap.get(subclass.qualifiedName!!.asString())?.isNotEmpty() == true
+		val hasChildren = classHelper.hasChildren(declaration, subclass)
 		val menuItemName = subclass.simpleName.asString()
 		if (hasChildren) {
-			code.beginControlFlow("IconButton(onClick = { ${menuItemName}Expanded = !${menuItemName}Expanded }) ")
+			code.beginControlFlow("IconButton(onClick = { ${menuItemName.lowercase()}Expanded = !${menuItemName.lowercase()}Expanded }) ")
 			code.addStatement("Icon(Icons.Default.MoreVert, contentDescription = \"$menuItemName\")")
 			code.endControlFlow()
-			code.beginControlFlow("DropdownMenu(expanded = ${menuItemName}Expanded, onDismissRequest = {${menuItemName}Expanded = false})")
+			code.beginControlFlow("DropdownMenu(expanded = ${menuItemName.lowercase()}Expanded, onDismissRequest = {${menuItemName.lowercase()}Expanded = false})")
 
-			subclassMap.get(subclass.qualifiedName!!.asString())?.forEach { sc ->
+			subclassMap.get(subclass)?.forEach { sc ->
 				addDropdown(declaration, sc, subclassMap, code)
 			}
 			code.endControlFlow()
 		} else {
-			code.addStatement("DropdownMenuItem(content = {$menuItemName.render()}, onClick = {$menuItemName.onClick()})")
+			code.addStatement("DropdownMenuItem(content = {$menuItemName.render()}, onClick = {scope.launch { callback.invoke(\"$menuItemName\") }})")
 
 
 		}

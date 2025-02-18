@@ -7,11 +7,8 @@ import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
 import com.tschuchort.compiletesting.configureKsp
 import com.tschuchort.compiletesting.kspProcessorOptions
-import io.github.bsautner.ksp.classtools.directSubClasses
-import io.github.bsautner.utils.TestProcessorProvider
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import readResourceFile
-import java.io.File
 
 open class RealProcessorTest {
 
@@ -34,26 +31,11 @@ open class RealProcessorTest {
 
 }
 
-open class RealProcessorMenuTest {
+open class RealProcessorMenuTest(val testCode: String, callback : (KSClassDeclaration) -> Unit) {
+	val provider = TestProcessorProvider(callback)
 
-
-
-
-	val provider = TestProcessorProvider { declaration ->
-		println("Callback ${declaration.simpleName.asString()}")
-
-		val children = declaration.directSubClasses()
-		println(children.size)
-		children.forEach {
-			val l2 = it.directSubClasses()
-			println(l2.size)
-		}
-	}
-
-	val testCode = readResourceFile("/io/github/bsautner/kobold/TestModelComposeMenu.kt")
 	val sourceFile = SourceFile.kotlin("TestModelComposeMenu.kt", testCode)
 	val compilation = KotlinCompilation().apply {
-
 		configureKsp(useKsp2 = true) {
 			symbolProcessorProviders += provider
 

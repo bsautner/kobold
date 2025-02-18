@@ -8,7 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="" />
+    <list default="true" id="4fb933c7-fd33-458c-8f92-31466b6e2d79" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,35 +157,35 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.ComposeGeneratorRealMenuTest.test static routing.executor": "Run",
-    "Gradle.ComposeGeneratorRealTest.test static routing.executor": "Debug",
-    "Gradle.Kobold [jvm].executor": "Debug",
-    "Gradle.Tests in 'kobold.ksp.test'.executor": "Run",
-    "Gradle.kobold [dokkaGeneratePublicationHtml].executor": "Run",
-    "Gradle.kobold [dokkaGenerate].executor": "Run",
-    "Gradle.kobold [dokkaGfm].executor": "Run",
-    "Gradle.kobold [javadoc].executor": "Run",
-    "Gradle.kobold [publishToMavenLocal].executor": "Run",
-    "Gradle.kobold [zipPublishedArtifacts].executor": "Run",
-    "Gradle.kobold:api [dokkaGenerateModuleHtml].executor": "Run",
-    "Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/ben/Code/ktor/kobold/api/build/generated/compose/resourceGenerator/assembledResources/wasmJsMain",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "copyright.profiles",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.ComposeGeneratorRealMenuTest.test static routing.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ComposeGeneratorRealTest.test static routing.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.Kobold [jvm].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.Tests in 'kobold.ksp.test'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [dokkaGeneratePublicationHtml].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [dokkaGenerate].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [dokkaGfm].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [javadoc].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [publishToMavenLocal].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold [zipPublishedArtifacts].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold:api [dokkaGenerateModuleHtml].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.kobold:api [publishJvmPublicationToMavenRepository].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ben/Code/ktor/kobold/api/build/generated/compose/resourceGenerator/assembledResources/wasmJsMain&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;copyright.profiles&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "stardust.markdown.MarkdownSplitEditorSuppressor:keyList": []
+  &quot;keyToStringList&quot;: {
+    &quot;stardust.markdown.MarkdownSplitEditorSuppressor:keyList&quot;: []
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/api/build/generated/compose/resourceGenerator/assembledResources/wasmJsMain" />
@@ -376,6 +378,8 @@
       <workItem from="1739540651633" duration="2617000" />
       <workItem from="1739545882286" duration="473000" />
       <workItem from="1739546594473" duration="20912000" />
+      <workItem from="1739624016042" duration="1035000" />
+      <workItem from="1739627038715" duration="20000" />
     </task>
     <servers />
   </component>

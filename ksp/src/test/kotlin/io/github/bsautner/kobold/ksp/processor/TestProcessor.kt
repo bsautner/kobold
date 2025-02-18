@@ -1,4 +1,4 @@
-package io.github.bsautner.utils
+package io.github.bsautner.utils.io.github.bsautner.kobold.ksp.processor
 
 
 
