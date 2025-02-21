@@ -1,9 +1,13 @@
-[![Deploy Dokka API Docs](https://github.com/bsautner/kobold/actions/workflows/dokka.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/dokka.yml)
-[![Build documentation](https://github.com/bsautner/kobold-docs/actions/workflows/writerside.yml/badge.svg)](https://github.com/bsautner/kobold-docs/actions/workflows/writerside.yml)
-[![Sign and Publish](https://github.com/bsautner/kobold/actions/workflows/publish.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/publish.yml)
-[![Gradle Package](https://github.com/bsautner/kobold/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle-publish.yml)
-![Maven Central Version](https://img.shields.io/maven-central/v/io.github.bsautner.kobold/kobold-api)
+[![Dokka](https://github.com/bsautner/kobold/actions/workflows/dokka.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/dokka.yml)
+[![Docs](https://github.com/bsautner/kobold-docs/actions/workflows/writerside.yml/badge.svg)](https://github.com/bsautner/kobold-docs/actions/workflows/writerside.yml)
+[![Publish](https://github.com/bsautner/kobold/actions/workflows/publish.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/publish.yml)
+[![Build](https://github.com/bsautner/kobold/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/bsautner/kobold/actions/workflows/gradle-publish.yml)
+![Version](https://img.shields.io/maven-central/v/io.github.bsautner.kobold/kobold-api)
+[![Kotlin Alpha](https://kotl.in/badges/alpha.svg)](https://kotlinlang.org/docs/components-stability.html)
+[![License](https://img.shields.io/github/license/kotlin/kotlinx-io)](LICENSE)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.1-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
+ 
 
 **This library is in the very early pre-alpha stage of development!**
 
